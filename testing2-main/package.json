@@ -1,0 +1,20 @@
+{
+  "name": "taksenow",
+  "version": "1.0.0",
+  "description": "The Backend for the TakseNow Project - Maintained By Yash",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Yash K Singh",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "lodash": "^4.17.21",
+    "mongoose": "^7.5.2"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "TASKNOW-TECHNICIAN",
+    "slug": "TASKNOW-TECHNICIAN",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ttaass.TASKNOW-TECHNICIAN"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.ttaass.TASKNOWTECHNICIAN"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fe9744b7-8f6c-4405-81df-35c94a0694ae"
+      }
+    }
+  }
+}
