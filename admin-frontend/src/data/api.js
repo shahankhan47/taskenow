@@ -1,12 +1,12 @@
 import axios from "axios";
 
-
+const backendUrl = "http://localhost:5000/api"
 
 const createService = async (formData) => {
 
     try {
         console.log(formData)
-        const response = await axios.post(`https://testing2-azure.vercel.app/api/service`, formData);
+        const response = await axios.post(`${backendUrl}/service`, formData);
         alert(response)
         console.log(response)
         console.log(response.data);
@@ -18,7 +18,7 @@ const createService = async (formData) => {
 
 const getserviceList = async () => {
     try {
-        const response = await axios.get(`https://testing2-azure.vercel.app/api/service`);
+        const response = await axios.get(`${backendUrl}/service`);
         return response;
     } catch (error) {
         console.log(error);
@@ -28,7 +28,7 @@ const getserviceList = async () => {
 
 const getServiceNameById = async (serviceId) => {
     try {
-        const response = await axios.get(`https://testing2-azure.vercel.app/api/service/${serviceId}`);
+        const response = await axios.get(`${backendUrl}/service/${serviceId}`);
         return response.data.name;
     } catch (error) {
         console.log(error);
@@ -38,7 +38,7 @@ const getServiceNameById = async (serviceId) => {
 
 const getServiceCodeById = async (serviceId) =>{
     try {
-        const response = await axios.get(`https://testing2-azure.vercel.app/api/service/${serviceId}`);
+        const response = await axios.get(`${backendUrl}/service/${serviceId}`);
         return response.data.service_code;
     } catch (error) {
         console.log(error);
@@ -49,7 +49,7 @@ const getServiceCodeById = async (serviceId) =>{
 
 const deleteServiceTimeById = async (id) => {
     try {
-        const response = await axios.delete(`https://testing2-azure.vercel.app/api/time/${id}`);
+        const response = await axios.delete(`${backendUrl}/time/${id}`);
 
     } catch (error) {
         console.log(error);
@@ -60,7 +60,7 @@ const deleteServiceTimeById = async (id) => {
 
 const createAdmin = async (formData) => {
     try {
-        const response = await axios.post(`https://testing2-azure.vercel.app/api/admin/`, formData);
+        const response = await axios.post(`${backendUrl}/admin/`, formData);
         console.log(response)
     }
     catch (error) {
@@ -71,7 +71,7 @@ const createAdmin = async (formData) => {
 
 const getAdminData = async () => {
     try {
-        const response = await axios.get(`https://testing2-azure.vercel.app/api/admin/`);
+        const response = await axios.get(`${backendUrl}/admin/`);
         return response;
     } catch (error) {
         console.log(error);
@@ -81,7 +81,7 @@ const getAdminData = async () => {
 
 const deleteAdmin = async (id) => {
     try {
-        const response = await axios.delete(`https://testing2-azure.vercel.app/api/admin/${id}`);
+        const response = await axios.delete(`${backendUrl}/admin/${id}`);
         return response;
     } catch (error) {
         console.log(error);
@@ -93,7 +93,7 @@ const deleteAdmin = async (id) => {
 
 const updateAdmin = async (id, dataObject) => {
     try {
-        const response = await axios.put(`https://testing2-azure.vercel.app/api/admin/${id}`, dataObject);
+        const response = await axios.put(`${backendUrl}/admin/${id}`, dataObject);
         console.log(response)
         return response;
     } catch (error) {
@@ -104,7 +104,7 @@ const updateAdmin = async (id, dataObject) => {
 
 const getTechnicianData = async () => {
     try {
-        const response = await axios.get(`https://testing2-azure.vercel.app/api/technician/`);
+        const response = await axios.get(`${backendUrl}/technician/`);
         return response;
     } catch (error) {
         console.log(error);
@@ -113,7 +113,7 @@ const getTechnicianData = async () => {
 
 const createTechnician = async (formData) => {
     try {
-        const response = await axios.post(`https://testing2-azure.vercel.app/api/technician/`, formData);
+        const response = await axios.post(`${backendUrl}/technician/`, formData);
         console.log(response)
     }
     catch (error) {
@@ -125,7 +125,7 @@ const createTechnician = async (formData) => {
 
 const updateTechnician = async (id, dataObject) => {
     try {
-        const response = await axios.put(`https://testing2-azure.vercel.app/api/technician/${id}`, dataObject);
+        const response = await axios.put(`${backendUrl}/technician/${id}`, dataObject);
         console.log(response)
         return response;
     } catch (error) {
@@ -136,7 +136,7 @@ const updateTechnician = async (id, dataObject) => {
 
 const getJob = async () => {
     try {
-        const response = await axios.get(`https://testing2-azure.vercel.app/api/job/`);
+        const response = await axios.get(`${backendUrl}/job/`);
         return response;
     } catch (error) {
         console.log(error);
