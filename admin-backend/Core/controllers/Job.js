@@ -30,7 +30,6 @@ const getJob = async (req,res) => {
 // Getting the list of Jobs for the Particular Technician 
 const getTechnicianJobList = async(req,res) => {
        try {
-        console.log("Hello");
         const job = await Job.find({technician:req.params.id});
         res.status(200).json(job);
     }
@@ -84,7 +83,7 @@ const updateJob = async (req, res) => {
 const deleteJob = async (req,res) => {
     try {
         await Job.findByIdAndDelete(req.params.id);
-        res.sendStatus(204);
+        res.status(200).json({id: req.params.id, message: "Deleted"});
     }
     catch(error) {
         res.status(400).json({error:error.message});

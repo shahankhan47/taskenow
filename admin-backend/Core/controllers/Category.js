@@ -44,26 +44,35 @@ const getSpecificCategory = async (req,res) => {
 
 
 // Updating the Category by Id 
-const updateCategory = async (req,res) => {
+const updateCategory = async (req, res) => {
     try {
-        const {category_name,category_code} = req.body;
-        const category = Category.findByIdAndUpdate(req.params.id,{
-            category_name,
-            category_code
-        },{new : true});
-        res.status(200).json(category)
+      const id = req.params.id;
+      const updateData = req.body;
+  
+      // Find the technician by ID and update their data
+      const updatedCategory = await Category.findByIdAndUpdate(
+        id,
+        updateData,
+        { new: true } // To return the updated document
+      );
+  
+      if (!updatedCategory) {
+        return res.status(404).json({ error: 'Technician not found' });
+      }
+  
+      // Return the updated technician data
+      res.status(200).json(updatedCategory);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
-    catch(error) {
-        res.status(400).json({error:error.message});
-    }
-}
+};
 
 
 // Deleting the Category by Id 
 const deleteCategory = async (req,res) => {
     try {
         await Category.findByIdAndDelete(req.params.id);
-        res.sendStatus(204);
+        res.status(200).json({id: req.params.id, message: "Deleted"});
     }
     catch(error) {
         res.status(400).json({error:error.message});
