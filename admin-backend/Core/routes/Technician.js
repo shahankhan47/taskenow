@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 // Import of the Technician Controller
-const Technician = require("../controllers/Technicain");
+const Technician = require("../controllers/Technician");
 
 
 // Creating the Technician

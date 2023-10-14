@@ -14,7 +14,7 @@ const jobRoutes = require('./Job');
 app.use('/service', serviceRoutes);
 app.use('/technician',technicianRoutes);
 app.use('/admin',adminRouters);
-app.use('/Job',jobRoutes)
+app.use('/job',jobRoutes)
 
 
 

@@ -45,27 +45,36 @@ const getSpecificService = async (req,res) => {
 }
 
 
-// Updating the service by Id 
-const updateService = async (req,res) => {
+// Updating the service by Id
+const updateService = async (req, res) => {
     try {
-        const {service_name,service_code} = req.body;
-        const service = Service.findByIdAndUpdate(req.params.id,{
-            service_name,
-            service_code
-        },{new : true});
-        res.status(200).json(service)
+      const id = req.params.id;
+      const updateData = req.body;
+  
+      // Find the technician by ID and update their data
+      const updatedService = await Service.findByIdAndUpdate(
+        id,
+        updateData,
+        { new: true } // To return the updated document
+      );
+  
+      if (!updatedService) {
+        return res.status(404).json({ error: 'Service not found' });
+      }
+  
+      // Return the updated technician data
+      res.status(200).json(updatedService);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
-    catch(error) {
-        res.status(400).json({error:error.message});
-    }
-}
+};
 
 
 // Deleting the service by Id 
 const deleteService = async (req,res) => {
     try {
         await Service.findByIdAndDelete(req.params.id);
-        res.sendStatus(204);
+        res.status(200).json({id: req.params.id, message: "Deleted"});
     }
     catch(error) {
         res.status(400).json({error:error.message});

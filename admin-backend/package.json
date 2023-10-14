@@ -1,13 +1,13 @@
 {
   "name": "taksenow",
   "version": "1.0.0",
-  "description": "The Backend for the TakseNow Project - Maintained By Yash",
+  "description": "The Backend for the TakseNow Project - Maintained By Shahan",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Yash K Singh",
+  "author": "Shahan Khan",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.5.0",

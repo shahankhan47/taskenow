@@ -78,7 +78,7 @@ const updateTechnician = async (req, res) => {
 const deleteTechnician = async (req,res) => {
     try {
         await Technician.findByIdAndDelete(req.params.id);
-        res.sendStatus(204);
+        res.status(200).json({id: req.params.id, message: "Deleted"});
     }
     catch(error) {
         res.status(400).json({error:error.message});
