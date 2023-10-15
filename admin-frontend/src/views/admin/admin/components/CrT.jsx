@@ -41,6 +41,7 @@ const CreateTech = () => {
   const handleSubmit = async () => {
     console.log(installerDetails)
     await createAdmin(installerDetails)
+    alert("Admin created");
   }
 
   const renderStep = () => {

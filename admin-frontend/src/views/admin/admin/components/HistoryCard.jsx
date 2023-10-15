@@ -69,7 +69,7 @@ const TechnicianList = () => {
               onClick={() => handleOpenModal(data)}
               className="linear mx-4 rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20"
             >
-              See all
+              Edit
             </button>
           </div>
         ))}
@@ -80,7 +80,7 @@ const TechnicianList = () => {
             <div className="bg-white p-4 rounded-lg w-1/2">
               <button
                 onClick={handleCloseModal}
-                className="absolute top-2 right-2 text-gray-800 hover:text-gray-700"
+                className="absolute top-2 right-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
               >
                 Close
               </button>

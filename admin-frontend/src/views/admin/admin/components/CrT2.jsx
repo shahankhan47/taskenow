@@ -3,8 +3,7 @@ import InstallerBasicDetails from './tab1';
 import InstallerAddress from './tab2';
 import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
-import { updateTechnician } from 'data/api';
-import { updateAdmin } from 'data/api';
+import { updateAdmin, deleteAdmin } from 'data/api';
 
 const CreateTech = ({initialValues,onSubmit}) => {
   const [step, setStep] = useState(1);
@@ -50,7 +49,13 @@ const CreateTech = ({initialValues,onSubmit}) => {
   };
 
   const handleSubmit = async () => {
-    updateAdmin(installerDetails._id,installerDetails)
+    await updateAdmin(installerDetails._id,installerDetails)
+    alert("Admin updated");
+  }
+
+  const handleDeleteAdmin = async () => {
+    await deleteAdmin(installerDetails._id)
+    alert("Admin deleted");
   }
 
   const renderStep = () => {
@@ -133,18 +138,24 @@ const CreateTech = ({initialValues,onSubmit}) => {
               >
                 Submit
               </button>
+              <button
+                onClick={handleDeleteAdmin}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Delete
+              </button>
             </div>
           </div>
         );
       default:
-        return null;
+      return null;
     }
   };
 
 
   return (
     <div className="w-full mx-auto my-8 p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-3xl font-semibold mb-6">Installer Details</h1>
+      <h1 className="text-3xl font-semibold mb-6">Admin Details</h1>
       <div className="space-y-8">
         {renderStep()}
         <div className="mt-4">
