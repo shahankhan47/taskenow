@@ -1,24 +1,23 @@
-import Banner from "./components/Banner";
+import React from 'react';
+import HistoryCard from './components/HistoryCard';
+import CreateCustomer from './components/CrT';
+import Banner1 from './components/Banner';
 
-const Customer = () => {
+const Admin = () => {
   return (
-    <div className="mt-3 grid h-full grid-cols-1 gap-5 xl:grid-cols-2 2xl:grid-cols-3">
-      <div className="col-span-1 h-fit w-full xl:col-span-1 2xl:col-span-2">
-
-
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          {/* Placeholder for Recently Added NFTs */}
-          <div className="bg-gray-200 p-4 rounded-lg">
-            {/* Content: This Section is under progress, this will be done on business end approval */}
-            <p className="text-red-500 text-center font-bold">
-              This Section is under progress, this will be done on business end
-              approval
-            </p>
-          </div>
-        </div>
+    <>
+      <div className="flex gap-x-4">
+        <Banner1 />
+       
       </div>
-    </div>
+      <div className="flex">
+        {/* Display the loader GIF continuously */}
+        <CreateCustomer />
+        <HistoryCard />
+        {/* CreateTech component */}
+      </div>
+    </>
   );
 };
 
-export default Customer;
+export default Admin;

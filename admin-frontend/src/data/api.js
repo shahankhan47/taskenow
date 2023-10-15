@@ -3,7 +3,6 @@ import axios from "axios";
 const backendUrl = "http://localhost:5000/api"
 
 const createService = async (formData) => {
-
     try {
         console.log(formData)
         const response = await axios.post(`${backendUrl}/service`, formData);
@@ -14,7 +13,6 @@ const createService = async (formData) => {
         console.error(error);
     }
 };
-
 
 const getserviceList = async () => {
     try {
@@ -46,17 +44,15 @@ const getServiceCodeById = async (serviceId) =>{
     }
 }
 
-
 const deleteServiceTimeById = async (id) => {
     try {
         const response = await axios.delete(`${backendUrl}/time/${id}`);
-
+        console.log(response);
     } catch (error) {
         console.log(error);
         return null;
     }
 }
-
 
 const createAdmin = async (formData) => {
     try {
@@ -65,7 +61,6 @@ const createAdmin = async (formData) => {
     }
     catch (error) {
         console.log(error);
-
     }
 }
 
@@ -78,7 +73,6 @@ const getAdminData = async () => {
     }
 }
 
-
 const deleteAdmin = async (id) => {
     try {
         const response = await axios.delete(`${backendUrl}/admin/${id}`);
@@ -87,9 +81,6 @@ const deleteAdmin = async (id) => {
         console.log(error);
     }
 }
-
-
-
 
 const updateAdmin = async (id, dataObject) => {
     try {
@@ -100,7 +91,6 @@ const updateAdmin = async (id, dataObject) => {
         console.log(error);
     }
 }
-
 
 const getTechnicianData = async () => {
     try {
@@ -118,10 +108,8 @@ const createTechnician = async (formData) => {
     }
     catch (error) {
         console.log(error);
-
     }
 }
-
 
 const updateTechnician = async (id, dataObject) => {
     try {
@@ -133,6 +121,44 @@ const updateTechnician = async (id, dataObject) => {
     }
 }
 
+const getAllUsers = async () => {
+    try {
+        const response = await axios.get(`${backendUrl}/users/`);
+        console.log(response)
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const createUser = async (formData) => {
+    try {
+        const response = await axios.post(`${backendUrl}/user/`, formData);
+        console.log(response)
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const updateUser = async (id, dataObject) => {
+    try {
+        const response = await axios.put(`${backendUrl}/user/${id}`, dataObject);
+        console.log(response)
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const deleteUser = async (id) => {
+    try {
+        const response = await axios.delete(`${backendUrl}/user/${id}`);
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 const getJob = async () => {
     try {
@@ -142,7 +168,6 @@ const getJob = async () => {
         console.log(error);
     }
 }
-
 
 
 export {updateAdmin,
@@ -157,5 +182,9 @@ export {updateAdmin,
     getTechnicianData,
     updateTechnician,
     createTechnician,
+    getAllUsers,
+    createUser,
+    updateUser,
+    deleteUser,
     getJob
 }
