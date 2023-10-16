@@ -42,6 +42,7 @@ const CreateTech = () => {
     console.log(installerDetails)
     await createAdmin(installerDetails)
     alert("Admin created");
+    window.location.reload();
   }
 
   const renderStep = () => {

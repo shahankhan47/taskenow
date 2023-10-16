@@ -40,6 +40,7 @@ const CreateCustomer = () => {
     console.log(userDetails)
     await createUser(userDetails)
     alert("User created");
+    window.location.reload();
   }
 
   const renderStep = () => {
