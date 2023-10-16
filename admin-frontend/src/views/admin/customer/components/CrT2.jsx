@@ -52,7 +52,7 @@ const CreateCustomer = ({initialValues,onSubmit}) => {
     alert("User updated");
   }
 
-  const handleDeleteAdmin = async () => {
+  const handleDeleteUser = async () => {
     await deleteUser(installerDetails._id)
     alert("User deleted");
   }
@@ -116,7 +116,7 @@ const CreateCustomer = ({initialValues,onSubmit}) => {
                 Submit
               </button>
               <button
-                onClick={handleDeleteAdmin}
+                onClick={handleDeleteUser}
                 className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
               >
                 Delete
@@ -132,7 +132,7 @@ const CreateCustomer = ({initialValues,onSubmit}) => {
 
   return (
     <div className="w-full mx-auto my-8 p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-3xl font-semibold mb-6">Admin Details</h1>
+      <h1 className="text-3xl font-semibold mb-6">User Details</h1>
       <div className="space-y-8">
         {renderStep()}
         <div className="mt-4">
@@ -159,7 +159,7 @@ const CreateCustomer = ({initialValues,onSubmit}) => {
                 className={`${
                   step === 3 ? 'bg-blue-500 text-white' : 'bg-gray-300'
                 } px-4 py-2 rounded cursor-pointer`}
-                onClick={() => setStep(4)}
+                onClick={() => setStep(3)}
               >
                 Others
               </li>

@@ -3,7 +3,7 @@ import Card from 'components/card';
 
 // Import your CreateTech here
 import CreateTech from './CrT2';
-import { getAdminData } from 'data/api';
+import { getAllUsers } from 'data/api';
 
 const TechnicianList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +23,7 @@ const TechnicianList = () => {
 
   useEffect(() => {
     // Call API to fetch service list
-    getAdminData().then(response => {
+    getAllUsers().then(response => {
       setHistoryData(response.data);
     })
   },[]);

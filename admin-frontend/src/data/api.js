@@ -123,8 +123,7 @@ const updateTechnician = async (id, dataObject) => {
 
 const getAllUsers = async () => {
     try {
-        const response = await axios.get(`${backendUrl}/users/`);
-        console.log(response)
+        const response = await axios.get(`${backendUrl}/user/`);
         return response;
     } catch (error) {
         console.log(error);
