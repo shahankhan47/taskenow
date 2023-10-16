@@ -33,7 +33,7 @@ const TechnicianList = () => {
 
   return (
     <div>
-      <Card extra="mt-7 ml-2 mt-2 h-[82vh] !z-5 overflow-y-scroll">
+      <Card extra="mt-8 ml-2 mt-2 h-[82vh] !z-5 overflow-y-scroll">
         {/* HistoryCard Header */}
         <div className="flex items-center justify-between rounded-t-3xl p-3">
           <div className="text-lg font-bold text-navy-700 dark:text-white">
@@ -80,7 +80,7 @@ const TechnicianList = () => {
             <div className="bg-white p-4 rounded-lg w-1/2">
               <button
                 onClick={handleCloseModal}
-                className="absolute top-2 right-2 text-gray-800 hover:text-gray-700"
+                className="absolute top-2 right-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
               >
                 Close
               </button>

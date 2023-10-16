@@ -50,6 +50,7 @@ const CreateTech = () => {
   const handleSubmit = async () => {
     console.log(installerDetails)
     await createTechnician(installerDetails)
+    alert("Service Provider created")
   }
 
   const renderStep = () => {

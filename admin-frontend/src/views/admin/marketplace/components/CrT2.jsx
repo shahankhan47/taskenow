@@ -49,7 +49,8 @@ const CreateTech = ({initialValues,onSubmit}) => {
   };
 
   const handleSubmit = async () => {
-    updateTechnician(installerDetails._id,installerDetails)
+    await updateTechnician(installerDetails._id,installerDetails)
+    alert("Service Provider updated")
   }
 
   const handleDeleteTechnician = async () => {
@@ -153,7 +154,7 @@ const CreateTech = ({initialValues,onSubmit}) => {
 
 
   return (
-    <div className="max-w-md mx-auto my-8 p-6 bg-white shadow-md rounded-lg">
+    <div className="w-full mx-auto my-8 p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-3xl font-semibold mb-6">Service Provider Details</h1>
       <div className="space-y-8">
         {renderStep()}
