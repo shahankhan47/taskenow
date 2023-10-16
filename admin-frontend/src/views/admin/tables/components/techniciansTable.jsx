@@ -43,7 +43,6 @@ const ComplexTable = (props) => {
         <div class="text-xl font-bold text-navy-700 dark:text-white">
           Complex Table
         </div>
-        <CardMenu />
       </div>
 
       <div class="mt-8 h-full overflow-x-scroll xl:overflow-hidden">

@@ -1,5 +1,3 @@
-import CheckTable from "./components/repairJob/repairJobTable";
-
 import {
   columnsDataDevelopment,
   columnsDataCheck,
@@ -11,6 +9,7 @@ import tableDataCheck from "./variables/tableDataCheck.json";
 import tableDataColumns from "./variables/tableDataColumns.json";
 import tableDataComplex from "./variables/tableDataComplex.json";
 import DevelopmentTable from "./components/inspectionJob/inspectionJobTable";
+import CheckTable from "./components/repairJob/repairJobTable";
 import ColumnsTable from "./components/servicesTable";
 import ComplexTable from "./components/techniciansTable";
 

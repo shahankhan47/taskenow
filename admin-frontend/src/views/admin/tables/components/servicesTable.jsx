@@ -40,8 +40,6 @@ const ColumnsTable = () => {
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           Customers
         </div>
-
-        <CardMenu />
       </header>
 
       <div className="mt-8" style={{ maxHeight: "400px", overflowY: "scroll" }}>

@@ -58,7 +58,6 @@ const CheckTable = () => {
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           Job ( Repair )
         </div>
-        <CardMenu />
       </div>
 
       <div className="mt-8 h-full overflow-x-scroll xl:overflow-hidden">
