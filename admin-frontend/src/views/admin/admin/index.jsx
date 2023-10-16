@@ -1,8 +1,5 @@
 import React from 'react';
-import tableDataTopCreators from 'views/admin/marketplace/variables/tableDataTopCreators.json';
-import { tableColumnsTopCreators } from 'views/admin/marketplace/variables/tableColumnsTopCreators';
 import HistoryCard from './components/HistoryCard';
-import TopCreatorTable from './components/TableTopCreators';
 import CreateTech from './components/CrT';
 import Banner1 from './components/Banner';
 

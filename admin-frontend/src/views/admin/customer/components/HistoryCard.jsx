@@ -33,7 +33,7 @@ const TechnicianList = () => {
 
   return (
     <div>
-      <Card extra="mt-8 ml-2 mt-2 h-[82vh] !z-5 overflow-y-scroll ">
+      {historyData.length> 0 && <Card extra="mt-8 ml-2 mt-2 h-[82vh] !z-5 overflow-y-scroll ">
         {/* HistoryCard Header */}
         <div className="flex items-center justify-between rounded-t-3xl p-3">
           <div className="text-lg font-bold text-navy-700 dark:text-white">
@@ -92,7 +92,7 @@ const TechnicianList = () => {
             </div>
           </div>
         )}
-      </Card>
+      </Card>}
     </div>
   );
 };
