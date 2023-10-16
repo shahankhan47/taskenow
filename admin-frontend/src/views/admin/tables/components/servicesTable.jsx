@@ -42,7 +42,7 @@ const ColumnsTable = () => {
         </div>
       </header>
 
-      <div className="mt-8" style={{ maxHeight: "400px", overflowY: "scroll" }}>
+      <div className="mt-5" style={{ maxHeight: "400px"}}>
         {/* Apply maxHeight and overflowY styles to create the scrollable container */}
         <table
           {...getTableProps()}

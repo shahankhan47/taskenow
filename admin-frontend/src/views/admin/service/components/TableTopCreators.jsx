@@ -94,8 +94,11 @@ const ServiceCreate = () => {
             className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
           >
             <option value="">Select a category</option>
-            <option value="Category A">Category A</option>
-            <option value="Category B">Category B</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Household">Household</option>
+            <option value="Automobile">Automobile</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Healthcare">Healthcare</option>
             {/* Add more options as needed */}
           </select>
         </div>

@@ -6,7 +6,6 @@ const createService = async (formData) => {
     try {
         console.log(formData)
         const response = await axios.post(`${backendUrl}/service`, formData);
-        alert(response)
         console.log(response)
         console.log(response.data);
     } catch (error) {
@@ -47,6 +46,16 @@ const getServiceCodeById = async (serviceId) =>{
 const deleteServiceTimeById = async (id) => {
     try {
         const response = await axios.delete(`${backendUrl}/time/${id}`);
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
+const deleteServiceById = async (id) => {
+    try {
+        const response = await axios.delete(`${backendUrl}/service/${id}`);
         console.log(response);
     } catch (error) {
         console.log(error);
@@ -187,6 +196,7 @@ export {updateAdmin,
     getServiceNameById,
     getServiceCodeById,
     deleteServiceTimeById,
+    deleteServiceById,
     getTechnicianData,
     updateTechnician,
     createTechnician,

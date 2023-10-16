@@ -20,9 +20,7 @@ import ServiceProfile from "./components/HistoryCard";
 import ServiceCreate from "./components/TableTopCreators";
 
 // Data Import 
-import { getserviceList } from "data/api";
-
-console.log()
+import { getserviceList, deleteServiceById } from "data/api";
 
 
 // Base Component of this file
@@ -33,7 +31,7 @@ const Customer = () => {
     serviceName: " ",
     serviceCode: " ",
     servicePrice: 0.0,
-    category: " ",
+    category: " "
   }); // For Selected Service preview
   const serviceListImage = [NFt2, NFt4, NFt3, NFt5, NFt6]; // Images for Service Listing
   
@@ -47,20 +45,29 @@ const Customer = () => {
 
   // Callback function to update selectedNft
   const handleNftCardClick = (data) => {
-      console.log(data)
       const selectedHistoryData = {
         image: data.image,
         serviceName: data.service_name,
         serviceCode: data.service_code,
         servicePrice: data.est_price,
-        category: data.author,
-        
+        category: data.category, 
       }
-      
       setSelectedNft(selectedHistoryData);
   };
 
-
+  const handleNftCardDelete = async (data) => {
+    await deleteServiceById(data._id)
+    getserviceList().then(response => {
+      setServce(response.data);
+      setSelectedNft({
+        image: null,
+        serviceName: " ",
+        serviceCode: " ",
+        servicePrice: 0.0,
+        category: " "
+      })
+    })
+  };
 
   return (
     <div className="mt-3 grid h-full grid-cols-1 gap-5 xl:grid-cols-2 2xl:grid-cols-3">
@@ -72,7 +79,7 @@ const Customer = () => {
         {/*  Header */}
         <div className="mb-4 mt-5 flex flex-col justify-between px-4 md:flex-row md:items-center">
           <h4 className="ml-1 text-2xl font-bold text-navy-700 dark:text-white">
-            Service List
+            Services List
           </h4>
         
         </div>
@@ -83,11 +90,13 @@ const Customer = () => {
             <NftCard
               key={index}
               bidders={service.bidders}
-              title={service.service_code}
-              author={service.service_name}
+              title={service.service_name}
+              author={service.service_code}
               price={service.est_price}
+              id={service.id}
               image={serviceListImage[Math.floor(Math.random() * serviceListImage.length)]}
               onCardClick={() => handleNftCardClick(service)}
+              onCardDelete={() => handleNftCardDelete(service)}
             />
           ))}
         </div>
@@ -96,7 +105,7 @@ const Customer = () => {
       {/* right side section */}
 
       <div className="col-span-1 h-full w-[24vw] right-10 rounded-xl 2xl:col-span-1 fixed">
-      <ServiceCreate data={selectedNft} />
+        <ServiceCreate data={selectedNft} />
         <ServiceProfile data={selectedNft} />
       </div>
     </div>
@@ -104,31 +113,3 @@ const Customer = () => {
 };
 
 export default Customer;
-
-
-
-{/* <TopCreatorTable
-extra="mb-5"
-tableData={tableDataTopCreators}
-columnsData={tableColumnsTopCreators}
-/> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Sample data section 
-
-
-// Replace avatar1, avatar2, avatar3, NFt2, NFt3, and NFt4 with your actual data.
-

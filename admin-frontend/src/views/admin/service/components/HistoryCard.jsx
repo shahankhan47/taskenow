@@ -20,9 +20,9 @@ const ServiceProfile = ({data}) => {
     setServiceData({
     image: data.image,
     serviceName: data.serviceName,
-    serviceCode: "sc-001",
+    serviceCode: data.serviceCode,
     servicePrice: data.servicePrice,
-    category:data.category,
+    category: data.category,
   
     })
   }, [data]);
