@@ -10,10 +10,8 @@ import Card from "components/card";
 import {
   MdCheckCircle,
   MdPending,
-  MdOutlineError,
 } from "react-icons/md";
 import Progress from "components/progress";
-import { Button } from "@chakra-ui/react";
 
 
 const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
@@ -222,9 +220,6 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
 };
 
 
-
-
-
 const DevelopmentTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedJob, setSelectedJob] = useState({});
@@ -377,9 +372,8 @@ const DevelopmentTable = () => {
   );
 };
 
+
 export default DevelopmentTable;
-
-
 
 
 const columnsData = [
@@ -405,6 +399,7 @@ const columnsData = [
   },
 ];
 
+
 const tableData = [
   {
     jobId: "12345",
@@ -418,7 +413,6 @@ const tableData = [
     customerEmail: "john@example.com",
     jobDetails: "Job details for Service 1",
     jobAssignedStatus: "Assigned",
-    date: "2023-09-09",
     cost: "$1000",
     technicianAssigned: true,
     technicianName: "Technician 1",

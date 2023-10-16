@@ -10,10 +10,8 @@ import Card from "components/card";
 import {
   MdCheckCircle,
   MdPending,
-  MdOutlineError,
 } from "react-icons/md";
 import Progress from "components/progress";
-import { Button } from "@chakra-ui/react";
 
 
 const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
@@ -266,7 +264,7 @@ const CheckTable = () => {
     <Card extra={"w-full h-full p-4 sm:overflow-x-auto"}>
       <div className="relative flex items-center justify-between">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
-          Job ( Inspection )
+          Job ( Repair )
         </div>
         <CardMenu />
       </div>
