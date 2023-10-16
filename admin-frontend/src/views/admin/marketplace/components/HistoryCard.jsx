@@ -16,6 +16,9 @@ const TechnicianList = () => {
   };
 
   const handleCloseModal = () => {
+    getTechnicianData().then(response => {
+      setHistoryData(response.data);
+    })
     setSelectedTechnician(null);
     setIsModalOpen(false);
   };
@@ -45,7 +48,7 @@ const TechnicianList = () => {
         {historyData.map((data, index) => (
           <div
             key={index}
-            className="flex h-full w-full items-start justify-between bg-white px-3 py-[20px] hover:shadow-2xl dark:!bg-navy-800 dark:shadow-none dark:hover:!bg-navy-700"
+            className="flex h-fullw-full items-start justify-between bg-white px-3 py-[20px] hover:shadow-2xl dark:!bg-navy-800 dark:shadow-none dark:hover:!bg-navy-700"
           >
             {/* Technician details */}
             <div className="flex items-center gap-3">
@@ -69,7 +72,7 @@ const TechnicianList = () => {
               onClick={() => handleOpenModal(data)}
               className="linear mx-4 rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20"
             >
-              See all
+              Edit
             </button>
           </div>
         ))}

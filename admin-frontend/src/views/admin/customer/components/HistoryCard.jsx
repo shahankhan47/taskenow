@@ -16,6 +16,9 @@ const TechnicianList = () => {
   };
 
   const handleCloseModal = () => {
+    getAllUsers().then(response => {
+      setHistoryData(response.data);
+    })
     setSelectedTechnician(null);
     setIsModalOpen(false);
   };
