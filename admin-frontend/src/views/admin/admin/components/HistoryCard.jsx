@@ -33,7 +33,7 @@ const TechnicianList = () => {
 
   return (
     <div>
-      <Card extra="mt-3 ml-2 mt-2 h-[75vh] !z-5 overflow-y-scroll ">
+      <Card extra="mt-7 ml-2 mt-2 h-[82vh] !z-5 overflow-y-scroll ">
         {/* HistoryCard Header */}
         <div className="flex items-center justify-between rounded-t-3xl p-3">
           <div className="text-lg font-bold text-navy-700 dark:text-white">
