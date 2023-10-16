@@ -143,7 +143,7 @@ const CreateTech = ({initialValues,onSubmit}) => {
 
   return (
     <div className="max-w-md mx-auto my-8 p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-3xl font-semibold mb-6">Installer Details</h1>
+      <h1 className="text-3xl font-semibold mb-6">Service Provider Details</h1>
       <div className="space-y-8">
         {renderStep()}
         <div className="mt-4">

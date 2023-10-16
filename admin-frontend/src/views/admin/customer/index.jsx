@@ -3,7 +3,7 @@ import HistoryCard from './components/HistoryCard';
 import CreateCustomer from './components/CrT';
 import Banner1 from './components/Banner';
 
-const Admin = () => {
+const User = () => {
   return (
     <>
       <div className="flex gap-x-4">
@@ -20,4 +20,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default User;
