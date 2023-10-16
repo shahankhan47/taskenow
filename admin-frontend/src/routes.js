@@ -38,7 +38,7 @@ const routes = [
   {
     name: "Admins",
     layout: "/admin",
-    path: "admin_control",
+    path: "admin",
     icon: <MdOutlineAdminPanelSettings className="h-6 w-6" />,
     component: <AdminController/>,
     secondary: true,
@@ -46,7 +46,7 @@ const routes = [
   {
     name: "Service Providers",
     layout: "/admin",
-    path: "installers",
+    path: "technician",
     icon: <MdElectricalServices className="h-6 w-6" />,
     component: <NFTMarketplace />,
     secondary: true,
@@ -54,7 +54,7 @@ const routes = [
   {
     name: "Customers",
     layout: "/admin",
-    path: "customers",
+    path: "customer",
     icon: <MdSupervisedUserCircle className="h-6 w-6" />,
     component: <Customer />,
     secondary: true,
@@ -63,7 +63,7 @@ const routes = [
     name: "New Job",
     layout: "/admin",
     icon: <MdWork className="h-6 w-6" />,
-    path: "newJob",
+    path: "new-job",
     component: <NewJob />,
   },
 
@@ -71,7 +71,7 @@ const routes = [
     name: "Job Tickets",
     layout: "/admin",
     icon: <MdQueue className="h-6 w-6" />,
-    path: "data-tables",
+    path: "job-tickets",
     component: <DataTables />,
   },
 
