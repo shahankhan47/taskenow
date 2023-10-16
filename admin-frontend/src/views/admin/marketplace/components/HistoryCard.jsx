@@ -4,7 +4,6 @@ import Card from 'components/card';
 // Import your CreateTech here
 import CreateTech from './CrT2';
 import { getTechnicianData } from 'data/api';
-import { updateTechnician } from 'data/api';
 
 const TechnicianList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

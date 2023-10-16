@@ -121,6 +121,15 @@ const updateTechnician = async (id, dataObject) => {
     }
 }
 
+const deleteTechnician = async (id) => {
+    try {
+        const response = await axios.delete(`${backendUrl}/technician/${id}`);
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const getAllUsers = async () => {
     try {
         const response = await axios.get(`${backendUrl}/user/`);
@@ -181,6 +190,7 @@ export {updateAdmin,
     getTechnicianData,
     updateTechnician,
     createTechnician,
+    deleteTechnician,
     getAllUsers,
     createUser,
     updateUser,

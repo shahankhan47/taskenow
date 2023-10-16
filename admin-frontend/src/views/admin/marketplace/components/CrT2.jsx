@@ -3,7 +3,7 @@ import InstallerBasicDetails from './tab1';
 import InstallerAddress from './tab2';
 import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
-import { updateTechnician } from 'data/api';
+import { updateTechnician, deleteTechnician } from 'data/api';
 
 const CreateTech = ({initialValues,onSubmit}) => {
   const [step, setStep] = useState(1);
@@ -50,6 +50,11 @@ const CreateTech = ({initialValues,onSubmit}) => {
 
   const handleSubmit = async () => {
     updateTechnician(installerDetails._id,installerDetails)
+  }
+
+  const handleDeleteTechnician = async () => {
+    await deleteTechnician(installerDetails._id)
+    alert("Service provider deleted");
   }
 
   const renderStep = () => {
@@ -131,6 +136,12 @@ const CreateTech = ({initialValues,onSubmit}) => {
                 className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
               >
                 Submit
+              </button>
+              <button
+                onClick={handleDeleteTechnician}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Delete
               </button>
             </div>
           </div>

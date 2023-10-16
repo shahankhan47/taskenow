@@ -140,14 +140,9 @@ const CreateTech = () => {
     }
   };
 
-  const submitForm = () => {
-    // Handle form submission here
-    console.log(installerDetails);
-  };
-
   return (
     <div className="w-[71.5%]  my-8 my-8 p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-3xl font-semibold mb-6">Installer Details</h1>
+      <h1 className="text-3xl font-semibold mb-6">Service Provider Details</h1>
       <div className="space-y-8 flex gap-x-20">
         {renderStep()}
         <div className="mt-4">
