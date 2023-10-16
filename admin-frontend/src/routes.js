@@ -38,7 +38,7 @@ const routes = [
   {
     name: "Admins",
     layout: "/admin",
-    path: "admin",
+    path: "administration",
     icon: <MdOutlineAdminPanelSettings className="h-6 w-6" />,
     component: <AdminController/>,
     secondary: true,

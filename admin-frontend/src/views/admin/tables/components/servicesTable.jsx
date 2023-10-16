@@ -9,6 +9,7 @@ import {
   useTable,
 } from "react-table";
 
+
 const ColumnsTable = () => {
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => rowData, [rowData]);
@@ -95,12 +96,9 @@ const ColumnsTable = () => {
   );
 };
 
+
 export default ColumnsTable;
 
-
-
-
-// Sample data used for tesitng 
 
 const rowData = [
   {
@@ -187,4 +185,3 @@ const columnsData = [
     accessor: "Price",
   },
 ];
-

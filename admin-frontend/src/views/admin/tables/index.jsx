@@ -1,4 +1,4 @@
-import CheckTable from "./components/CheckTable";
+import CheckTable from "./components/repairJob/repairJobTable";
 
 import {
   columnsDataDevelopment,
@@ -10,9 +10,9 @@ import tableDataDevelopment from "./variables/tableDataDevelopment.json";
 import tableDataCheck from "./variables/tableDataCheck.json";
 import tableDataColumns from "./variables/tableDataColumns.json";
 import tableDataComplex from "./variables/tableDataComplex.json";
-import DevelopmentTable from "./components/DevelopmentTable";
-import ColumnsTable from "./components/ColumnsTable";
-import ComplexTable from "./components/ComplexTable";
+import DevelopmentTable from "./components/inspectionJob/inspectionJobTable";
+import ColumnsTable from "./components/servicesTable";
+import ComplexTable from "./components/techniciansTable";
 
 const Tables = () => {
   return (
