@@ -4,30 +4,36 @@ const UserPayment = ({ values, handleChange, prevStep }) => {
   return (
     <div>
       <form className="mt-4 space-y-4">
+        {/* Add payment-related form fields here */}
         <div>
-          <label className="block text-gray-700">Admin Hierarchy</label>
-          <select
+          <label className="block text-gray-700">Account Number</label>
+          <input
+            type="text"
             className="border rounded px-3 py-2 w-full"
-            onChange={handleChange('adminHierarchy')}
-            value={values.adminHierarchy}
-          >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
+            onChange={handleChange('AccountNumber')}
+            value={values.accountNumber}
+          />
         </div>
         <div>
-          <label className="block text-gray-700">Description</label>
-          <textarea
+          <label className="block text-gray-700">Routing Number</label>
+          <input
+            type="text"
             className="border rounded px-3 py-2 w-full"
-            rows="4"
-            onChange={handleChange('description')}
-            value={values.description}
+            onChange={handleChange('routingNumber')}
+            value={values.routingNumber}
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700">SSN Number ( Last 4 Digits ) </label>
+          <input
+            type="text"
+            className="border rounded px-3 py-2 w-full"
+            onChange={handleChange('ssn')}
+            value={values.ssn}
           />
         </div>
       </form>
+     
     </div>
   );
 };

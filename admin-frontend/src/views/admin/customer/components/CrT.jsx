@@ -141,7 +141,7 @@ const CreateCustomer = () => {
                 } px-4 py-2 rounded cursor-pointer`}
                 onClick={() => setStep(3)}
               >
-                Others
+                Payment
               </li>
             </ul>
           </div>
