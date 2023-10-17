@@ -1,0 +1,14 @@
+Admin:
+    - Sign in and out with relevant access.
+    - Check authoriation tags and grant access according to that.
+
+Technician:
+    - Payment details.
+
+Customers:
+    - Payment details.
+
+New Job:
+    - Create new job.
+    - Link job to user.
+    - Link job to technician.

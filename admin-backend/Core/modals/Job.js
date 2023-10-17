@@ -1,103 +1,46 @@
 const mongoose = require('mongoose');
 const bookingSchema = new mongoose.Schema({
-  // We need to add the details of the User as well , here we will keep the reference for the user 
-  // user: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User',
-  //   
-  // },
-  jobId:{
-    type:String,
-  },
-  jobStatus:{
-    type:String,
-    enum:['Upcoming','Completed']
-  },
-  jobType:{
-    type:String,
-    enum:['Repairing','Inspection']
-  },
-  customerName:{
-    type:String
-  },
-  customerAddress:{
-    type:String
-  },
-  customerPhone:{
-    type:String
-  },
-  customerEmail:{
-    type:String
+  job: {
+    id: {type: String},
+    status: {
+      technician: {type: String, default: "Pending"},
+      customer: {type: String, default: "Pending"}
+    },
+    cost: {type: Number},
+    type: {type: String},
+    dateCreated: {type: Date},
+    dateModified: {type: Date},
+    description: {type: String},
+    time_start: {type: String},
+    time_end: {type: String},
+    dateOfJob: {type: Date}
   },
   technician: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Technician',
-    
-  },
-  service: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Service',
-    
-  },
-  time_start: {
-    type: Number,
-    
-  },
-  time_end: {
-    type: Number,
-    
-  },
-  date: {
-    type: Date,
-    
-  },
-  labourRates: {
-    type: Number,
-    default: 0
-  },
-  customerShowingCost: {
-    type: Number,
-  },
-  completion_steps: {
-    // This is for the Overall completion and also verified from the Customer Side
-    overall_completion: {
-      status_technician: {
-        type: Boolean,
-        defualt: false
-      },
-      status_customer: {
-        type: Boolean,
-        defualt: false
-      },
-      rating: {
-        type: Number,
-        defualt: 3
-      }
-    },
-    job_modyfying_ability_to_customer: {
-      type: Boolean,
-    },
-    job_modified_status: {
-      type: Boolean,
-    },
-    customer_payment_status: {
-      type: String,
-      enum: ['Pending', 'Paid'],
-      default: 'Pending'
-    },
-    technician_payment_release_status: {
-      released:{
-        type:Boolean,
-        default : false
-      },
-      amount:{
-        type:Number,
-        required:true,
-        default:false
-      }
+    distance: {type: Number, default: 0},
+    rating: {type: Number, default: 3},
+    email: {type: String},
+    id: {type: String},
+    firstName: {type: String},
+    lastName: {type: String},
+    phone: {type: String},
+    paymentStatus: {
+      released: {type: Boolean, default: false},
+      releaseDate: {type: Date},
+      amount: {type: Number, default: 0}
     }
-
+  },
+  customer: {
+    addressLine1: {type: String},
+    addressLine2: {type: String},
+    city: {type: String},
+    email: {type: String},
+    firstName: {type: String},
+    lastName: {type: String},
+    paymentId: {type: String},
+    paymentStatus: {type: String, default: "Pending"},
+    state: {type: String},
+    zip: {type: String}
   }
 });
-const Booking = mongoose.model('Booking', bookingSchema);
+const Booking = mongoose.model('jobs', bookingSchema);
 module.exports = Booking;

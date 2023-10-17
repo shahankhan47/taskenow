@@ -18,13 +18,24 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
         </div>
         <div>
           <label className="block text-gray-700">Payment Status</label>
+          <select
+            className="border rounded px-3 py-2 w-full"
+            onChange={handleChange('paymentStatus')}
+            value={values.paymentStatus}
+          >
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        {/* <div>
+          <label className="block text-gray-700">Payment Status</label>
           <input
             type="text"
             className="border rounded px-3 py-2 w-full"
             onChange={handleChange('paymentStatus')}
             value={values.paymentStatus}
           />
-        </div>
+        </div> */}
         <div>
           <label className="block text-gray-700">Payment Id</label>
           <input

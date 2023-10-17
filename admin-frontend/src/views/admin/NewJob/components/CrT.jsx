@@ -3,14 +3,13 @@ import InstallerBasicDetails from './tab1';
 import InstallerAddress from './tab2';
 import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
-import { createTechnician } from 'data/api';
-import { createAdmin } from 'data/api';
+import { createJob } from 'data/api';
 
 const CreateTech = () => {
   const [step, setStep] = useState(1);
 
   // State to store installer details
-  const [installerDetails, setInstallerDetails] = useState({
+  const [jobDetails, setJobDetails] = useState({
     taskNow_unique_id: '',
     sequence_number: 0,
     user_profile_completed: false,
@@ -45,12 +44,56 @@ const CreateTech = () => {
   };
 
   const handleChange = (input) => (e) => {
-    setInstallerDetails({ ...installerDetails, [input]: e.target.value });
+    setJobDetails({ ...jobDetails, [input]: e.target.value });
   };
 
   const handleSubmit = async () => {
-    console.log(installerDetails)
-    await createAdmin(installerDetails)
+    const data = {
+      job: {
+        status: {
+          technician: jobDetails.jobStatus,
+          customer:  jobDetails.jobStatus
+        },
+        cost: jobDetails.cost,
+        type: jobDetails.jobType,
+        dateCreated: new Date(),
+        dateModified: new Date(),
+        description: jobDetails.description,
+        time_start: jobDetails.time_start,
+        time_end: jobDetails.time_end,
+        dateOfJob: new Date(jobDetails.date)
+      },
+      technician: {
+        distance: jobDetails.miles_distance,
+        rating: jobDetails.ratingsAndReviews,
+        email: jobDetails.technicianEmail,
+        id: jobDetails.technicianId,
+        firstName: jobDetails.technicianName,
+        lastName: "",
+        phone: jobDetails.technicianPhoneNumber,
+        paymentStatus: {
+          released: false,
+          releaseDate: null,
+          amount: 0
+        }
+      },
+      customer: {
+        addressLine1: jobDetails.addressLine1,
+        addressLine2: jobDetails.addressLine2,
+        city: jobDetails.city,
+        email: jobDetails.customerEmail,
+        firstName: jobDetails.customerFirstName,
+        lastName: jobDetails.customerLastName,
+        paymentId: jobDetails.paymentId,
+        paymentStatus: jobDetails.paymentStatus,
+        state: jobDetails.state,
+        zip: jobDetails.zip
+      }
+    }
+
+    await createJob(data)
+    alert('Job created')
+    // window.location.reload()
   }
 
   const renderStep = () => {
@@ -61,7 +104,7 @@ const CreateTech = () => {
      
             <h2 className="text-2xl font-semibold">Basic Details</h2>
             {/* Include your form fields for basic details here */}
-            <InstallerBasicDetails handleChange={handleChange} values={installerDetails}/>
+            <InstallerBasicDetails handleChange={handleChange} values={jobDetails}/>
             <button
               onClick={nextStep}
               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -75,7 +118,7 @@ const CreateTech = () => {
           <div className="space-y-4 w-96">
             <h2 className="text-2xl font-semibold">Address</h2>
             {/* Include your form fields for address here */}
-            <InstallerAddress handleChange={handleChange} values={installerDetails}/>
+            <InstallerAddress handleChange={handleChange} values={jobDetails}/>
             <div className="flex space-x-4">
               <button
                 onClick={prevStep}
@@ -97,7 +140,7 @@ const CreateTech = () => {
           <div className="space-y-4 w-96">
             <h2 className="text-2xl font-semibold">License</h2>
             {/* Include your form fields for license here */}
-            <InstallerLicense handleChange={handleChange} values={installerDetails}/>
+            <InstallerLicense handleChange={handleChange} values={jobDetails}/>
             <div className="flex space-x-4">
               <button
                 onClick={prevStep}
@@ -119,7 +162,7 @@ const CreateTech = () => {
           <div className="space-y-4 w-96">
             <h2 className="text-2xl font-semibold">Payment</h2>
             {/* Include your form fields for payment here */}
-            <InstallerPayment handleChange={handleChange} values={installerDetails}/>
+            <InstallerPayment handleChange={handleChange} values={jobDetails}/>
             <div className="flex space-x-4">
               <button
                 onClick={prevStep}
@@ -139,11 +182,6 @@ const CreateTech = () => {
       default:
         return null;
     }
-  };
-
-  const submitForm = () => {
-    // Handle form submission here
-    console.log(installerDetails);
   };
 
   return (
