@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
 import Card from "components/card";
+import { updateServiceById } from 'data/api';
 import NFt4 from "assets/img/nfts/Nft4.png"; // Import your service image
 // Import other necessary assets and components as needed
 
 const ServiceProfile = ({data}) => {
   const [editable, setEditable] = useState(false); // State to manage edit mode
   const [serviceData, setServiceData] = useState({
+    id: "",
     image: null,
     serviceName: " ",
     serviceCode: " ",
     servicePrice: 0.0,
-    category: " ",
-   
+    category: " "
   });
 
 
   useEffect(() => {
     setServiceData({
-    image: data.image,
-    serviceName: data.serviceName,
-    serviceCode: data.serviceCode,
-    servicePrice: data.servicePrice,
-    category: data.category,
-  
+      id: data.id,
+      image: data.image,
+      serviceName: data.serviceName,
+      serviceCode: data.serviceCode,
+      servicePrice: data.servicePrice,
+      category: data.category
     })
   }, [data]);
   
@@ -32,8 +33,15 @@ const ServiceProfile = ({data}) => {
     setEditable(true);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
+    await updateServiceById(serviceData.id, {
+      "service_name": serviceData.serviceName,
+      "service_code": serviceData.serviceCode,
+      "category": serviceData.category,
+      "est_price": serviceData.servicePrice
+    });
     setEditable(false);
+    window.location.reload();
     // You can update the service data in your database or API here
   };
 
@@ -49,8 +57,11 @@ const ServiceProfile = ({data}) => {
     <Card extra={"mt-3 !z-5 overflow-hidden"}>
       <div className="p-4">
         <div className="text-center mt-4 ">
-        <p className="text-sm font-bold text-gray-600 border-1 flex flex-row justify-left gap-x-4 items-center">
+          <p className="text-sm font-bold text-gray-600 border-1 flex flex-row justify-left gap-x-4 items-center">
             Service Code: {serviceData.serviceCode}
+          </p>
+          <p className="text-sm font-bold text-gray-600 border-1 flex flex-row justify-left gap-x-4 items-center">
+            Category: {serviceData.category}
           </p>
           <div className="input-field mt-4 flex flex-row justify-left gap-x-4 items-center">
             <label className="text-navy-700 dark:text-white" htmlFor="serviceName">
@@ -67,24 +78,7 @@ const ServiceProfile = ({data}) => {
             ) : (
               <p>{serviceData.serviceName}</p>
             )}
-          </div>
-          <div className="input-field mt-4 flex flex-row justify-left gap-x-4 items-center">
-            <label className="text-navy-700 dark:text-white" htmlFor="category">
-              Category
-            </label>
-            {editable ? (
-              <input
-                type="text"
-                id="category"
-                name="category"
-                value={serviceData.category}
-                onChange={handleInputChange}
-              />
-            ) : (
-              <p>{serviceData.category}</p>
-            )}
-          </div>
-         
+          </div>         
   
           <div className="mt-4 flex flex-row justify-left gap-x-4 items-center">
             <label className="text-navy-700 dark:text-white border-1 " htmlFor="servicePrice">

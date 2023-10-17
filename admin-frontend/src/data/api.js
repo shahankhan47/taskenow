@@ -53,6 +53,16 @@ const deleteServiceTimeById = async (id) => {
     }
 }
 
+const updateServiceById = async (id, data) => {
+    try {
+        const response = await axios.put(`${backendUrl}/service/${id}`, data);
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
 const deleteServiceById = async (id) => {
     try {
         const response = await axios.delete(`${backendUrl}/service/${id}`);
@@ -196,6 +206,7 @@ export {updateAdmin,
     getServiceNameById,
     getServiceCodeById,
     deleteServiceTimeById,
+    updateServiceById,
     deleteServiceById,
     getTechnicianData,
     updateTechnician,

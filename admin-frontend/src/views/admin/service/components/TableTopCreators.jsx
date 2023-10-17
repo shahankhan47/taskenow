@@ -35,6 +35,7 @@ const ServiceCreate = () => {
       });
 
       console.log("Service created:", serviceData);
+      window.location.reload();
       // Add any success message handling here
     } catch (error) {
       console.error("Error creating service:", error);

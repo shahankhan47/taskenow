@@ -27,6 +27,7 @@ import { getserviceList, deleteServiceById } from "data/api";
 const Customer = () => {
   const [service,setServce] = useState([]);
   const [selectedNft, setSelectedNft] = useState({
+    id: "",
     image: null,
     serviceName: " ",
     serviceCode: " ",
@@ -46,6 +47,7 @@ const Customer = () => {
   // Callback function to update selectedNft
   const handleNftCardClick = (data) => {
       const selectedHistoryData = {
+        id: data._id,
         image: data.image,
         serviceName: data.service_name,
         serviceCode: data.service_code,
@@ -60,6 +62,7 @@ const Customer = () => {
     getserviceList().then(response => {
       setServce(response.data);
       setSelectedNft({
+        id: "",
         image: null,
         serviceName: " ",
         serviceCode: " ",
