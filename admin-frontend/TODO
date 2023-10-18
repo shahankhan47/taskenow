@@ -12,3 +12,9 @@ New Job:
     - Create new job.
     - Link job to user.
     - Link job to technician.
+
+Services:
+    - View/Delete button alignment
+
+Miscellaneous:
+    - Show pop up instead of reload after very submit and refresh.

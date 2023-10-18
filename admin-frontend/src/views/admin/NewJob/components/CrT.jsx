@@ -186,7 +186,7 @@ const CreateTech = () => {
 
   return (
     <div className="w-196 mx-auto my-8 p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-3xl font-semibold mb-6">Admin Details</h1>
+      <h1 className="text-3xl font-semibold mb-6">Job Details</h1>
       <div className="space-x-8 flex">
         {renderStep()}
         <div className="mt-4 w-64">

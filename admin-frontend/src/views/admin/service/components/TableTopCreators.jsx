@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
 import Card from "components/card";
-import NFt4 from "assets/img/nfts/Nft4.png"; // Import your service image
 // Import other necessary assets and components as needed
 import { createService } from "../../../../data/api";
 
@@ -9,9 +8,21 @@ const ServiceCreate = () => {
   const [serviceData, setServiceData] = useState({
     service_name: "",
     service_code: "",
-    est_price: 0.0,
+    est_price: "",
     category: "",
   });
+
+  // you can also import category from api
+  const categories = [
+    "Virus Removal",
+    "Slow or freezing computer",
+    "Computer won't start or power up",
+    "Set up new computer",
+    "Laptop screen replacement",
+    "Laptop keyboard replacement",
+    "Email/internet issues",
+    "Computer hardware issue"
+  ]
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +41,7 @@ const ServiceCreate = () => {
       setServiceData({
         service_name: "",
         service_code: "",
-        est_price: 0.0,
+        est_price: "",
         category: "",
       });
 
@@ -95,12 +106,9 @@ const ServiceCreate = () => {
             className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
           >
             <option value="">Select a category</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Household">Household</option>
-            <option value="Automobile">Automobile</option>
-            <option value="Furniture">Furniture</option>
-            <option value="Healthcare">Healthcare</option>
-            {/* Add more options as needed */}
+            {categories.map((category, index) => {
+              return (<option key={index} value={category}>{category}</option>)
+            })}
           </select>
         </div>
         <div>
@@ -113,7 +121,7 @@ const ServiceCreate = () => {
           <div className="flex items-center">
             <FaDollarSign className="text-2xl mr-2" />
             <input
-              type="number"
+              type="string"
               step="0.01"
               id="servicePrice"
               name="est_price"

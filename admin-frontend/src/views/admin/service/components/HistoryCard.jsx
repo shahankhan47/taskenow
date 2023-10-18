@@ -30,6 +30,7 @@ const ServiceProfile = ({data}) => {
   
 
   const handleEditClick = () => {
+    if (serviceData.id !== "")
     setEditable(true);
   };
 
