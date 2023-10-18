@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
 import Card from "components/card";
-import { updateServiceById } from 'data/api';
+import { updateServiceById, getserviceList } from 'data/api';
 import NFt4 from "assets/img/nfts/Nft4.png"; // Import your service image
 // Import other necessary assets and components as needed
 
-const ServiceProfile = ({data}) => {
+const ServiceProfile = ({data, renderServices}) => {
   const [editable, setEditable] = useState(false); // State to manage edit mode
   const [serviceData, setServiceData] = useState({
     id: "",
@@ -28,6 +28,17 @@ const ServiceProfile = ({data}) => {
     })
   }, [data]);
   
+  const handleCancelClick = () => {
+    setEditable(false);
+    setServiceData({
+      id: "",
+      image: null,
+      serviceName: " ",
+      serviceCode: " ",
+      servicePrice: 0.0,
+      category: " "
+    })
+  }
 
   const handleEditClick = () => {
     if (serviceData.id !== "")
@@ -42,7 +53,10 @@ const ServiceProfile = ({data}) => {
       "est_price": serviceData.servicePrice
     });
     setEditable(false);
-    window.location.reload();
+    getserviceList().then(response => {
+      renderServices(response.data);
+    })
+    // window.location.reload();
     // You can update the service data in your database or API here
   };
 
@@ -102,12 +116,20 @@ const ServiceProfile = ({data}) => {
             </div>
           </div>
           {editable ? (
-            <button
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
+              <button
               className="flex justify-left mt-4 linear rounded-[12px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20"
               onClick={handleSaveClick}
-            >
-              Save
-            </button>
+              >
+                Save
+              </button>
+              <button
+                className="flex justify-left mt-4 linear rounded-[12px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20"
+                onClick={handleCancelClick}
+              >
+                Cancel
+              </button>
+            </div>
           ) : (
             <button
               className=" flex justify-left mt-4 linear rounded-[12px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20"

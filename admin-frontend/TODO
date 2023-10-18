@@ -15,6 +15,7 @@ New Job:
 
 Services:
     - View/Delete button alignment
+    - Assign auto-increment service code
 
 Miscellaneous:
     - Show pop up instead of reload after very submit and refresh.

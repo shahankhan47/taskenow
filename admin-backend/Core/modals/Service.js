@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+const mongodb = require('mongodb');
 const serviceSchmea = new mongoose.Schema({
     service_name :{
         type:  String,
         required : true
     },
     service_code : {
-        type : String,
+        type : mongodb.ObjectId,
         required : true
     },
     category:{

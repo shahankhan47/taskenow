@@ -4,13 +4,15 @@ const bookingSchema = new mongoose.Schema({
     id: {type: String},
     status: {
       technician: {type: String, default: "Pending"},
-      customer: {type: String, default: "Pending"}
+      customer: {type: String, default: "Pending"},
+      assigned: {type: String, default: "Unassigned"}
     },
     cost: {type: Number},
     type: {type: String},
     dateCreated: {type: Date},
     dateModified: {type: Date},
     description: {type: String},
+    service: {type: String},
     time_start: {type: String},
     time_end: {type: String},
     dateOfJob: {type: Date}
@@ -34,6 +36,7 @@ const bookingSchema = new mongoose.Schema({
     addressLine2: {type: String},
     city: {type: String},
     email: {type: String},
+    phone: {type: String},
     firstName: {type: String},
     lastName: {type: String},
     paymentId: {type: String},

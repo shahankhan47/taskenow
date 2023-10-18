@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
 import Card from "components/card";
 // Import other necessary assets and components as needed
-import { createService } from "../../../../data/api";
+import { createService, getserviceList } from "../../../../data/api";
 
-const ServiceCreate = () => {
+const ServiceCreate = ({renderServices}) => {
   const [serviceData, setServiceData] = useState({
     service_name: "",
     service_code: "",
@@ -44,9 +44,10 @@ const ServiceCreate = () => {
         est_price: "",
         category: "",
       });
-
-      console.log("Service created:", serviceData);
-      window.location.reload();
+      
+      getserviceList().then(response => {
+        renderServices(response.data);
+      })
       // Add any success message handling here
     } catch (error) {
       console.error("Error creating service:", error);
@@ -57,39 +58,21 @@ const ServiceCreate = () => {
   return (
     <Card extra="mt-3 !z-5 overflow-hidden">
       <div className="p-4 space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label
-              className="text-sm text-navy-700 dark:text-white block"
-              htmlFor="serviceName"
-            >
-              Service Name
-            </label>
-            <input
-              type="text"
-              id="serviceName"
-              name="service_name"
-              value={serviceData.service_name}
-              onChange={handleInputChange}
-              className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
-            />
-          </div>
-          <div>
-            <label
-              className="text-sm text-navy-700 dark:text-white block"
-              htmlFor="serviceCode"
-            >
-              Service Code
-            </label>
-            <input
-              type="text"
-              id="serviceCode"
-              name="service_code"
-              value={serviceData.service_code}
-              onChange={handleInputChange}
-              className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
-            />
-          </div>
+        <div>
+          <label
+            className="text-sm text-navy-700 dark:text-white block"
+            htmlFor="serviceName"
+          >
+            Service Name
+          </label>
+          <input
+            type="text"
+            id="serviceName"
+            name="service_name"
+            value={serviceData.service_name}
+            onChange={handleInputChange}
+            className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
+          />
         </div>
         <div>
           <label

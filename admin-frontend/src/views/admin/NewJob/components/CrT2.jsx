@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import InstallerBasicDetails from './tab1';
-import InstallerAddress from './tab2';
-import InstallerLicense from './tab3';
-import InstallerPayment from './tab4';
+import InstallerBasicDetails from './Customer';
+import InstallerAddress from './Address';
+import InstallerLicense from './Technician';
+import InstallerPayment from './Job';
 import { updateTechnician } from 'data/api';
 import { updateAdmin } from 'data/api';
 

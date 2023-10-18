@@ -5,15 +5,83 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import CardMenu from "components/card/CardMenu";
 import Card from "components/card";
 import {
   MdCheckCircle,
   MdPending,
+  MdCancel,
+  MdAssignmentLate
 } from "react-icons/md";
 import Progress from "components/progress";
 import JobDetailsModal from "./jobDetailsModel";
+import { getJob } from "data/api";
 
+let tableData = [
+  {
+    jobId: "12345",
+    service: "Service 1",
+    date: "2023-09-09",
+    status: "Accepted",
+    details: "Details 1",
+    customerName: "John Doe",
+    customerAddress: "123 Main St",
+    customerPhoneNumber: "555-555-5555",
+    customerEmail: "john@example.com",
+    jobDetails: "Job details for Service 1",
+    jobAssignedStatus: "Assigned",
+    cost: "$1000",
+    technicianAssigned: true,
+    technicianName: "Technician 1",
+  }
+];
+
+getJob().then((jobs) => {
+  const colData = jobs.data.map((job) => {
+    return {
+      jobId: job?._id,
+      service: job?.job?.service || job?.job?.description,
+      date: job?.job?.dateOfJob,
+      status: job?.job?.status?.assigned,
+      details: job?.job?.description,
+      customerName: `${job?.customer?.firstName} ${job?.customer?.lastName}`,
+      customerAddress: job?.customer?.addressLine1,
+      customerPhoneNumber: "555-555-5555",
+      customerEmail: job?.customer?.email,
+      jobDetails: job?.job?.service || job?.job?.description,
+      jobAssignedStatus: "",
+      technicianStatus: job?.job?.status?.assigned,
+      customerStatus: job?.job?.status?.customer,
+      cost: job?.job?.cost,
+      technicianAssigned: job?.technician?.phone != null ? true: false,
+      technicianName: job?.technician?.firstName,
+    }
+  })
+
+  tableData = tableData.concat(colData)
+})
+
+const columnsData = [
+  {
+    Header: "JOB ID",
+    accessor: "jobId",
+  },
+  {
+    Header: "SERVICE",
+    accessor: "service",
+  },
+  {
+    Header: "DATE",
+    accessor: "date",
+  },
+  {
+    Header: "STATUS",
+    accessor: "status",
+  },
+  {
+    Header: "SEE DETAILS",
+    accessor: "details",
+  },
+];
 
 const DevelopmentTable = () => {
   const [showModal, setShowModal] = useState(false);
@@ -126,6 +194,10 @@ const DevelopmentTable = () => {
                               <MdCheckCircle className="text-green-500" />
                             ) : cell.value === "Pending" ? (
                               <MdPending className="text-yellow-500" />
+                            ) : cell.value === "Declined" ? (
+                              <MdCancel className="text-red-500" />
+                            ) : cell.value === "Unassigned" ? (
+                              <MdAssignmentLate className="text-gray-500" />
                             ) : null}
                           </div>
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -168,112 +240,3 @@ const DevelopmentTable = () => {
 
 
 export default DevelopmentTable;
-
-
-const columnsData = [
-  {
-    Header: "JOB ID",
-    accessor: "jobId",
-  },
-  {
-    Header: "SERVICE",
-    accessor: "service",
-  },
-  {
-    Header: "DATE",
-    accessor: "date",
-  },
-  {
-    Header: "STATUS",
-    accessor: "status",
-  },
-  {
-    Header: "SEE DETAILS",
-    accessor: "details",
-  },
-];
-
-
-const tableData = [
-  {
-    jobId: "12345",
-    service: "Service 1",
-    date: "2023-09-09",
-    status: "Accepted",
-    details: "Details 1",
-    customerName: "John Doe",
-    customerAddress: "123 Main St",
-    customerPhoneNumber: "555-555-5555",
-    customerEmail: "john@example.com",
-    jobDetails: "Job details for Service 1",
-    jobAssignedStatus: "Assigned",
-    cost: "$1000",
-    technicianAssigned: true,
-    technicianName: "Technician 1",
-  },
-  {
-    jobId: "12345",
-    service: "Service 1",
-    date: "2023-09-09",
-    status: "Accepted",
-    details: "Details 1",
-    customerName: "John Doe",
-    customerAddress: "123 Main St",
-    customerPhoneNumber: "555-555-5555",
-    customerEmail: "john@example.com",
-    jobDetails: "Job details for Service 1",
-    jobAssignedStatus: "Pending",
-    cost: "$1000",
-    technicianAssigned: false,
-    technicianName: "Technician 1",
-  },
-  {
-    jobId: "67890",
-    service: "Service 2",
-    date: "2023-09-10",
-    status: "Pending",
-    details: "Details 2",
-    customerName: "Jane Smith",
-    customerAddress: "456 Oak Ave, newYork city , newyour-90001",
-    customerPhoneNumber: "555-555-1234",
-    customerEmail: "jane@example.com",
-    jobDetails: "Job details for Service 2",
-    jobAssignedStatus: "Assigned",
-    cost: "$750",
-    technicianAssigned: true,
-    technicianName: "Technician 2",
-  },
-  {
-    jobId: "54321",
-    service: "Service 3",
-    date: "2023-09-11",
-    status: "Accepted",
-    details: "Details 3",
-    customerName: "Alice Johnson",
-    customerAddress: "789 Elm St",
-    customerPhoneNumber: "555-555-9876",
-    customerEmail: "alice@example.com",
-    jobDetails: "Job details for Service 3",
-    jobAssignedStatus: "Pending",
-    cost: "$1200",
-    technicianAssigned: false,
-    technicianName: "Technician 3",
-  },
-  {
-    jobId: "98765",
-    service: "Service 4",
-    date: "2023-09-12",
-    status: "Pending",
-    details: "Details 4",
-    customerName: "Bob Wilson",
-    customerAddress: "101 Pine St",
-    customerPhoneNumber: "555-555-2468",
-    customerEmail: "bob@example.com",
-    jobDetails: "Job details for Service 4",
-    jobAssignedStatus: "Assigned",
-    cost: "$900",
-    technicianAssigned: true,
-    technicianName: "Technician 4",
-  },
-  // Add more rows with similar data...
-];

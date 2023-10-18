@@ -1,15 +1,16 @@
 // service for the TaskeNow business 
-
+const mongodb = require('mongodb');
 const Service = require('../modals/Service');
 
 
 // Creating the service 
 const createService = async (req,res) => {
     try {
-        const {service_name,service_code,category,est_price} = req.body;
+        console.log(req.body);
+        const {service_name,category,est_price} = req.body;
         const newService = new Service({
             service_name,
-            service_code,
+            service_code: new mongodb.ObjectId(),
             category,
             est_price
         });

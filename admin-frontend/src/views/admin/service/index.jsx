@@ -57,6 +57,12 @@ const Customer = () => {
       setSelectedNft(selectedHistoryData);
   };
 
+  const renderServices = () => {
+    getserviceList().then(response => {
+      setServce(response.data);
+    })
+  }
+
   const handleNftCardDelete = async (data) => {
     await deleteServiceById(data._id)
     getserviceList().then(response => {
@@ -108,8 +114,8 @@ const Customer = () => {
       {/* right side section */}
 
       <div className="col-span-1 h-full w-[24vw] right-10 rounded-xl 2xl:col-span-1 fixed">
-        <ServiceCreate data={selectedNft} />
-        <ServiceProfile data={selectedNft} />
+        <ServiceCreate data={selectedNft} renderServices={setServce} />
+        <ServiceProfile data={selectedNft} renderServices={setServce} />
       </div>
     </div>
   );
