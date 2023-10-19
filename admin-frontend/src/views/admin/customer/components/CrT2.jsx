@@ -4,7 +4,7 @@ import CustomerAddress from './tab2';
 import UserPayment from './tab3';
 import { updateUser, deleteUser } from 'data/api';
 
-const CreateCustomer = ({initialValues,onSubmit}) => {
+const CreateCustomer = ({initialValues, onCancel}) => {
   const [step, setStep] = useState(1);
 
   // State to store installer details
@@ -49,12 +49,12 @@ const CreateCustomer = ({initialValues,onSubmit}) => {
 
   const handleSubmit = async () => {
     await updateUser(installerDetails._id,installerDetails)
-    alert("User updated");
+    onCancel()
   }
 
   const handleDeleteUser = async () => {
     await deleteUser(installerDetails._id)
-    alert("User deleted");
+    onCancel()
   }
 
   const renderStep = () => {

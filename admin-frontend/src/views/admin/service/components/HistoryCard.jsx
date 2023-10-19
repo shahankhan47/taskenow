@@ -73,7 +73,7 @@ const ServiceProfile = ({data, renderServices}) => {
       <div className="p-4">
         <div className="text-center mt-4 ">
           <p className="text-sm font-bold text-gray-600 border-1 flex flex-row justify-left gap-x-4 items-center">
-            Service Code: {serviceData.serviceCode}
+            Service Code: {serviceData.id}
           </p>
           <p className="text-sm font-bold text-gray-600 border-1 flex flex-row justify-left gap-x-4 items-center">
             Category: {serviceData.category}

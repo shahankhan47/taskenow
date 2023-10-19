@@ -5,7 +5,7 @@ import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
 import { createTechnician } from 'data/api';
 
-const CreateTech = () => {
+const CreateTech = ({refresh, setRefresh}) => {
   const [step, setStep] = useState(1);
 
   // State to store installer details
@@ -48,17 +48,40 @@ const CreateTech = () => {
   };
 
   const handleSubmit = async () => {
-    console.log(installerDetails)
     await createTechnician(installerDetails)
-    alert("Service Provider created");
-    window.location.reload();
+    setRefresh(true);
+    setInstallerDetails({
+      taskNow_unique_id: '',
+      sequence_number: 0,
+      user_profile_completed: false,
+      firstName: '',
+      lastName: '',
+      email: '',
+      state: '',
+      phoneNumber: '',
+      password: '',
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      zip: '',
+      miles_distance: 0,
+      profileImage: '',
+      yearsOfExperience: 0,
+      description: '',
+      licenseNumber: '',
+      licenseExpirationDate: '',
+      licenseCertified: false,
+      services: [],
+      ratingsAndReviews: 3,
+      dateOfBirth: '',
+    })
   }
 
   const renderStep = () => {
     switch (step) {
       case 1:
         return (
-          <div className="space-y-4  w-[70%] overflow-y-scroll">
+          <div className="space-y-4  w-[70%]">
      
             <h2 className="text-2xl font-semibold">Basic Details</h2>
             {/* Include your form fields for basic details here */}

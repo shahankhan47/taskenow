@@ -6,14 +6,7 @@ const Technician = require('../modals/Technician');
 // Creating the Technician 
 const createTechnician = async (req,res) => {
     try {
-        const {firstName,lastName,email,phoneNumber,password} = req.body;
-        const newTechnician = new Technician({
-            firstName,
-            lastName,
-            email,
-            phoneNumber,
-            password
-        });
+        const newTechnician = new Technician(req.body);
         await newTechnician.save();
         res.status(201).json(newTechnician);
     }

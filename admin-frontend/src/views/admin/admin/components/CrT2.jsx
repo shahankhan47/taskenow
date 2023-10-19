@@ -5,7 +5,7 @@ import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
 import { updateAdmin, deleteAdmin } from 'data/api';
 
-const CreateTech = ({initialValues, onSubmit}) => {
+const CreateTech = ({initialValues, onCancel}) => {
   const [step, setStep] = useState(1);
 
   // State to store installer details
@@ -65,12 +65,12 @@ const CreateTech = ({initialValues, onSubmit}) => {
 
   const handleSubmit = async () => {
     await updateAdmin(installerDetails._id,installerDetails)
-    alert("Admin updated");
+    onCancel()
   }
 
   const handleDeleteAdmin = async () => {
     await deleteAdmin(installerDetails._id)
-    alert("Admin deleted");
+    onCancel()
   }
 
   const renderStep = () => {

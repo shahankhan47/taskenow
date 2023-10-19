@@ -9,7 +9,7 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
           <label className="block text-gray-700">Account Number</label>
           <input
             type="text"
-            className="border rounded px-3 py-2 w-full"
+            className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
             onChange={handleChange('AccountNumber')}
             value={values.accountNumber}
           />
@@ -18,7 +18,7 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
           <label className="block text-gray-700">Routing Number</label>
           <input
             type="text"
-            className="border rounded px-3 py-2 w-full"
+            className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
             onChange={handleChange('routingNumber')}
             value={values.routingNumber}
           />
@@ -27,7 +27,7 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
           <label className="block text-gray-700">SSN Number ( Last 4 Digits ) </label>
           <input
             type="text"
-            className="border rounded px-3 py-2 w-full"
+            className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
             onChange={handleChange('ssn')}
             value={values.ssn}
           />
