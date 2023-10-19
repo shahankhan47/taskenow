@@ -7,7 +7,7 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
         <div>
           <label className="block text-gray-700">Admin Hierarchy</label>
           <select
-            className="border rounded px-3 py-2 w-full"
+            className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
             onChange={handleChange('adminHierarchy')}
             value={values.adminHierarchy}
           >
@@ -21,7 +21,7 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
         <div>
           <label className="block text-gray-700">Description</label>
           <textarea
-            className="border rounded px-3 py-2 w-full"
+            className="w-full text-sm border rounded border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
             rows="4"
             onChange={handleChange('description')}
             value={values.description}

@@ -5,7 +5,7 @@ import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
 import { createAdmin } from 'data/api';
 
-const CreateTech = () => {
+const CreateTech = ({refresh, setRefresh}) => {
   const [step, setStep] = useState(1);
 
   // State to store installer details
@@ -53,15 +53,32 @@ const CreateTech = () => {
 
   const handleSubmit = async () => {
     await createAdmin(installerDetails)
-    alert("Admin created");
-    window.location.reload();
+    setRefresh(true);
+    setInstallerDetails({
+      _id: null,
+      taskNow_unique_id: '',
+      sequence_number: 0,
+      firstName: '',
+      lastName: '',
+      email: '',
+      state: '',
+      phoneNumber: '',
+      password: '',
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      zip: '',
+      description: '',
+      access:[]
+    })
+    // window.location.reload();
   }
 
   const renderStep = () => {
     switch (step) {
       case 1:
         return (
-          <div className="space-y-4 w-[70%] overflow-y-scroll">
+          <div className="space-y-4 w-[70%]">
      
             <h2 className="text-2xl font-semibold">Basic Details</h2>
             {/* Include your form fields for basic details here */}

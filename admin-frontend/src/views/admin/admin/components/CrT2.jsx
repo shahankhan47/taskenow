@@ -5,7 +5,7 @@ import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
 import { updateAdmin, deleteAdmin } from 'data/api';
 
-const CreateTech = ({initialValues,onSubmit}) => {
+const CreateTech = ({initialValues, onSubmit}) => {
   const [step, setStep] = useState(1);
 
   // State to store installer details
@@ -34,6 +34,7 @@ const CreateTech = ({initialValues,onSubmit}) => {
     services: [],
     ratingsAndReviews: 3,
     dateOfBirth: initialValues.dateOfBirth,
+    access: initialValues.access,
   });
 
   const nextStep = () => {
@@ -45,7 +46,21 @@ const CreateTech = ({initialValues,onSubmit}) => {
   };
 
   const handleChange = (input) => (e) => {
-    setInstallerDetails({ ...installerDetails, [input]: e.target.value });
+    if (input.Admin) {
+      let temp = {...installerDetails}
+      if (input.Admin[Object.keys(input.Admin)[0]] === true) {
+        if (installerDetails.access.includes(Object.keys(input.Admin)[0]) === false)
+        temp.access.push(Object.keys(input.Admin)[0]);
+      }
+      else {
+        const removedAccess = temp.access.filter(elem => elem !== Object.keys(input.Admin)[0])
+        temp.access = removedAccess;
+      }
+      setInstallerDetails(temp);
+    }
+    else {
+      setInstallerDetails({ ...installerDetails, [input]: e.target.value });
+    }
   };
 
   const handleSubmit = async () => {
@@ -62,7 +77,7 @@ const CreateTech = ({initialValues,onSubmit}) => {
     switch (step) {
       case 1:
         return (
-          <div className="space-y-4 overflow-y-scroll">
+          <div className="space-y-4">
      
             <h2 className="text-2xl font-semibold">Basic Details</h2>
             {/* Include your form fields for basic details here */}
@@ -102,7 +117,7 @@ const CreateTech = ({initialValues,onSubmit}) => {
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold">License</h2>
             {/* Include your form fields for license here */}
-            <InstallerLicense handleChange={handleChange} values={installerDetails}/>
+            <InstallerLicense handleChange={handleChange} values={installerDetails.access}/>
             <div className="flex space-x-4">
               <button
                 onClick={prevStep}

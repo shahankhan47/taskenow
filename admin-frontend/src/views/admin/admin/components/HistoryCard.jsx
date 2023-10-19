@@ -5,10 +5,16 @@ import Card from 'components/card';
 import CreateTech from './CrT2';
 import { getAdminData } from 'data/api';
 
-const TechnicianList = () => {
+const TechnicianList = ({refresh, setRefresh}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTechnician, setSelectedTechnician] = useState(null);
   const [historyData,setHistoryData] = useState([]);
+
+  const refreshHistory = () => {
+    getAdminData().then(response => {
+      setHistoryData(response.data);
+    })
+  }
 
   const handleOpenModal = (technician) => {
     setSelectedTechnician(technician);
@@ -16,20 +22,20 @@ const TechnicianList = () => {
   };
 
   const handleCloseModal = () => {
-    getAdminData().then(response => {
-      setHistoryData(response.data);
-    })
+    refreshHistory()
     setSelectedTechnician(null);
     setIsModalOpen(false);
   };
 
 
   useEffect(() => {
+    if(refresh === true) {
+      refreshHistory()
+    }
+    setRefresh(false);
     // Call API to fetch service list
-    getAdminData().then(response => {
-      setHistoryData(response.data);
-    })
-  },[]);
+    refreshHistory()
+  },[refresh, setRefresh]);
 
 
 
@@ -62,7 +68,7 @@ const TechnicianList = () => {
                   {data.firstName} {data.lastName}
                 </h5>
                 <p className="mt-1 text-sm font-normal text-gray-600">
-                  {data.email}
+                  {data._id}
                 </p>
               </div>
             </div>

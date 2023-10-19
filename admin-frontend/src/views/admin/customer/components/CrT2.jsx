@@ -61,7 +61,7 @@ const CreateCustomer = ({initialValues,onSubmit}) => {
     switch (step) {
       case 1:
         return (
-          <div className="space-y-4 overflow-y-scroll">
+          <div className="space-y-4">
      
             <h2 className="text-2xl font-semibold">Basic Details</h2>
             {/* Include your form fields for basic details here */}

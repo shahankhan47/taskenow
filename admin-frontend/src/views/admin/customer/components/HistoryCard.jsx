@@ -62,7 +62,7 @@ const TechnicianList = () => {
                   {data.firstName} {data.lastName}
                 </h5>
                 <p className="mt-1 text-sm font-normal text-gray-600">
-                  {data.email}
+                  {data._id}
                 </p>
               </div>
             </div>

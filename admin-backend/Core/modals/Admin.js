@@ -66,7 +66,6 @@ const adminSchema = new mongoose.Schema({
     access: [{
         type: String,
         required: false,
-        enum: ['technician', 'customer', 'general', 'payment', 'jobs', 'admin']
     }],
     heirarchy:{
         type:String,
