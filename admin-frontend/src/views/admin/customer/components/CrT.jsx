@@ -4,7 +4,7 @@ import CustomerAddress from './tab2';
 import UserPayment from './tab3';
 import { createUser } from 'data/api';
 
-const CreateCustomer = () => {
+const CreateCustomer = ({refresh, setRefresh}) => {
   const [step, setStep] = useState(1);
 
   // State to store installer details
@@ -39,8 +39,22 @@ const CreateCustomer = () => {
   const handleSubmit = async () => {
     console.log(userDetails)
     await createUser(userDetails)
-    alert("User created");
-    window.location.reload();
+    setRefresh(true);
+    setUserDetails({
+      taskNow_unique_id: '',
+      sequence_number: 0,
+      firstName: '',
+      lastName: '',
+      email: '',
+      state: '',
+      phoneNumber: '',
+      password: '',
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      zip: '',
+      description: ''
+    })
   }
 
   const renderStep = () => {

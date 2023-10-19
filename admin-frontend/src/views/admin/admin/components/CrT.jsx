@@ -71,7 +71,6 @@ const CreateTech = ({refresh, setRefresh}) => {
       description: '',
       access:[]
     })
-    // window.location.reload();
   }
 
   const renderStep = () => {
