@@ -30,7 +30,7 @@ const getJob = async (req,res) => {
 // Getting the list of Jobs for the Particular Technician 
 const getTechnicianJobList = async(req,res) => {
        try {
-        const job = await Job.find({technician:req.params.id});
+        const job = await Job.find({"technician.id": req.params.id});
         res.status(200).json(job);
     }
     catch(error) {
@@ -90,6 +90,42 @@ const deleteJob = async (req,res) => {
     }
 }
 
+const getDateString = (date) => {
+    return `${new Date(date).getMonth()+1}/${new Date(date).getDate()}/${new Date(date).getFullYear()}`
+}
+
+const getJobsofType = async(req, res) => {
+    try {
+        const jobs = await Job.find({"job.type": req.body.type});
+        const inspectionJob = jobs.map((job) => {
+            const id = job._id.toString();
+            return {
+              jobId: id?.length > 6 ? id?.substring(id?.length-5, id?.length) : id,
+              service: job?.job?.service || job?.job?.description,
+              date: getDateString(job?.job?.dateOfJob),
+              status: job?.job?.status?.assigned,
+              details: job?.job?.description,
+              customerName: `${job?.customer?.firstName} ${job?.customer?.lastName}`,
+              customerAddress: job?.customer?.addressLine1,
+              customerPhoneNumber: job?.customer?.phone,
+              customerEmail: job?.customer?.email,
+              jobDetails: job?.job?.service || job?.job?.description,
+              jobAssignedStatus: job?.job?.status?.assigned,
+              technicianStatus: job?.job?.status?.assigned,
+              customerStatus: job?.job?.status?.customer,
+              cost: job?.job?.cost,
+              technicianAssigned: job?.technician?.phone != null ? true: false,
+              technicianName: job?.technician?.firstName,
+              technicianId: job?.technician?.id,
+            }
+          })
+        res.status(200).json(inspectionJob);
+    }
+    catch(error) {
+        res.status(400).json({error:error.message});
+    }
+}
+
 // Exporting all the Categories
 module.exports = { 
     createJob,
@@ -97,5 +133,6 @@ module.exports = {
     getSpecificJob,
     updateJob,
     deleteJob,
-    getTechnicianJobList
+    getTechnicianJobList,
+    getJobsofType
 }

@@ -2,17 +2,13 @@ import React from 'react';
 
 const InstallerLicense = ({ values, handleChange }) => {
   // Define the enum values
-  const enumValues = ['technician', 'customer', 'general', 'payment', 'jobs', 'admin'];
+  const enumValues = ['Technician', 'Customer', 'General', 'Payment', 'Jobs', 'Admin'];
 
   const handleCheckboxChange = (enumValue) => (event) => {
-    const updatedValues = { ...values }; // Create a copy of the values object
+    let updatedValues = {}; // Create a copy of the values object
     updatedValues[enumValue] = event.target.checked; // Update the value for the corresponding enumValue
-    handleChange(updatedValues);
-  };
-
-  const getSelectedCheckboxes = () => {
-    const selectedCheckboxes = enumValues.filter((enumValue) => values[enumValue]);
-    return selectedCheckboxes;
+    let adminAccess = {'Admin': updatedValues}
+    handleChange(adminAccess)(event);
   };
 
   return (
@@ -24,16 +20,12 @@ const InstallerLicense = ({ values, handleChange }) => {
               <input
                 type="checkbox"
                 onChange={handleCheckboxChange(enumValue)}
-                checked={values[enumValue]}
-              />{' '}
-              {enumValue.charAt(0).toUpperCase() + enumValue.slice(1)} {/* Capitalize the enum value */}
+                checked={values.includes(enumValue)}
+              />{` ${enumValue}`}
             </label>
           </div>
         ))}
       </form>
-      <div className="mt-4">
-        <button onClick={() => console.log(getSelectedCheckboxes())}>Submit</button>
-      </div>
     </div>
   );
 };

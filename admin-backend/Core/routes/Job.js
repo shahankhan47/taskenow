@@ -23,4 +23,7 @@ router.put("/:id", Job.updateJob);
 // Deleting the Job 
 router.delete("/:id", Job.deleteJob);
 
+// Getting the Specific type of Job
+router.post("/type", Job.getJobsofType);
+
 module.exports = router;

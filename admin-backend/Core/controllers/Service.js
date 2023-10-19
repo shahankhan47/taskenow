@@ -6,7 +6,6 @@ const Service = require('../modals/Service');
 // Creating the service 
 const createService = async (req,res) => {
     try {
-        console.log(req.body);
         const {service_name,category,est_price} = req.body;
         const newService = new Service({
             service_name,

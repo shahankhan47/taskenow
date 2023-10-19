@@ -35,11 +35,23 @@ const CreateTech = () => {
   };
 
   const handleChange = (input) => (e) => {
-    setInstallerDetails({ ...installerDetails, [input]: e.target.value });
+    if (input.Admin) {
+      let temp = {...installerDetails}
+      if (input.Admin[Object.keys(input.Admin)[0]] === true) {
+        temp.access.push(Object.keys(input.Admin)[0]);
+      }
+      else {
+        const removedAccess = temp.access.filter(elem => elem !== Object.keys(input.Admin)[0])
+        temp.access = removedAccess;
+      }
+      setInstallerDetails(temp);
+    }
+    else {
+      setInstallerDetails({ ...installerDetails, [input]: e.target.value });
+    }
   };
 
   const handleSubmit = async () => {
-    console.log(installerDetails)
     await createAdmin(installerDetails)
     alert("Admin created");
     window.location.reload();
@@ -87,7 +99,7 @@ const CreateTech = () => {
       case 3:
         return (
           <div className="space-y-4 w-[70%] rounded-lg ">
-            <h2 className="text-2xl font-semibold">License</h2>
+            <h2 className="text-2xl font-semibold">Access</h2>
             {/* Include your form fields for license here */}
             <InstallerLicense handleChange={handleChange} values={installerDetails.access}/>
             <div className="flex space-x-4">

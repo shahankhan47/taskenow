@@ -34,6 +34,7 @@ const CreateTech = () => {
     services: '',
     ratingsAndReviews: 3,
     dateOfBirth: '',
+    jobStatus: 'Unassigned'
   });
 
   const nextStep = () => {
@@ -51,11 +52,11 @@ const CreateTech = () => {
   };
 
   const handleChange = (input) => (e) => {
-    if (input === "jobStatus" && e.target.value !== "Unassigned") {
-      setShowTech(true);
-    }
-    if (input === "jobStatus" && e.target.value === "Unassigned") {
-      setShowTech(false);
+    if (input === "jobStatus") {
+      if (e.target.value !== "Unassigned")
+        setShowTech(true);
+      else if (e.target.value === "Unassigned")
+        setShowTech(false);
     }
     setJobDetails({ ...jobDetails, [input]: e.target.value });
   };

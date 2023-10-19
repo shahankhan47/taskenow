@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { getserviceList } from 'data/api';
 
-const services = []
-
-getserviceList().then((servs) => {
-  servs.data.map((service) => {
-    services.push(service?.service_name);
-  })
-})
-
 const InstallerPayment = ({ values, handleChange, prevStep }) => {
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    // Call API to fetch service list
+    getserviceList().then(servs => {
+      const response = [];
+      servs.data.map((service) => {
+        response.push(service?.service_name);
+      })
+      setServices(response);
+    })
+  },[]);
+
   return (
     <div>
       <form className="mt-4 space-y-4">
@@ -56,10 +61,10 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
             onChange={handleChange('jobStatus')}
             value={values.jobStatus}
           >
+            <option value="Unassigned">Unassigned</option>
             <option value="Pending">Pending</option>
             <option value="Accepted">Accepted</option>
             <option value="Declined">Declined</option>
-            <option value="Unassigned">Unassigned</option>
           </select>
         </div>
         <div>

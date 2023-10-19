@@ -14,7 +14,7 @@ import {
 } from "react-icons/md";
 import Progress from "components/progress";
 import JobDetailsModal from "./jobDetailsModel";
-import { getJob } from "data/api";
+import { getJobsofType } from "data/api";
 
 let tableData = [
   {
@@ -35,29 +35,9 @@ let tableData = [
   }
 ];
 
-getJob().then((jobs) => {
-  const colData = jobs.data.map((job) => {
-    return {
-      jobId: job?._id,
-      service: job?.job?.service || job?.job?.description,
-      date: job?.job?.dateOfJob,
-      status: job?.job?.status?.assigned,
-      details: job?.job?.description,
-      customerName: `${job?.customer?.firstName} ${job?.customer?.lastName}`,
-      customerAddress: job?.customer?.addressLine1,
-      customerPhoneNumber: "555-555-5555",
-      customerEmail: job?.customer?.email,
-      jobDetails: job?.job?.service || job?.job?.description,
-      jobAssignedStatus: "",
-      technicianStatus: job?.job?.status?.assigned,
-      customerStatus: job?.job?.status?.customer,
-      cost: job?.job?.cost,
-      technicianAssigned: job?.technician?.phone != null ? true: false,
-      technicianName: job?.technician?.firstName,
-    }
-  })
-
-  tableData = tableData.concat(colData)
+getJobsofType({type: "Inspection"}).then((jobs) => {
+  console.log(jobs);
+  tableData = tableData.concat(jobs.data)
 })
 
 const columnsData = [

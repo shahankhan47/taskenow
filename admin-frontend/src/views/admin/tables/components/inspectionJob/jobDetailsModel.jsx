@@ -34,98 +34,98 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
             </h2>
             <div className="grid grid-cols-2 gap-2">
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Job ID:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.jobId}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Customer Name:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.customerName}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Customer Address:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.customerAddress}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
-                Customer Phone Number:
+                Customer Phone:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.customerPhoneNumber}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Customer Email:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.customerEmail}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Price
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.cost}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Job Details:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
@@ -160,6 +160,20 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
                     }`}
                     >
                     {job.technicianName}
+                    </p>
+                    <p
+                    className={`mb-2 col-span-1 font-bold ${
+                        isDarkMode ? "text-white" : "text-black"
+                    }`}
+                    >
+                    Technician Id:
+                    </p>
+                    <p
+                    className={`mb-2 col-span-1 ${
+                        isDarkMode ? "text-white" : "text-black"
+                    }`}
+                    >
+                    {job.technicianId}
                     </p>
                 </div>
                 <button
