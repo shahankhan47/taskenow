@@ -7,9 +7,8 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
   useEffect(() => {
     // Call API to fetch service list
     getserviceList().then(servs => {
-      const response = [];
-      servs.data.map((service) => {
-        response.push(service?.service_name);
+      const response = servs.data.map((service) => {
+        return service?.service_name;
       })
       setServices(response);
     })
@@ -28,7 +27,7 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
             onChange={handleChange('services')}
             className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
           >
-            <option value="">Select a category</option>
+            <option value="">Select a service</option>
             {services.map((service, index) => {
               return (<option key={index} value={service}>{service}</option>)
             })}
@@ -50,7 +49,7 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
             onChange={handleChange('jobType')}
             value={values.jobType}
           >
-            <option value="Inspection">Inspection</option>
+            <option value="Inspection" selected={true}>Inspection</option>
             <option value="Repairing">Repairing</option>
           </select>
         </div>

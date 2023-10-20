@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   useGlobalFilter,
   usePagination,
@@ -36,7 +36,6 @@ let tableData = [
 ];
 
 getJobsofType({type: "Inspection"}).then((jobs) => {
-  console.log(jobs);
   tableData = tableData.concat(jobs.data)
 })
 
@@ -66,13 +65,18 @@ const columnsData = [
 const DevelopmentTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedJob, setSelectedJob] = useState({});
-  const columns = useMemo(() => columnsData, [columnsData]);
-  const data = useMemo(() => tableData, [tableData]);
+  const [jobData, setJobData] = useState([])
+
+  useEffect(() => {
+    getJobsofType({type: "Inspection"}).then((jobs) => {
+      setJobData(jobs.data)
+    })
+  }, [])
 
   const tableInstance = useTable(
     {
-      columns,
-      data,
+      columns: columnsData,
+      data: jobData,
       initialState: { pageSize: 5 }, // Set the initial page size
     },
     useGlobalFilter,
@@ -89,7 +93,7 @@ const DevelopmentTable = () => {
   } = tableInstance;
 
   const openModal = (row) => {
-    console.log(row)
+    console.log(jobData);
     setSelectedJob(row);
     setShowModal(true);
   };

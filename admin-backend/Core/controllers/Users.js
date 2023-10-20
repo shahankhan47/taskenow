@@ -51,7 +51,7 @@ const updateUser = async (req, res) => {
       );
   
       if (!updatedUser) {
-        return res.status(404).json({ error: 'Admin not found' });
+        return res.status(404).json({ error: 'User not found' });
       }
   
       // Return the updated Admin data
@@ -72,11 +72,35 @@ const deleteUser = async (req,res) => {
     }
 }
 
+const bookJob = async(req, res) => {
+    try {
+        const {firstName, lastName, email, phone} = req.body.customer;
+        const user = await User.findOne({
+            firstName,
+            lastName,
+            email,
+            phoneNumber: phone
+        });
+        console.log(user);
+        user.booked_jobs.push(req.body.jobId);
+        const updatedUser = await User.findByIdAndUpdate(user._id, user, { new: true })
+        if (!updatedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        console.log(updatedUser);
+        res.status(200).json(updatedUser);
+    }
+    catch(error) {
+        res.status(400).json({error:error.message});
+    }
+}
+
 // Exporting all the Categories
 module.exports = { 
     createUser,
     getUser,
     getSpecificUser,
     updateUser,
+    bookJob,
     deleteUser
 }

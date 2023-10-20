@@ -178,6 +178,15 @@ const updateUser = async (id, dataObject) => {
     }
 }
 
+const bookJob = async (data) => {
+    try {
+        const response = await axios.post(`${backendUrl}/user/bookjob`, data);
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const deleteUser = async (id) => {
     try {
         const response = await axios.delete(`${backendUrl}/user/${id}`);
@@ -233,6 +242,7 @@ export {updateAdmin,
     getAllUsers,
     createUser,
     updateUser,
+    bookJob,
     deleteUser,
     getJob,
     getJobsofType,

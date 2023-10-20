@@ -3,7 +3,7 @@ import InstallerBasicDetails from './Customer';
 import InstallerAddress from './Address';
 import InstallerLicense from './Technician';
 import InstallerPayment from './Job';
-import { createJob } from 'data/api';
+import { createJob, bookJob } from 'data/api';
 
 const CreateTech = () => {
   const [step, setStep] = useState(1);
@@ -34,7 +34,9 @@ const CreateTech = () => {
     services: '',
     ratingsAndReviews: 3,
     dateOfBirth: '',
-    jobStatus: 'Unassigned'
+    jobStatus: 'Unassigned',
+    jobType: 'Inspection',
+    paymentStatus: "Pending"
   });
 
   const nextStep = () => {
@@ -107,9 +109,10 @@ const CreateTech = () => {
         zip: jobDetails.zip
       }
     }
-
-    await createJob(data)
-    alert('Job created')
+    
+    const job = await createJob(data);
+    await bookJob({customer: data.customer, jobId: job.data._id});
+    alert('Job created');
     // window.location.reload()
   }
 

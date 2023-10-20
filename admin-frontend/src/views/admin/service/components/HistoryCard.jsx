@@ -103,7 +103,7 @@ const ServiceProfile = ({data, renderServices}) => {
               <FaDollarSign />
               {editable ? (
                 <input
-                  type="number"
+                  type="text"
                   step="0.01"
                   id="servicePrice"
                   name="servicePrice"

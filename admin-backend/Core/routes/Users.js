@@ -18,6 +18,9 @@ router.get("/:id",Users.getSpecificUser);
 // Updating the Admin 
 router.put("/:id",Users.updateUser);
 
+//Book a job for user
+router.post("/bookjob", Users.bookJob);
+
 // Deleting the Admin 
 router.delete("/:id",Users.deleteUser);
 
