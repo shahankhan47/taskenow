@@ -27,7 +27,7 @@ import {
 } from "react-icons/md";
 
 
-const routes = [
+let routes = [
   {
     name: "Main Dashboard",
     layout: "/admin",
@@ -92,13 +92,11 @@ const routes = [
     component: <Profile />,
   },
   {
-    name: "Sign In",
+    name: "Sign Out",
     layout: "/auth",
     path: "sign-in",
     icon: <MdLock className="h-6 w-6" />,
     component: <SignIn />,
   },
-
-  
 ];
 export default routes;

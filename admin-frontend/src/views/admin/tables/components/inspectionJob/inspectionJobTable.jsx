@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useGlobalFilter,
   usePagination,
@@ -93,7 +93,7 @@ const DevelopmentTable = () => {
   } = tableInstance;
 
   const deleteSelectedJob = async () => {
-    const user = await deleteJob(selectedJob);
+    await deleteJob(selectedJob);
     getJobsofType({type: "Inspection"}).then((jobs) => {
       setJobData(jobs.data)
     });

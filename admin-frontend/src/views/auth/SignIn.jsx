@@ -1,8 +1,41 @@
-import InputField from "components/fields/InputField";
-import { FcGoogle } from "react-icons/fc";
-import Checkbox from "components/checkbox";
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { getAdminData } from "data/api";
 
 export default function SignIn() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const onSubmit = async (event) => {
+    const allAdmins = (await getAdminData()).data;
+    const adminExist = allAdmins.length > 0 ? allAdmins.find(admin => {
+      return admin.email === email && admin.password === password;
+    }) : null;
+
+    if (!adminExist) {
+      if (email !== "SUPER@ADMIN.COM" && password !== "SUPERPASS") {
+        console.log("You are not authorized");
+      }
+      else {
+        console.log("You are a super admin");
+        setIsAdmin(true)
+      }
+    }
+    else {
+      console.log("You are normal admin");
+      setIsAdmin(true)
+    }
+  }
+
+  const onEmailChange = (event) => {
+    setEmail(event.target.value)
+  }
+
+  const onPasswordChange = (event) => {
+    setPassword(event.target.value)
+  }
+
   return (
     <div className="mt-1 mb-1 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">
       {/* Sign in section */}
@@ -13,52 +46,31 @@ export default function SignIn() {
         <p className="mb-9 ml-1 text-base text-gray-600">
           Enter your email and password to sign in!
         </p>
-        <div className="mb-6 flex h-[50px] w-full items-center justify-center gap-2 rounded-xl bg-lightPrimary hover:cursor-pointer dark:bg-navy-800">
-          <div className="rounded-full text-xl">
-            <FcGoogle />
-          </div>
-          <h5 className="text-sm font-medium text-navy-700 dark:text-white">
-            Sign In with Google
-          </h5>
-        </div>
-        <div className="mb-6 flex items-center  gap-3">
-          <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
-          <p className="text-base text-gray-600 dark:text-white"> or </p>
-          <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
-        </div>
         {/* Email */}
-        <InputField
-          variant="auth"
-          extra="mb-3"
-          label="Email*"
-          placeholder="mail@simmmple.com"
-          id="email"
+        <input
           type="text"
+          id="email"
+          name="email"
+          onChange={onEmailChange}
+          className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
         />
 
         {/* Password */}
-        <InputField
-          variant="auth"
-          extra="mb-3"
-          label="Password*"
-          placeholder="Min. 8 characters"
+        <input
+          type="text"
           id="password"
-          type="password"
+          name="password"
+          onChange={onPasswordChange}
+          className="w-full mt-10 text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
         />
         {/* Checkbox */}
-        <div className="mb-4 flex items-center justify-between px-2">
-          <div className="flex items-center">
-            <Checkbox />
-            <p className="ml-2 text-sm font-medium text-navy-700 dark:text-white">
-              Keep me logged In
-            </p>
-          </div>
-
-        </div>
-        <button className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
-          Sign In
-        </button>
-
+          {isAdmin && (
+            <Navigate to="/admin" replace={true} />
+          )}
+          <button className="mt-10 linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+          onClick={onSubmit}>
+            Sign In
+          </button>
       </div>
     </div>
   );
