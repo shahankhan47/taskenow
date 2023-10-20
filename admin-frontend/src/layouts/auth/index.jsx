@@ -1,5 +1,5 @@
 import Footer from "components/footer/FooterAuthDefault";
-import { Link, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import FixedPlugin from "components/fixedPlugin/FixedPlugin";
 import SignIn from "views/auth/SignIn";
 

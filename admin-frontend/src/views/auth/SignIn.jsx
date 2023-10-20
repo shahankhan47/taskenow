@@ -15,15 +15,18 @@ export default function SignIn() {
 
     if (!adminExist) {
       if (email !== "SUPER@ADMIN.COM" && password !== "SUPERPASS") {
-        console.log("You are not authorized");
+        alert("You are not authorized");
       }
       else {
         console.log("You are a super admin");
+        window.sessionStorage.setItem("type", "super");
         setIsAdmin(true)
       }
     }
     else {
       console.log("You are normal admin");
+      window.sessionStorage.setItem("type", "admin");
+      window.sessionStorage.setItem("access", adminExist.access);
       setIsAdmin(true)
     }
   }
