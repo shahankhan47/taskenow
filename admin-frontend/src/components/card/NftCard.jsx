@@ -32,7 +32,7 @@ const NftCard = ({ title, author, price, image, extra , onCardClick, onCardDelet
          
         </div>
 
-        <div className="flex items-center justify-between md:flex-col md:items-start lg:flex-row lg:justify-between xl:flex-col 2xl:items-start 3xl:flex-row 3xl:items-center 3xl:justify-between">
+        <div className="bottom-0 flex items-center justify-between md:flex-col md:items-start lg:flex-row lg:justify-between xl:flex-col 2xl:items-start 3xl:flex-row 3xl:items-center 3xl:justify-between">
          <p>
           <button
             href=""

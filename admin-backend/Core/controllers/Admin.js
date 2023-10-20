@@ -7,6 +7,14 @@ const Admin = require('../modals/Admin');
 const createAdmin = async (req,res) => {
     try {
         const data = req.body;
+        const lastId = await findMostRecentAdmin()
+        if (lastId === 0) {
+            data.taskNow_unique_id = `taske-admin-${lastId}`
+        }
+        else {
+            data.sequence_number = lastId + 1;
+            data.taskNow_unique_id = `taske-admin-${lastId + 1}`;
+        }
         const newAdmin = new Admin(data);
         await newAdmin.save();
         res.status(201).json(newAdmin);
@@ -61,12 +69,24 @@ const updateAdmin = async (req, res) => {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  };
+};
 
   
-  
-  
-
+const findMostRecentAdmin = async (req, res) => {
+    try {
+      // Find the most recent admin based on the createdAt field in descending order
+      const mostRecentAdmin = await Admin.findOne().sort({ sequence_number: -1 });
+      console.log(mostRecentAdmin);
+      
+      if(mostRecentAdmin===null){
+        console.log("The start for the creation of super admin is here")
+        return 0;
+      }
+      return mostRecentAdmin.sequence_number;
+    } catch (error) {
+       return null;
+    }
+};
 
 // Deleting the Admin by Id 
 const deleteAdmin = async (req,res) => {

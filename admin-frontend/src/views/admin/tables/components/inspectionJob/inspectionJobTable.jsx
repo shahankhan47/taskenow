@@ -14,7 +14,7 @@ import {
 } from "react-icons/md";
 import Progress from "components/progress";
 import JobDetailsModal from "./jobDetailsModel";
-import { getJobsofType } from "data/api";
+import { getJobsofType, deleteJob } from "data/api";
 
 let tableData = [
   {
@@ -92,8 +92,16 @@ const DevelopmentTable = () => {
     prepareRow,
   } = tableInstance;
 
+  const deleteSelectedJob = async () => {
+    const user = await deleteJob(selectedJob);
+    getJobsofType({type: "Inspection"}).then((jobs) => {
+      setJobData(jobs.data)
+    });
+    setShowModal(false);
+    setSelectedJob({});
+  }
+
   const openModal = (row) => {
-    console.log(jobData);
     setSelectedJob(row);
     setShowModal(true);
   };
@@ -216,7 +224,7 @@ const DevelopmentTable = () => {
         </table>
       </div>
       {/* Display the modal when showModal is true */}
-      <JobDetailsModal isOpen={showModal} onClose={closeModal} job={selectedJob} />
+      <JobDetailsModal isOpen={showModal} onClose={closeModal} job={selectedJob} deleteJob={deleteSelectedJob} />
     </Card>
 
   );

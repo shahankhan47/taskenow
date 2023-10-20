@@ -1,6 +1,7 @@
 // Job for the TaskeNow business 
 
 const Job = require('../modals/Job');
+const Users = require('../modals/Users');
 
 
 // Creating the Job 
@@ -74,16 +75,19 @@ const updateJob = async (req, res) => {
     }
   };
 
-  
-  
-  
-
 
 // Deleting the Job by Id 
 const deleteJob = async (req,res) => {
     try {
-        await Job.findByIdAndDelete(req.params.id);
-        res.status(200).json({id: req.params.id, message: "Deleted"});
+        await Job.findByIdAndDelete(req.body.jobId);
+        const userWithJob = await Users.findOne({
+            email: req.body.customerEmail,
+            phone: req.body.customerEmail
+        })
+        const updatedJobs = userWithJob.booked_jobs.filter(job => job._id.toString() !== req.body.jobId);
+        userWithJob.booked_jobs = updatedJobs;
+        const updatedUser = await Users.findByIdAndUpdate(userWithJob._id, userWithJob, {new: true})
+        res.status(200).json({User: updatedUser._id});
     }
     catch(error) {
         res.status(400).json({error:error.message});
@@ -100,7 +104,7 @@ const getJobsofType = async(req, res) => {
         const inspectionJob = jobs.map((job) => {
             const id = job._id.toString();
             return {
-              jobId: id?.length > 6 ? id?.substring(id?.length-5, id?.length) : id,
+              jobId: id,
               service: job?.job?.service || job?.job?.description,
               date: getDateString(job?.job?.dateOfJob),
               status: job?.job?.status?.assigned,

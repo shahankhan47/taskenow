@@ -9,12 +9,16 @@ Customers:
     - Payment details.
 
 New Job:
-    - Link job to user.
-    - Link job to technician.
     - Make service dropdown list as multi-select values
 
 Services:
     - View/Delete button alignment
 
+Job tickets:
+    - Add scroll bar
+    - Assign technician
+    - Delete job.
+
 Miscellaneous:
     - Show pop up instead of reload after very submit and refresh.
+    - Add search button for everything.

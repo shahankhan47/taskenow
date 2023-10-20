@@ -68,7 +68,7 @@ const TechnicianList = ({refresh, setRefresh}) => {
                   {data.firstName} {data.lastName}
                 </h5>
                 <p className="mt-1 text-sm font-normal text-gray-600">
-                  {data._id}
+                  {data.taskNow_unique_id}
                 </p>
               </div>
             </div>

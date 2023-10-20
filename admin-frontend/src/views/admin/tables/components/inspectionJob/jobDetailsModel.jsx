@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
+const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
     if (!isOpen) return null;
 
     const assignTechnician = () => {
@@ -184,6 +184,14 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
                 >
                     Close
                 </button>
+                <button
+                    onClick={deleteJob}
+                    className={`mt-4 ml-5 ${
+                    isDarkMode ? "bg-red-800 hover:bg-red-600" : "bg-red-500 hover:bg-red-400"
+                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                >
+                    Delete
+                </button>
                 </>
             ) : (
                 <>
@@ -209,6 +217,14 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
                     } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
                 >
                     Close
+                </button>
+                <button
+                    onClick={deleteJob}
+                    className={`mt-4 ml-5 ${
+                    isDarkMode ? "bg-red-800 hover:bg-red-600" : "bg-red-500 hover:bg-red-400"
+                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                >
+                    Delete
                 </button>
                 </>
             )}

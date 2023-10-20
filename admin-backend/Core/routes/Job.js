@@ -21,7 +21,7 @@ router.get("/:id", Job.getSpecificJob);
 router.put("/:id", Job.updateJob);
 
 // Deleting the Job 
-router.delete("/:id", Job.deleteJob);
+router.post("/deleteJob", Job.deleteJob);
 
 // Getting the Specific type of Job
 router.post("/type", Job.getJobsofType);

@@ -223,6 +223,15 @@ const createJob = async (data) => {
     }
 }
 
+const deleteJob = async (data) => {
+    try {
+        const response = await axios.post(`${backendUrl}/job/deleteJob`, data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 export {updateAdmin,
     deleteAdmin,
@@ -246,5 +255,6 @@ export {updateAdmin,
     deleteUser,
     getJob,
     getJobsofType,
-    createJob
+    createJob,
+    deleteJob
 }
