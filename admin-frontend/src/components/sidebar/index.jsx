@@ -4,13 +4,15 @@ import { HiX } from "react-icons/hi";
 import { Navigate } from "react-router-dom";
 import Links from "./componentsrtl/Links";
 import routes from "routes.js";
+import { getCookie } from "data/cookie";
 
-const getNewRoutes = (setIsLoggedIn) => {
-  const type = window.sessionStorage.getItem("type")
-  const accesses = window.sessionStorage.getItem("access")
-  if (type == null) {
-    setIsLoggedIn(false);
-    return
+const getNewRoutes = () => {
+  const type = getCookie("type")
+  console.log(type);
+  const access = getCookie("access")
+  const accesses = access ? JSON.parse(access) : []
+  if (type == null || type == "") {
+    return null
   }
 
   let newRoutes = [...routes]
@@ -36,10 +38,9 @@ const getNewRoutes = (setIsLoggedIn) => {
 }
 
 const Sidebar = ({ open, onClose }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const newRoutes = getNewRoutes(setIsLoggedIn)
+  const newRoutes = getNewRoutes()
 
-  return (!isLoggedIn ? (<Navigate to="/auth/sign-in" replace={true} />) : (
+  return (!newRoutes ? (<Navigate to="/auth/sign-in" replace={true} />) : (
     <div
       className={`sm:none duration-175 linear fixed !z-50 flex min-h-full flex-col bg-white pb-10 shadow-2xl shadow-white/5 transition-all dark:!bg-navy-800 dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${
         open ? "translate-x-0" : "-translate-x-96"

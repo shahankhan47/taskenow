@@ -210,22 +210,24 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
                 >
                     Assign Technician
                 </button>
-                <button
-                    onClick={onClose}
-                    className={`mt-4 ml-4 ${
-                    isDarkMode ? "bg-gray-600 hover:bg-gray-700" : "bg-gray-400 hover:bg-gray-500"
-                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
-                >
-                    Close
-                </button>
-                <button
-                    onClick={deleteJob}
-                    className={`mt-4 ml-5 ${
-                    isDarkMode ? "bg-red-800 hover:bg-red-600" : "bg-red-500 hover:bg-red-400"
-                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
-                >
-                    Delete
-                </button>
+                <div>
+                    <button
+                        onClick={onClose}
+                        className={`mt-4 ml-0 ${
+                        isDarkMode ? "bg-gray-600 hover:bg-gray-700" : "bg-gray-400 hover:bg-gray-500"
+                        } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                    >
+                        Close
+                    </button>
+                    <button
+                        onClick={deleteJob}
+                        className={`mt-4 ml-5 ${
+                        isDarkMode ? "bg-red-800 hover:bg-red-600" : "bg-red-500 hover:bg-red-400"
+                        } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                    >
+                        Delete
+                    </button>
+                </div>
                 </>
             )}
             </div>

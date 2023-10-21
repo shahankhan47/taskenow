@@ -232,25 +232,6 @@ const deleteJob = async (data) => {
     }
 }
 
-const createCookie = async (data) => {
-    try {
-        const response = await axios.post(`${backendUrl}/cookie/create`, data);
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-const getCookie = async (data) => {
-    try {
-        const response = await axios.post(`${backendUrl}/cookie/get`, data);
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-
 export {updateAdmin,
     deleteAdmin,
     createAdmin,
@@ -274,7 +255,5 @@ export {updateAdmin,
     getJob,
     getJobsofType,
     createJob,
-    deleteJob,
-    createCookie,
-    getCookie
+    deleteJob
 }

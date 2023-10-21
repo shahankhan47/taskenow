@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { getAdminData } from "data/api";
+import { setCookie } from "data/cookie";
 
 export default function SignIn() {
   const [email, setEmail] = useState();
@@ -14,19 +15,18 @@ export default function SignIn() {
     }) : null;
 
     if (!adminExist) {
-      if (email !== "SUPER@ADMIN.COM" && password !== "SUPERPASS") {
+      if (email !== "admin" || password !== "admin") {
         alert("You are not authorized");
       }
       else {
-        console.log("You are a super admin");
-        window.sessionStorage.setItem("type", "super");
+        setCookie("type", "super", 30)
         setIsAdmin(true)
       }
     }
     else {
       console.log("You are normal admin");
-      window.sessionStorage.setItem("type", "admin");
-      window.sessionStorage.setItem("access", adminExist.access);
+      setCookie("type", "admin", 30)
+      setCookie("access", JSON.stringify(adminExist.access), 30)
       setIsAdmin(true)
     }
   }
