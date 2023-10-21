@@ -4,6 +4,7 @@ import InstallerAddress from './tab2';
 import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
 import { createAdmin } from 'data/api';
+import { adminVerificationAddOrUpdate } from 'data/verification';
 
 const CreateTech = ({refresh, setRefresh}) => {
   const [step, setStep] = useState(1);
@@ -23,7 +24,8 @@ const CreateTech = ({refresh, setRefresh}) => {
     city: '',
     zip: '',
     description: '',
-    access:[]
+    access:[],
+    heirarchy: 1
   });
 
   const nextStep = () => {
@@ -52,25 +54,31 @@ const CreateTech = ({refresh, setRefresh}) => {
   };
 
   const handleSubmit = async () => {
-    await createAdmin(installerDetails)
-    setRefresh(true);
-    setInstallerDetails({
-      _id: null,
-      taskNow_unique_id: '',
-      sequence_number: 0,
-      firstName: '',
-      lastName: '',
-      email: '',
-      state: '',
-      phoneNumber: '',
-      password: '',
-      addressLine1: '',
-      addressLine2: '',
-      city: '',
-      zip: '',
-      description: '',
-      access:[]
-    })
+    const adminVerified = await adminVerificationAddOrUpdate(installerDetails, "add");
+    if (adminVerified === "OK") {
+      await createAdmin(installerDetails);
+      setRefresh(true);
+      setInstallerDetails({
+        _id: null,
+        taskNow_unique_id: '',
+        sequence_number: 0,
+        firstName: '',
+        lastName: '',
+        email: '',
+        state: '',
+        phoneNumber: '',
+        password: '',
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        zip: '',
+        description: '',
+        access:[]
+      })
+    }
+    else {
+      alert(adminVerified);
+    }
   }
 
   const renderStep = () => {

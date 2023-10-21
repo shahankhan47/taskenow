@@ -4,6 +4,7 @@ import InstallerAddress from './tab2';
 import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
 import { updateAdmin, deleteAdmin } from 'data/api';
+import { adminVerificationAddOrUpdate } from 'data/verification';
 
 const CreateTech = ({initialValues, onCancel}) => {
   const [step, setStep] = useState(1);
@@ -35,6 +36,7 @@ const CreateTech = ({initialValues, onCancel}) => {
     ratingsAndReviews: 3,
     dateOfBirth: initialValues.dateOfBirth,
     access: initialValues.access,
+    heirarchy: initialValues.heirarchy
   });
 
   const nextStep = () => {
@@ -64,8 +66,14 @@ const CreateTech = ({initialValues, onCancel}) => {
   };
 
   const handleSubmit = async () => {
-    await updateAdmin(installerDetails._id,installerDetails)
-    onCancel()
+    const adminVerified = await adminVerificationAddOrUpdate(installerDetails, "update");
+    if (adminVerified === "OK") {
+      await updateAdmin(installerDetails._id,installerDetails)
+      onCancel()
+    }
+    else {
+      alert(adminVerified)
+    }
   }
 
   const handleDeleteAdmin = async () => {

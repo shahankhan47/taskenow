@@ -7,14 +7,11 @@ const Admin = require('../modals/Admin');
 const createAdmin = async (req,res) => {
     try {
         const data = req.body;
-        const lastId = await findMostRecentAdmin()
-        if (lastId === 0) {
-            data.taskNow_unique_id = `taske-admin-${lastId}`
-        }
-        else {
-            data.sequence_number = lastId + 1;
-            data.taskNow_unique_id = `taske-admin-${lastId + 1}`;
-        }
+        const lastId = await findMostRecentAdmin();
+
+        data.sequence_number = lastId+1;
+        data.taskNow_unique_id = `taske-admin-${lastId+1}`;
+
         const newAdmin = new Admin(data);
         await newAdmin.save();
         res.status(201).json(newAdmin);
@@ -76,7 +73,6 @@ const findMostRecentAdmin = async (req, res) => {
     try {
       // Find the most recent admin based on the createdAt field in descending order
       const mostRecentAdmin = await Admin.findOne().sort({ sequence_number: -1 });
-      
       if(mostRecentAdmin===null){
         return 0;
       }

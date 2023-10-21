@@ -8,8 +8,8 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
           <label className="block text-gray-700">Admin Hierarchy</label>
           <select
             className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
-            onChange={handleChange('adminHierarchy')}
-            value={values.adminHierarchy}
+            onChange={handleChange('heirarchy')}
+            value={values.heirarchy}
           >
             <option value="1">1</option>
             <option value="2">2</option>
