@@ -1,12 +1,17 @@
 // Technician for the TaskeNow business 
 
 const Technician = require('../modals/Technician');
+const {getCoordinates} = require('../utils/geo-location');
 
 
 // Creating the Technician 
 const createTechnician = async (req,res) => {
     try {
-        const newTechnician = new Technician(req.body);
+        const tech = req.body;
+        const {latitude, longitude} = await getCoordinates(tech.zip);
+        tech.latitude = latitude;
+        tech.longitude = longitude;
+        const newTechnician = new Technician(tech);
         await newTechnician.save();
         res.status(201).json(newTechnician);
     }

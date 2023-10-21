@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { getAdminData } from "data/api";
-import { setCookie } from "data/cookie";
+import { setCookie, getCookie } from "data/cookie";
+
+let alreadyLoggedIn = false;
 
 export default function SignIn() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const type = getCookie("type");
+  if(type === "super" || type === "admin") {
+    alreadyLoggedIn = true
+  }
 
   const onSubmit = async (event) => {
     const allAdmins = (await getAdminData()).data;
@@ -67,7 +74,7 @@ export default function SignIn() {
           className="w-full mt-10 text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
         />
         {/* Checkbox */}
-          {isAdmin && (
+          {(isAdmin || alreadyLoggedIn) && (
             <Navigate to="/admin" replace={true} />
           )}
           <button className="mt-10 linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"

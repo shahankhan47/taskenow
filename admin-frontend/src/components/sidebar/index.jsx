@@ -8,7 +8,6 @@ import { getCookie } from "data/cookie";
 
 const getNewRoutes = () => {
   const type = getCookie("type")
-  console.log(type);
   const access = getCookie("access")
   const accesses = access ? JSON.parse(access) : []
   if (type == null || type == "") {
