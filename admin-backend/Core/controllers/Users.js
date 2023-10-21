@@ -7,6 +7,14 @@ const User = require('../modals/Users');
 const createUser = async (req,res) => {
     try {
         const data = req.body;
+        const lastId = await findMostRecentUser()
+        if (lastId === 0) {
+            data.taskNow_unique_id = `taske-user-${lastId}`
+        }
+        else {
+            data.sequence_number = lastId + 1;
+            data.taskNow_unique_id = `taske-user-${lastId + 1}`;
+        }
         const newUser = new User(data);
         await newUser.save();
         res.status(201).json(newUser);
@@ -94,6 +102,20 @@ const bookJob = async(req, res) => {
         res.status(400).json({error:error.message});
     }
 }
+
+const findMostRecentUser = async (req, res) => {
+    try {
+      // Find the most recent admin based on the createdAt field in descending order
+      const mostRecentUser = await User.findOne().sort({ sequence_number: -1 });
+      
+      if(mostRecentUser===null){
+        return 0;
+      }
+      return mostRecentUser.sequence_number;
+    } catch (error) {
+       return null;
+    }
+};
 
 // Exporting all the Categories
 module.exports = { 
