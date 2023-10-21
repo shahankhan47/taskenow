@@ -49,7 +49,6 @@ const TechnicianList = ({ technicians }) => {
             onCancel={closeModal}
             onSubmit={(updatedTechnician) => {
               // Handle the updated technician data here
-              console.log(updatedTechnician);
               closeModal();
             }}
           />

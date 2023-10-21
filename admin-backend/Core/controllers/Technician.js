@@ -11,6 +11,14 @@ const createTechnician = async (req,res) => {
         const {latitude, longitude} = await getCoordinates(tech.zip);
         tech.latitude = latitude;
         tech.longitude = longitude;
+        const lastId = await findMostRecentTechnician()
+        if (lastId === 0) {
+            tech.taskNow_unique_id = `taske-tech-${lastId}`
+        }
+        else {
+            tech.sequence_number = lastId + 1;
+            tech.taskNow_unique_id = `taske-tech-${lastId + 1}`;
+        }
         const newTechnician = new Technician(tech);
         await newTechnician.save();
         res.status(201).json(newTechnician);
@@ -82,6 +90,20 @@ const deleteTechnician = async (req,res) => {
         res.status(400).json({error:error.message});
     }
 }
+
+const findMostRecentTechnician = async (req, res) => {
+    try {
+      // Find the most recent admin based on the createdAt field in descending order
+      const mostRecentTechnician = await Technician.findOne().sort({ sequence_number: -1 });
+      
+      if(mostRecentTechnician===null){
+        return 0;
+      }
+      return mostRecentTechnician.sequence_number;
+    } catch (error) {
+       return null;
+    }
+};
 
 // Exporting all the Categories
 module.exports = { 

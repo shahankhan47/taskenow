@@ -50,8 +50,8 @@ async function getCoordinates(zip) {
         const response = await axios.get(`https://nominatim.openstreetmap.org/search?postalcode=${zip}&format=json`);
         const { data } = response;
         return {
-            latitude: data[0].lat,
-            longitude: data[0].lon
+            latitude: data[0]?.lat,
+            longitude: data[0]?.lon
         }
     } catch (error) {
         console.log(error);

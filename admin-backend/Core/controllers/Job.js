@@ -8,6 +8,14 @@ const Users = require('../modals/Users');
 const createJob = async (req,res) => {
     try {
         const data = req.body;
+        const lastId = await findMostRecentJob()
+        if (lastId === 0) {
+            data.taskNow_unique_id = `taske-job-${lastId}`
+        }
+        else {
+            data.sequence_number = lastId + 1;
+            data.taskNow_unique_id = `taske-job-${lastId + 1}`;
+        }
         const newJob = new Job(data);
         await newJob.save();
         res.status(201).json(newJob);
@@ -102,9 +110,8 @@ const getJobsofType = async(req, res) => {
     try {
         const jobs = await Job.find({"job.type": req.body.type});
         const inspectionJob = jobs.map((job) => {
-            const id = job._id.toString();
             return {
-              jobId: id,
+              jobId: job?.taskNow_unique_id,
               service: job?.job?.service || job?.job?.description,
               date: getDateString(job?.job?.dateOfJob),
               status: job?.job?.status?.assigned,
@@ -129,6 +136,20 @@ const getJobsofType = async(req, res) => {
         res.status(400).json({error:error.message});
     }
 }
+
+const findMostRecentJob = async (req, res) => {
+    try {
+      // Find the most recent admin based on the createdAt field in descending order
+      const mostRecentJob = await Job.findOne().sort({ sequence_number: -1 });
+      
+      if(mostRecentJob===null){
+        return 0;
+      }
+      return mostRecentJob.sequence_number;
+    } catch (error) {
+       return null;
+    }
+};
 
 // Exporting all the Categories
 module.exports = { 

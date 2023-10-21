@@ -1,7 +1,6 @@
 import React from 'react';
 
 const InstallerAddress = ({ values, handleChange }) => {
-    console.log(values)
   return (
     <div>
       <form className="mt-4 space-y-4">

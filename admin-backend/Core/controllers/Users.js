@@ -89,13 +89,11 @@ const bookJob = async(req, res) => {
             email,
             phoneNumber: phone
         });
-        console.log(user);
         user.booked_jobs.push(req.body.jobId);
         const updatedUser = await User.findByIdAndUpdate(user._id, user, { new: true })
         if (!updatedUser) {
             return res.status(404).json({ error: 'User not found' });
         }
-        console.log(updatedUser);
         res.status(200).json(updatedUser);
     }
     catch(error) {

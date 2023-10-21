@@ -109,8 +109,9 @@ const CreateTech = () => {
         zip: jobDetails.zip
       }
     }
-    
+    console.log(data);
     const job = await createJob(data);
+    console.log(job);
     await bookJob({customer: data.customer, jobId: job.data._id});
     alert('Job created');
     // window.location.reload()

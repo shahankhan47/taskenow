@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bookingSchema = new mongoose.Schema({
+  sequence_number: {type: Number, default: 0},
+  taskNow_unique_id: {type: String},
   job: {
     id: {type: String},
     type: {type: String},
