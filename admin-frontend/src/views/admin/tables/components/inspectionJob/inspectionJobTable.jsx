@@ -30,8 +30,8 @@ let tableData = [
     jobDetails: "Job details for Service 1",
     jobAssignedStatus: "Assigned",
     cost: "$1000",
-    technicianAssigned: true,
-    technicianName: "Technician 1",
+    technicianAssigned: false,
+    technicianName: "",
   }
 ];
 
@@ -224,7 +224,13 @@ const DevelopmentTable = () => {
         </table>
       </div>
       {/* Display the modal when showModal is true */}
-      <JobDetailsModal isOpen={showModal} onClose={closeModal} job={selectedJob} deleteJob={deleteSelectedJob} />
+      <JobDetailsModal 
+      isOpen={showModal} 
+      onClose={closeModal} 
+      job={selectedJob} 
+      deleteJob={deleteSelectedJob}
+      setJob={setSelectedJob}
+      />
     </Card>
 
   );

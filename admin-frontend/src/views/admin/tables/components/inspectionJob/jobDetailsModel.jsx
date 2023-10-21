@@ -1,13 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
+import AssignTechnicianModel from './assignTechnician';
 
 
-const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
+const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }) => {
+    const [showTech, setShowTech] = useState(false);
     if (!isOpen) return null;
 
     const assignTechnician = () => {
-    // Add your logic to assign a technician to the job here
-    // After assigning, you can update the job and close the modal
-    onClose();
+        setShowTech(true);
     };
 
     return (
@@ -234,6 +234,14 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
         </div>
         </div>
     </div>
+    {showTech && 
+    <AssignTechnicianModel 
+    isDarkMode={isDarkMode} 
+    onClose={setShowTech} 
+    isOpen={showTech} 
+    job={job}
+    setJob={setJob}
+    />}
     </div>
     );
 };
