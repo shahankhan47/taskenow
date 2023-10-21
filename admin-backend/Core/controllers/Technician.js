@@ -75,10 +75,6 @@ const updateTechnician = async (req, res) => {
     }
   };
 
-  
-  
-  
-
 
 // Deleting the Technician by Id 
 const deleteTechnician = async (req,res) => {
@@ -90,6 +86,7 @@ const deleteTechnician = async (req,res) => {
         res.status(400).json({error:error.message});
     }
 }
+
 
 const findMostRecentTechnician = async (req, res) => {
     try {
@@ -105,11 +102,41 @@ const findMostRecentTechnician = async (req, res) => {
     }
 };
 
+
+const getSortedTechnician = async (req, res) => {
+    const rowData = [
+        {
+          id: "1",
+          name: "Something",
+          rating: 3,
+          distance: 4.5,
+          status: "Assign"
+        },
+        {
+          id: "2",
+          name: "Something",
+          rating: 3,
+          distance: 4.5,
+          status: "Assign"
+        },
+        {
+          id: "3",
+          name: "Something",
+          rating: 3,
+          distance: 4.5,
+          status: "Assign"
+        }
+    ];
+
+    res.status(200).json(rowData);
+}
+
 // Exporting all the Categories
 module.exports = { 
     createTechnician,
     getTechnician,
     getSpecificTechnician,
     updateTechnician,
-    deleteTechnician
+    deleteTechnician,
+    getSortedTechnician
 }

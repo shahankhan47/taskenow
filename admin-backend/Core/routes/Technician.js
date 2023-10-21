@@ -21,5 +21,6 @@ router.put("/:id",Technician.updateTechnician);
 // Deleting the Technician 
 router.delete("/:id",Technician.deleteTechnician);
 
+router.post("/assign", Technician.getSortedTechnician);
 
 module.exports = router;

@@ -232,6 +232,16 @@ const deleteJob = async (data) => {
     }
 }
 
+const getSortedTechnician = async (data) => {
+    try {
+        const response = await axios.post(`${backendUrl}/technician/assign`, data);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 export {updateAdmin,
     deleteAdmin,
     createAdmin,
@@ -255,5 +265,6 @@ export {updateAdmin,
     getJob,
     getJobsofType,
     createJob,
-    deleteJob
+    deleteJob,
+    getSortedTechnician
 }

@@ -1,5 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "components/card";
+import { getSortedTechnician } from "data/api";
 
 import {
   useGlobalFilter,
@@ -8,14 +9,25 @@ import {
   useTable,
 } from "react-table";
 
+const columnsData = [
+  { Header: "ID", accessor: "id" },
+  { Header: "Name", accessor: "name" },
+  { Header: "Rating", accessor: "rating" },
+  { Header: "Distance", accessor: "distance" },
+  { Header: "Status", accessor: "status" }
+];
+
 const CheckTable = ({onClose, isDarkMode, job, setJob}) => {
-  const columns = useMemo(() => columnsData, []);
-  const data = useMemo(() => rowData, []);
+  const [techList, setTechList] = useState([])
+
+  useEffect(() => {
+    getSortedTechnician().then(list => setTechList(list))
+  }, [])
 
   const tableInstance = useTable(
     {
-      columns,
-      data,
+      columns: columnsData,
+      data: techList,
     },
     useGlobalFilter,
     useSortBy,
@@ -139,57 +151,3 @@ const CheckTable = ({onClose, isDarkMode, job, setJob}) => {
 };
 
 export default CheckTable;
-
-
-
-
-// Sample data used for tesitng 
-
-const rowData = [
-  {
-    id: "1",
-    name: "Something",
-    rating: 3,
-    distance: 4.5,
-    status: "Assign"
-  },
-  {
-    id: "2",
-    name: "Something",
-    rating: 3,
-    distance: 4.5,
-    status: "Assign"
-  },
-  {
-    id: "3",
-    name: "Something",
-    rating: 3,
-    distance: 4.5,
-    status: "Assign"
-  }
-];
-
-
-const columnsData = [
-    { 
-      Header: "ID",
-      accessor: "id"
-    },
-    { 
-        Header: "Name",
-        accessor: "name"
-    },
-    {
-        Header: "Rating",
-        accessor: "rating",
-    },
-    {
-        Header: "Distance",
-        accessor: "distance",
-    },
-    {
-        Header: "Status",
-        accessor: "status",
-    },
-];
-
