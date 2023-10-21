@@ -6,30 +6,6 @@ import JobDetailsModal from "./jobDetailsModel";
 import { getJobsofType, deleteJob } from "data/api";
 import MUIDataTable from "mui-datatables";
 
-let tableData = [
-  {
-    jobId: "12345",
-    service: "Service 1",
-    date: "2023-09-09",
-    status: "Accepted",
-    details: "Details 1",
-    customerName: "John Doe",
-    customerAddress: "123 Main St",
-    customerPhoneNumber: "555-555-5555",
-    customerEmail: "john@example.com",
-    jobDetails: "Job details for Service 1",
-    jobAssignedStatus: "Assigned",
-    cost: "$1000",
-    technicianAssigned: false,
-    technicianName: "",
-  }
-];
-
-getJobsofType({type: "Inspection"}).then((jobs) => {
-  tableData = tableData.concat(jobs.data)
-})
-
-
 
 const DevelopmentTable = () => {
   const [showModal, setShowModal] = useState(false);
@@ -85,7 +61,7 @@ const DevelopmentTable = () => {
           return (
             <button
               className="px-2 py-2 text-blue-800 bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-              onClick={() => openModal(tableData[tableMeta.rowIndex])}
+              onClick={() => openModal(jobData[tableMeta.rowIndex])}
             >
               Details
             </button>
@@ -120,8 +96,8 @@ const DevelopmentTable = () => {
     <Card extra={"w-full h-full p-4 sm:overflow-x-auto "}>
     <div className="mt-8 h-full overflow-x-scroll xl:overflow-hidden">
       <MUIDataTable
-        title={"Inspection Jobs"}
-        data={tableData}
+        title={<p className="text-xl font-bold text-navy-700 dark:text-white">Inspection Jobs</p>}
+        data={jobData}
         columns={columnsData}
         options={{
           selectableRows: "none", // Disable row selection
