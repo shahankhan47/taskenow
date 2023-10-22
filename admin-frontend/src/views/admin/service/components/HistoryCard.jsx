@@ -24,7 +24,8 @@ const ServiceProfile = ({data, renderServices}) => {
       serviceName: data.serviceName,
       serviceCode: data.serviceCode,
       servicePrice: data.servicePrice,
-      category: data.category
+      category: data.category,
+      unique_id: data.taskeNow_unique_id
     })
   }, [data]);
   
@@ -73,7 +74,7 @@ const ServiceProfile = ({data, renderServices}) => {
       <div className="p-4">
         <div className="text-center mt-4 ">
           <p className="text-sm font-bold text-gray-600 border-1 flex flex-row justify-left gap-x-4 items-center">
-            Service Code: {serviceData.id}
+            Service Code: {serviceData.unique_id}
           </p>
           <p className="text-sm font-bold text-gray-600 border-1 flex flex-row justify-left gap-x-4 items-center">
             Category: {serviceData.category}
