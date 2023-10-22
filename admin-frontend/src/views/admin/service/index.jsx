@@ -52,7 +52,8 @@ const Customer = () => {
         serviceName: data.service_name,
         serviceCode: data.service_code,
         servicePrice: data.est_price,
-        category: data.category, 
+        category: data.category,
+        taskeNow_unique_id: data.taskeNow_unique_id
       }
       setSelectedNft(selectedHistoryData);
   };
