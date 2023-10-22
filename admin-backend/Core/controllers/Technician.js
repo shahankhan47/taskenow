@@ -119,10 +119,10 @@ const getSortedTechnician = async (req, res) => {
         nearest_technician.push(technician);
 
         // Not sure how to implement this logic:
-        // if (distance <= technician.miles_distance) {
-        //     nearest_technician.push(technician);
+        if (distance <= (technician?.miles_distance == 0 ? 10 : technician?.miles_distance)) {
+            nearest_technician.push(technician);
             
-        // }
+        }
     });
 
     if(nearest_technician.length > 0 ) {
