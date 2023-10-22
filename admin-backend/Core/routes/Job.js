@@ -18,7 +18,7 @@ router.get("/tech/:id", Job.getTechnicianJobList);
 router.post("/getJob", Job.getSpecificJob);
 
 // Updating the Job 
-router.put("/:id", Job.updateJob);
+router.post("/updateJob", Job.updateJob);
 
 // Deleting the Job 
 router.post("/deleteJob", Job.deleteJob);

@@ -58,15 +58,10 @@ const getSpecificJob = async (req,res) => {
 
 const updateJob = async (req, res) => {
     try {
-      const JobId = req.params.id;
-      const updateData = req.body;
+      const {JobId, updateData} = req.body;
   
       // Find the Job by ID and update their data
-      const updatedJob = await Job.findByIdAndUpdate(
-        JobId,
-        updateData,
-        { new: true } // To return the updated document
-      );
+      const updatedJob = await Job.findOneAndUpdate({taskNow_unique_id: JobId}, updateData, {new: true});
   
       if (!updatedJob) {
         return res.status(404).json({ error: 'Job not found' });
@@ -83,10 +78,10 @@ const updateJob = async (req, res) => {
 // Deleting the Job by Id 
 const deleteJob = async (req,res) => {
     try {
-        await Job.findByIdAndDelete(req.body.jobId);
+        await Job.findOneAndDelete({taskNow_unique_id: req.body.jobId});
         const userWithJob = await Users.findOne({
             email: req.body.customerEmail,
-            phone: req.body.customerEmail
+            phone: req.body.customerPhoneNumber
         })
         const updatedJobs = userWithJob.booked_jobs.filter(job => job._id.toString() !== req.body.jobId);
         userWithJob.booked_jobs = updatedJobs;
@@ -107,25 +102,26 @@ const getJobsofType = async(req, res) => {
         const jobs = await Job.find({"job.type": req.body.type});
         const inspectionJob = jobs.map((job) => {
             return {
-              jobId: job?.taskNow_unique_id,
-              service: job?.job?.service || job?.job?.description,
-              date: getDateString(job?.job?.dateOfJob),
-              status: job?.job?.status?.assigned,
-              details: job?.job?.description,
-              customerName: `${job?.customer?.firstName} ${job?.customer?.lastName}`,
-              customerAddress: job?.customer?.addressLine1,
-              customerPhoneNumber: job?.customer?.phone,
-              customerEmail: job?.customer?.email,
-              jobDetails: job?.job?.service || job?.job?.description,
-              jobAssignedStatus: job?.job?.status?.assigned,
-              technicianStatus: job?.job?.status?.assigned,
-              customerStatus: job?.job?.status?.customer,
-              cost: job?.job?.cost,
-              technicianAssigned: job?.technician?.phone != null ? true: false,
-              technicianName: job?.technician?.firstName,
-              technicianId: job?.technician?.id,
-              customerZip: job?.customer?.zip,
-              customerState: job?.customer?.state
+                jobId: job?.taskNow_unique_id,
+                service: job?.job?.service || job?.job?.description,
+                date: getDateString(job?.job?.dateOfJob),
+                status: job?.job?.status?.assigned,
+                details: job?.job?.description,
+                customerName: `${job?.customer?.firstName} ${job?.customer?.lastName}`,
+                customerAddress: job?.customer?.addressLine1,
+                customerPhoneNumber: job?.customer?.phone,
+                customerEmail: job?.customer?.email,
+                jobDetails: job?.job?.service || job?.job?.description,
+                jobAssignedStatus: job?.job?.status?.assigned,
+                technicianStatus: job?.job?.status?.assigned,
+                customerStatus: job?.job?.status?.customer,
+                cost: job?.job?.cost,
+                technicianAssigned: job?.technician?.phone != null ? true: false,
+                technicianName: job?.technician?.firstName,
+                technicianId: job?.technician?.id,
+                customerZip: job?.customer?.zip,
+                customerState: job?.customer?.state,
+                originalJob: job
             }
           })
         res.status(200).json(inspectionJob);

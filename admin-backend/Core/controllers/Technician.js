@@ -111,11 +111,11 @@ const getSortedTechnician = async (req, res) => {
         console.log("Distance: ", distance);
         // finding the distance between the technician address and the user address and if the distance is under the working 
         // area of the technician then the technician is added to the list for further evaluation 
-        console.log(latitude);
-        console.log(longitude);
-        console.log("________________________________");
-        console.log(technician.latitude);
-        console.log(technician.longitude);
+        // console.log(latitude);
+        // console.log(longitude);
+        // console.log("________________________________");
+        // console.log(technician.latitude);
+        // console.log(technician.longitude);
         nearest_technician.push(technician);
 
         // Not sure how to implement this logic:
