@@ -32,7 +32,8 @@ const Customer = () => {
     serviceName: " ",
     serviceCode: " ",
     servicePrice: 0.0,
-    category: " "
+    category: " ",
+    taskeNow_unique_id: ""
   }); // For Selected Service preview
   const serviceListImage = [NFt2, NFt4, NFt3, NFt5, NFt6]; // Images for Service Listing
   
