@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 const serviceSchmea = new mongoose.Schema({
+    taskNow_unique_id: {type: String},
+    sequence_number: {type: Number},
     service_name :{
         type:  String,
         required : true

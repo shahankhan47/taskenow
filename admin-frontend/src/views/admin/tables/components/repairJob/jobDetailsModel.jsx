@@ -1,13 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
+import AssignTechnicianModel from './assignTechnician';
 
 
-const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
+const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }) => {
+    const [showTech, setShowTech] = useState(false);
     if (!isOpen) return null;
 
     const assignTechnician = () => {
-    // Add your logic to assign a technician to the job here
-    // After assigning, you can update the job and close the modal
-    onClose();
+        setShowTech(true);
     };
 
     return (
@@ -34,98 +34,98 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
             </h2>
             <div className="grid grid-cols-2 gap-2">
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Job ID:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.jobId}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Customer Name:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.customerName}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Customer Address:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.customerAddress}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
-                Customer Phone Number:
+                Customer Phone:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.customerPhoneNumber}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Customer Email:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.customerEmail}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Price
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 {job.cost}
                 </p>
                 <p
-                className={`mb-2 col-span-1 font-bold ${
+                className={`mb-1 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
                 Job Details:
                 </p>
                 <p
-                className={`mb-2 col-span-1 ${
+                className={`mb-1 col-span-1 ${
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
@@ -161,6 +161,20 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
                     >
                     {job.technicianName}
                     </p>
+                    <p
+                    className={`mb-2 col-span-1 font-bold ${
+                        isDarkMode ? "text-white" : "text-black"
+                    }`}
+                    >
+                    Technician Id:
+                    </p>
+                    <p
+                    className={`mb-2 col-span-1 ${
+                        isDarkMode ? "text-white" : "text-black"
+                    }`}
+                    >
+                    {job.technicianId}
+                    </p>
                 </div>
                 <button
                     onClick={onClose}
@@ -169,6 +183,14 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
                     } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
                 >
                     Close
+                </button>
+                <button
+                    onClick={deleteJob}
+                    className={`mt-4 ml-5 ${
+                    isDarkMode ? "bg-red-800 hover:bg-red-600" : "bg-red-500 hover:bg-red-400"
+                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                >
+                    Delete
                 </button>
                 </>
             ) : (
@@ -188,20 +210,38 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode }) => {
                 >
                     Assign Technician
                 </button>
-                <button
-                    onClick={onClose}
-                    className={`mt-4 ml-4 ${
-                    isDarkMode ? "bg-gray-600 hover:bg-gray-700" : "bg-gray-400 hover:bg-gray-500"
-                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
-                >
-                    Close
-                </button>
+                <div>
+                    <button
+                        onClick={onClose}
+                        className={`mt-4 ml-0 ${
+                        isDarkMode ? "bg-gray-600 hover:bg-gray-700" : "bg-gray-400 hover:bg-gray-500"
+                        } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                    >
+                        Close
+                    </button>
+                    <button
+                        onClick={deleteJob}
+                        className={`mt-4 ml-5 ${
+                        isDarkMode ? "bg-red-800 hover:bg-red-600" : "bg-red-500 hover:bg-red-400"
+                        } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                    >
+                        Delete
+                    </button>
+                </div>
                 </>
             )}
             </div>
         </div>
         </div>
     </div>
+    {showTech && 
+    <AssignTechnicianModel 
+    isDarkMode={isDarkMode} 
+    onClose={setShowTech} 
+    isOpen={showTech} 
+    job={job}
+    setJob={setJob}
+    />}
     </div>
     );
 };

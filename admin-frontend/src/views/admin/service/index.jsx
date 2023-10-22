@@ -47,7 +47,7 @@ const Customer = () => {
   // Callback function to update selectedNft
   const handleNftCardClick = (data) => {
       const selectedHistoryData = {
-        id: data._id,
+        id: data.taskNow_unique_id,
         image: data.image,
         serviceName: data.service_name,
         serviceCode: data.service_code,
@@ -56,12 +56,6 @@ const Customer = () => {
       }
       setSelectedNft(selectedHistoryData);
   };
-
-  const renderServices = () => {
-    getserviceList().then(response => {
-      setServce(response.data);
-    })
-  }
 
   const handleNftCardDelete = async (data) => {
     await deleteServiceById(data._id)
@@ -102,7 +96,7 @@ const Customer = () => {
               title={service.service_name}
               author={service.service_code}
               price={service.est_price}
-              id={service.id}
+              id={service.taskNow_unique_id}
               image={serviceListImage[Math.floor(Math.random() * serviceListImage.length)]}
               onCardClick={() => handleNftCardClick(service)}
               onCardDelete={() => handleNftCardDelete(service)}

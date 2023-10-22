@@ -7,7 +7,11 @@ const Service = require('../modals/Service');
 const createService = async (req,res) => {
     try {
         const {service_name,category,est_price} = req.body;
+        const lastId = await findMostRecentService();
+
         const newService = new Service({
+            taskNow_unique_id: `taske-admin-${lastId+1}`,
+            sequence_number: lastId+1,
             service_name,
             service_code: new mongodb.ObjectId(),
             category,
@@ -80,6 +84,19 @@ const deleteService = async (req,res) => {
         res.status(400).json({error:error.message});
     }
 }
+
+const findMostRecentService = async (req, res) => {
+    try {
+      // Find the most recent admin based on the createdAt field in descending order
+      const mostRecentService = await Service.findOne().sort({ sequence_number: -1 });
+      if(mostRecentService===null){
+        return 0;
+      }
+      return mostRecentService.sequence_number;
+    } catch (error) {
+       return null;
+    }
+};
 
 // Exporting all the Categories
 module.exports = { 

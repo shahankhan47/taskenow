@@ -7,14 +7,12 @@ const User = require('../modals/Users');
 const createUser = async (req,res) => {
     try {
         const data = req.body;
+        console.log(data);
         const lastId = await findMostRecentUser()
-        if (lastId === 0) {
-            data.taskNow_unique_id = `taske-user-${lastId}`
-        }
-        else {
-            data.sequence_number = lastId + 1;
-            data.taskNow_unique_id = `taske-user-${lastId + 1}`;
-        }
+        
+        data.sequence_number = lastId + 1;
+        data.taskNow_unique_id = `taske-user-${lastId + 1}`;
+
         const newUser = new User(data);
         await newUser.save();
         res.status(201).json(newUser);

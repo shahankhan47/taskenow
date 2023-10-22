@@ -11,14 +11,11 @@ const createTechnician = async (req,res) => {
         const {latitude, longitude} = await getCoordinates(tech.zip);
         tech.latitude = latitude;
         tech.longitude = longitude;
+
         const lastId = await findMostRecentTechnician()
-        if (lastId === 0) {
-            tech.taskNow_unique_id = `taske-tech-${lastId}`
-        }
-        else {
-            tech.sequence_number = lastId + 1;
-            tech.taskNow_unique_id = `taske-tech-${lastId + 1}`;
-        }
+        tech.sequence_number = lastId + 1;
+        tech.taskNow_unique_id = `taske-tech-${lastId + 1}`;
+
         const newTechnician = new Technician(tech);
         await newTechnician.save();
         res.status(201).json(newTechnician);

@@ -6,6 +6,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    sequence_number: {
+        type: Number,
+        required: false
+    },
     firstName: {
         type: String,
         required: false
