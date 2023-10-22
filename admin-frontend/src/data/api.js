@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendUrl = "https://testing-3-ecru.vercel.app/api"
+const backendUrl = "http://localhost:5000/api"
 
 const createService = async (formData) => {
     try {
@@ -241,6 +241,15 @@ const deleteJob = async (data) => {
     }
 }
 
+const updateJob = async (data) => {
+    try {
+        const response = await axios.post(`${backendUrl}/job/updateJob`, data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const getSortedTechnician = async (data) => {
     try {
         const response = await axios.post(`${backendUrl}/technician/assign`, data);
@@ -275,6 +284,7 @@ export {updateAdmin,
     getJobsofType,
     getSpecificJob,
     createJob,
+    updateJob,
     deleteJob,
     getSortedTechnician
 }

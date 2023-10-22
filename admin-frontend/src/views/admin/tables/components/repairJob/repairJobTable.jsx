@@ -83,6 +83,7 @@ const DevelopmentTable = () => {
   }
 
   const openModal = (row) => {
+    console.log(row)
     setSelectedJob(row);
     setShowModal(true);
   };
@@ -111,7 +112,6 @@ const DevelopmentTable = () => {
     onClose={closeModal} 
     job={selectedJob}
     deleteJob={deleteSelectedJob}
-    setJob={setSelectedJob}
     />
   </Card>
   );

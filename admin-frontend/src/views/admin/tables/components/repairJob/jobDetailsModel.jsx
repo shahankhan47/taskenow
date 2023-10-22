@@ -1,9 +1,17 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import AssignTechnicianModel from './assignTechnician';
 
 
-const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }) => {
+const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
     const [showTech, setShowTech] = useState(false);
+
+    const [currentJob, setCurrentJob] = useState({})
+
+    useEffect(() => {
+        setCurrentJob(job)
+    }, [job])
+
+
     if (!isOpen) return null;
 
     const assignTechnician = () => {
@@ -45,7 +53,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
-                {job.jobId}
+                {currentJob.jobId}
                 </p>
                 <p
                 className={`mb-1 col-span-1 font-bold ${
@@ -59,7 +67,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
-                {job.customerName}
+                {currentJob.customerName}
                 </p>
                 <p
                 className={`mb-1 col-span-1 font-bold ${
@@ -73,7 +81,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
-                {job.customerAddress}
+                {currentJob.customerAddress}
                 </p>
                 <p
                 className={`mb-1 col-span-1 font-bold ${
@@ -87,7 +95,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
-                {job.customerPhoneNumber}
+                {currentJob.customerPhoneNumber}
                 </p>
                 <p
                 className={`mb-1 col-span-1 font-bold ${
@@ -101,7 +109,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
-                {job.customerEmail}
+                {currentJob.customerEmail}
                 </p>
                 <p
                 className={`mb-1 col-span-1 font-bold ${
@@ -115,7 +123,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
-                {job.cost}
+                {currentJob.cost}
                 </p>
                 <p
                 className={`mb-1 col-span-1 font-bold ${
@@ -129,7 +137,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }
                     isDarkMode ? "text-white" : "text-black"
                 }`}
                 >
-                {job.jobDetails}
+                {currentJob.jobDetails}
                 </p>
 
             </div>
@@ -144,7 +152,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }
             >
                 Technician Status
             </h2>
-            {job.technicianAssigned ? (
+            {currentJob.technicianAssigned ? (
                 <>
                 <div className="grid grid-cols-2 gap-2">
                     <p
@@ -159,7 +167,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }
                         isDarkMode ? "text-white" : "text-black"
                     }`}
                     >
-                    {job.technicianName}
+                    {currentJob.technicianName}
                     </p>
                     <p
                     className={`mb-2 col-span-1 font-bold ${
@@ -173,7 +181,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }
                         isDarkMode ? "text-white" : "text-black"
                     }`}
                     >
-                    {job.technicianId}
+                    {currentJob.technicianId}
                     </p>
                 </div>
                 <button
@@ -240,7 +248,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob, setJob }
     onClose={setShowTech} 
     isOpen={showTech} 
     job={job}
-    setJob={setJob}
+    setJob={setCurrentJob}
     />}
     </div>
     );

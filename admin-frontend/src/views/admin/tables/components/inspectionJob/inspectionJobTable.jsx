@@ -111,7 +111,6 @@ const DevelopmentTable = () => {
     onClose={closeModal} 
     job={selectedJob}
     deleteJob={deleteSelectedJob}
-    setJob={setSelectedJob}
     />
   </Card>
   );

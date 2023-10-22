@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "components/card";
-import { getSortedTechnician } from "data/api";
+import { getSortedTechnician, updateJob } from "data/api";
 
 import {
   useGlobalFilter,
@@ -31,12 +31,13 @@ const CheckTable = ({onClose, isDarkMode, job, setJob}) => {
           id: technician?.taskNow_unique_id || "tecnician not found",
           name: technician?.firstName || "tecnician not found",
           rating: technician?.ratingsAndReviews || "tecnician not found",
-          distance: technician?.miles_distance.toString() || "tecnician not found"
+          distance: technician?.miles_distance.toString() || "tecnician not found",
+          originalTech: technician
         }
       })
       setTechList(technicianList)
     })
-  }, [])
+  }, [job.customerZip, job.customerState])
 
   const tableInstance = useTable(
     {
@@ -58,9 +59,35 @@ const CheckTable = ({onClose, isDarkMode, job, setJob}) => {
   } = tableInstance;
   initialState.pageSize = 11;
 
-  const assignTechnician = async (row) => {    
-    console.log(row);
-    console.log(job);
+  const assignTechnician = async (row) => {
+    const updateData = job?.originalJob;
+    updateData.technician = {
+      distance: row?.originalTech?.miles_distance,
+      rating: row?.originalTech?.ratingsAndReviews,
+      email: row?.originalTech?.email,
+      id: row?.originalTech?._id,
+      firstName: row?.originalTech?.firstName,
+      lastName: row?.originalTech?.lastName,
+      phone: row?.originalTech?.phoneNumber,
+      paymentStatus: {
+        released: false,
+        amount: 0,
+        releaseDate: null
+      },
+    }
+    updateData.job.status.assigned = "Pending";
+    updateData.job.status.customer = "Pending";
+    updateData.job.status.technician = "Pending";
+    updateData.job.dateModified = new Date();
+    console.log(updateData)
+
+    await updateJob({JobId: job?.jobId, updateData})
+    const updatedCurrentJob = {...job};
+    updatedCurrentJob.technicianAssigned = true;
+    updatedCurrentJob.technicianName = row?.originalTech?.firstName;
+    updatedCurrentJob.technicianId = row?.originalTech?.taskNow_unique_id;
+    setJob(updatedCurrentJob);
+    onClose(false)
   }
 
   return (
