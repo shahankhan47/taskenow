@@ -10,7 +10,7 @@ const createService = async (req,res) => {
         const lastId = await findMostRecentService();
 
         const newService = new Service({
-            taskNow_unique_id: `taske-admin-${lastId+1}`,
+            taskNow_unique_id: `taske-service-${lastId+1}`,
             sequence_number: lastId+1,
             service_name,
             service_code: new mongodb.ObjectId(),

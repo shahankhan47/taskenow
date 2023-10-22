@@ -25,7 +25,7 @@ const NftCard = ({ title, author, price, image, extra , onCardClick, onCardDelet
               {title}{" "}
             </p>
             <p className="mt-1 text-sm font-medium text-gray-600 md:mt-2">
-              {id}{" "}
+              {"$"}{price}{" "}
             </p>
           </div>
 

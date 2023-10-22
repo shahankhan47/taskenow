@@ -9,13 +9,9 @@ const createJob = async (req,res) => {
     try {
         const data = req.body;
         const lastId = await findMostRecentJob()
-        if (lastId === 0) {
-            data.taskNow_unique_id = `taske-job-${lastId}`
-        }
-        else {
-            data.sequence_number = lastId + 1;
-            data.taskNow_unique_id = `taske-job-${lastId + 1}`;
-        }
+        data.sequence_number = lastId + 1;
+        data.taskNow_unique_id = `taske-job-${lastId + 1}`;
+
         const newJob = new Job(data);
         await newJob.save();
         res.status(201).json(newJob);
