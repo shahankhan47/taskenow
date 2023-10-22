@@ -15,22 +15,16 @@ app.use(cors());
 // Defining the apiRoutes ( backend/routes/apiRoutes.js)
 const apiRoutes = require("./Core/routes/main");
 
-
+// Mongodb connection 
+const connectDB = require("./config/db");
+const resp = connectDB();
 
 // Middleware
 app.get('/',(req,res) =>
 {
-   res.json({message:"api running.."})
+   res.json({message: resp})
    
 })
-
-// Mongodb connection 
-const connectDB = require("./config/db");
-connectDB();
-
-
-
-
 
 // Middleware 
 app.use('/api',apiRoutes);
