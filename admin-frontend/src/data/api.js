@@ -214,6 +214,15 @@ const getJobsofType = async (data) => {
     }
 }
 
+const getSpecificJob = async (data) => {
+    try {
+        const response = await axios.post(`${backendUrl}/job/getJob`, data);
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const createJob = async (data) => {
     try {
         const response = await axios.post(`${backendUrl}/job/`, data);
@@ -264,6 +273,7 @@ export {updateAdmin,
     deleteUser,
     getJob,
     getJobsofType,
+    getSpecificJob,
     createJob,
     deleteJob,
     getSortedTechnician

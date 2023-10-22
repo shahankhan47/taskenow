@@ -15,7 +15,7 @@ router.get("/", Job.getJob);
 router.get("/tech/:id", Job.getTechnicianJobList);
 
 // Getting the Specific Job
-router.get("/:id", Job.getSpecificJob);
+router.post("/getJob", Job.getSpecificJob);
 
 // Updating the Job 
 router.put("/:id", Job.updateJob);

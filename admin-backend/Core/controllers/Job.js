@@ -47,7 +47,7 @@ const getTechnicianJobList = async(req,res) => {
 // Getting the Specific Job by Id 
 const getSpecificJob = async (req,res) => {
     try {
-        const job = await Job.findById(req.params.id);
+        const job = await Job.findOne({taskNow_unique_id: req.body.jobId});
         res.status(200).json(job);
     }
     catch(error) {

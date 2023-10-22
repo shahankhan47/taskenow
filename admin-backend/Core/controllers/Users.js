@@ -7,7 +7,6 @@ const User = require('../modals/Users');
 const createUser = async (req,res) => {
     try {
         const data = req.body;
-        console.log(data);
         const lastId = await findMostRecentUser()
         
         data.sequence_number = lastId + 1;

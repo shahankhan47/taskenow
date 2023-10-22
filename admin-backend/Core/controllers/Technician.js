@@ -101,35 +101,18 @@ const findMostRecentTechnician = async (req, res) => {
 
 
 const getSortedTechnician = async (req, res) => {
-    const rowData = [
-        {
-          id: "1",
-          name: "Something",
-          rating: 3,
-          distance: 4.5,
-          status: "Assign"
-        },
-        {
-          id: "2",
-          name: "Something",
-          rating: 3,
-          distance: 4.5,
-          status: "Assign"
-        },
-        {
-          id: "3",
-          name: "Something",
-          rating: 3,
-          distance: 4.5,
-          status: "Assign"
-        }
-    ];
-
-    res.status(200).json(rowData);
+  try {
+    console.log(req.body);
+    const technician = await Technician.find();
+    res.status(200).json(technician);
+  }
+  catch(error) {
+      res.status(400).json({error:error.message});
+    }
 }
 
 // Exporting all the Categories
-module.exports = { 
+module.exports = {
     createTechnician,
     getTechnician,
     getSpecificTechnician,

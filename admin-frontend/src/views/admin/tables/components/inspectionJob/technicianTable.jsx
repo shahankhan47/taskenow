@@ -21,7 +21,17 @@ const CheckTable = ({onClose, isDarkMode, job, setJob}) => {
   const [techList, setTechList] = useState([])
 
   useEffect(() => {
-    getSortedTechnician().then(list => setTechList(list))
+    getSortedTechnician(job).then(list => {
+      const technicianList = list.map(technician => {
+        return {
+          id: technician?.taskNow_unique_id || "tecnician not found",
+          name: technician?.firstName || "tecnician not found",
+          rating: technician?.ratingsAndReviews || "tecnician not found",
+          distance: technician?.miles_distance.toString() || "tecnician not found"
+        }
+      })
+      setTechList(technicianList)
+    })
   }, [])
 
   const tableInstance = useTable(
@@ -44,7 +54,7 @@ const CheckTable = ({onClose, isDarkMode, job, setJob}) => {
   } = tableInstance;
   initialState.pageSize = 11;
 
-  const assignTechnician = (row) => {
+  const assignTechnician = async (row) => {    
     console.log(row);
     console.log(job);
   }
