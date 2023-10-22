@@ -47,7 +47,7 @@ const Customer = () => {
   // Callback function to update selectedNft
   const handleNftCardClick = (data) => {
       const selectedHistoryData = {
-        id: data.taskNow_unique_id,
+        id: data._id,
         image: data.image,
         serviceName: data.service_name,
         serviceCode: data.service_code,
