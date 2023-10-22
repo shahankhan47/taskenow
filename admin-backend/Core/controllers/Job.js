@@ -124,6 +124,8 @@ const getJobsofType = async(req, res) => {
               technicianAssigned: job?.technician?.phone != null ? true: false,
               technicianName: job?.technician?.firstName,
               technicianId: job?.technician?.id,
+              customerZip: job?.customer?.zip,
+              customerState: job?.customer?.state
             }
           })
         res.status(200).json(inspectionJob);

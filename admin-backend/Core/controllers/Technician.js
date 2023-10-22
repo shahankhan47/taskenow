@@ -1,7 +1,7 @@
 // Technician for the TaskeNow business 
 
 const Technician = require('../modals/Technician');
-const {getCoordinates} = require('../utils/geo-location');
+const {getCoordinates, getDistance} = require('../utils/geo-location');
 
 
 // Creating the Technician 
@@ -102,12 +102,41 @@ const findMostRecentTechnician = async (req, res) => {
 
 const getSortedTechnician = async (req, res) => {
   try {
-    console.log(req.body);
-    const technician = await Technician.find();
-    res.status(200).json(technician);
-  }
-  catch(error) {
-      res.status(400).json({error:error.message});
+    const {latitude, longitude} = await getCoordinates(req.body.zip);
+    let nearest_technician = [];
+    const technicians = await Technician.find({state: req.body.state}).exec();
+
+    technicians.forEach((technician) => {
+        const distance = getDistance(latitude, longitude, technician.latitude, technician.longitude);
+        console.log("Distance: ", distance);
+        // finding the distance between the technician address and the user address and if the distance is under the working 
+        // area of the technician then the technician is added to the list for further evaluation 
+        console.log(latitude);
+        console.log(longitude);
+        console.log("________________________________");
+        console.log(technician.latitude);
+        console.log(technician.longitude);
+        nearest_technician.push(technician);
+
+        // Not sure how to implement this logic:
+        // if (distance <= technician.miles_distance) {
+        //     nearest_technician.push(technician);
+            
+        // }
+    });
+
+    if(nearest_technician.length > 0 ) {
+        res.status(200).json(nearest_technician);
+    }
+    else
+    {
+        res.status(200).json({status:false});
+    }
+    }
+    catch(error)
+    {
+    console.log(error);
+    res.status(500).json(error)
     }
 }
 

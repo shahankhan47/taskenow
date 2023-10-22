@@ -21,7 +21,11 @@ const CheckTable = ({onClose, isDarkMode, job, setJob}) => {
   const [techList, setTechList] = useState([])
 
   useEffect(() => {
-    getSortedTechnician(job).then(list => {
+    const request = {
+      zip: job.customerZip,
+      state: job.customerState
+    }
+    getSortedTechnician(request).then(list => {
       const technicianList = list.map(technician => {
         return {
           id: technician?.taskNow_unique_id || "tecnician not found",

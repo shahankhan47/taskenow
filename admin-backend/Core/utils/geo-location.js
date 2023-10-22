@@ -1,46 +1,5 @@
 // Get coordinates for the given address using OpenStreetMap
 const axios = require('axios');
-const Technician = require('../modals/Technician')
-const technicianAvailability = async (req,res) => {
-    try {        
-            const {latitude, longitude} = await getCoordinates(req.body.zip);
-            let nearest_technician = [];
-            const technicians = await Technician.find({state: req.body.state}).exec();
-
-            technicians.forEach((technician) => {
-                const distance = getDistance(latitude, longitude, technician.latitude, technician.longitude);
-                // finding the distance between the technician address and the user address and if the distance is under the working 
-                // area of the technician then the technician is added to the list for further evaluation 
-                console.log(latitude);
-                console.log(longitude);
-                console.log("________________________________");
-                console.log(technician.latitude);
-                console.log(technician.longitude);
-                if (distance <= technician.miles_distance) {
-                    nearest_technician.push({
-                        technician: technician,
-                        distance: distance
-                    });
-                    
-                }
-            });
-
-        if(nearest_technician.length > 0 ) {
-            res.status(200).json({status:true});
-        }
-       else
-        {
-             res.status(200).json({status:false});
-        }
-    }
-    catch(error)
-    {
-        console.log(error);
-        res.status(500).json(error)
-    }
-
-    }
-
 
 async function getCoordinates(zip) {
     try {
@@ -66,7 +25,6 @@ function getDistance(lat1, lon1, lat2, lon2) {
         Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c;
-    console.log(distance)
     return distance;
 }
 // Convert degrees to radian
@@ -77,7 +35,6 @@ function toRadians(degrees) {
 
 
 module.exports = {
-    technicianAvailability,
     getCoordinates,
     getDistance
 }
