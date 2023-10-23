@@ -45,7 +45,6 @@ const Sidebar = ({ open, onClose }) => {
         open ? "translate-x-0" : "-translate-x-96"
       }`}
     >
-      {/* {!isLoggedIn && <Navigate to="/auth/sign-in" replace={true} />} */}
       <span
         className="absolute top-4 right-4 block cursor-pointer xl:hidden"
         onClick={onClose}
