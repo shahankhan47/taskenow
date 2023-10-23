@@ -3,6 +3,7 @@ import CustomerBasicDetails from './tab1';
 import CustomerAddress from './tab2';
 import UserPayment from './tab3';
 import { updateUser, deleteUser } from 'data/api';
+import { userVerificationAddOrUpdate } from 'data/verification';
 
 const CreateCustomer = ({initialValues, onCancel}) => {
   const [step, setStep] = useState(1);
@@ -33,6 +34,9 @@ const CreateCustomer = ({initialValues, onCancel}) => {
     services: [],
     ratingsAndReviews: 3,
     dateOfBirth: initialValues.dateOfBirth,
+    AccountNumber: initialValues.AccountNumber,
+    routingNumber: initialValues.routingNumber,
+    ssn: initialValues.ssn
   });
 
   const nextStep = () => {
@@ -48,8 +52,14 @@ const CreateCustomer = ({initialValues, onCancel}) => {
   };
 
   const handleSubmit = async () => {
-    await updateUser(installerDetails._id,installerDetails)
-    onCancel()
+    const userVerified = await userVerificationAddOrUpdate(installerDetails);
+    if (userVerified === "OK") {
+      await updateUser(installerDetails._id,installerDetails)
+      onCancel()
+    }
+    else {
+      alert(userVerified)
+    }
   }
 
   const handleDeleteUser = async () => {

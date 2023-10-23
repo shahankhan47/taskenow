@@ -4,6 +4,7 @@ import InstallerAddress from './tab2';
 import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
 import { createTechnician } from 'data/api';
+import { technicianVerificationAddOrUpdate } from 'data/verification';
 
 const CreateTech = ({refresh, setRefresh}) => {
   const [step, setStep] = useState(1);
@@ -33,6 +34,9 @@ const CreateTech = ({refresh, setRefresh}) => {
     services: [],
     ratingsAndReviews: 3,
     dateOfBirth: '',
+    AccountNumber: null,
+    routingNumber: null,
+    ssn: null
   });
 
   const nextStep = () => {
@@ -48,33 +52,42 @@ const CreateTech = ({refresh, setRefresh}) => {
   };
 
   const handleSubmit = async () => {
-    await createTechnician(installerDetails)
-    setRefresh(true);
-    setInstallerDetails({
-      taskNow_unique_id: '',
-      sequence_number: 0,
-      user_profile_completed: false,
-      firstName: '',
-      lastName: '',
-      email: '',
-      state: '',
-      phoneNumber: '',
-      password: '',
-      addressLine1: '',
-      addressLine2: '',
-      city: '',
-      zip: '',
-      miles_distance: 0,
-      profileImage: '',
-      yearsOfExperience: 0,
-      description: '',
-      licenseNumber: '',
-      licenseExpirationDate: '',
-      licenseCertified: false,
-      services: [],
-      ratingsAndReviews: 3,
-      dateOfBirth: '',
-    })
+    const technicianVerified = await technicianVerificationAddOrUpdate(installerDetails)
+    if (technicianVerified === "OK") {
+      await createTechnician(installerDetails)
+      setRefresh(true);
+      setInstallerDetails({
+        taskNow_unique_id: '',
+        sequence_number: 0,
+        user_profile_completed: false,
+        firstName: '',
+        lastName: '',
+        email: '',
+        state: '',
+        phoneNumber: '',
+        password: '',
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        zip: '',
+        miles_distance: 0,
+        profileImage: '',
+        yearsOfExperience: 0,
+        description: '',
+        licenseNumber: '',
+        licenseExpirationDate: '',
+        licenseCertified: false,
+        services: [],
+        ratingsAndReviews: 3,
+        dateOfBirth: '',
+        AccountNumber: null,
+        routingNumber: null,
+        ssn: null
+      })
+    }
+    else {
+      alert(technicianVerified);
+    }
   }
 
   const renderStep = () => {

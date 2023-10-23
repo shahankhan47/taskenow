@@ -4,6 +4,7 @@ import InstallerAddress from './tab2';
 import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
 import { updateTechnician, deleteTechnician } from 'data/api';
+import { technicianVerificationAddOrUpdate } from 'data/verification';
 
 const CreateTech = ({initialValues, onCancel}) => {
   const [step, setStep] = useState(1);
@@ -34,6 +35,9 @@ const CreateTech = ({initialValues, onCancel}) => {
     services: [],
     ratingsAndReviews: 3,
     dateOfBirth: initialValues.dateOfBirth,
+    AccountNumber: initialValues.AccountNumber,
+    routingNumber: initialValues.routingNumber,
+    ssn: initialValues.ssn
   });
 
   const nextStep = () => {
@@ -49,8 +53,14 @@ const CreateTech = ({initialValues, onCancel}) => {
   };
 
   const handleSubmit = async () => {
-    await updateTechnician(installerDetails._id,installerDetails)
-    onCancel()
+    const technicianVerified = await technicianVerificationAddOrUpdate(installerDetails)
+    if (technicianVerified === "OK") {
+      await updateTechnician(installerDetails._id,installerDetails)
+      onCancel()
+    }
+    else {
+      alert(technicianVerified)
+    }
   }
 
   const handleDeleteTechnician = async () => {

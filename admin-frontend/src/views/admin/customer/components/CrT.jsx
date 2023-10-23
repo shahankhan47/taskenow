@@ -3,6 +3,7 @@ import CustomerBasicDetails from './tab1';
 import CustomerAddress from './tab2';
 import UserPayment from './tab3';
 import { createUser } from 'data/api';
+import { userVerificationAddOrUpdate } from 'data/verification';
 
 const CreateCustomer = ({refresh, setRefresh}) => {
   const [step, setStep] = useState(1);
@@ -21,7 +22,10 @@ const CreateCustomer = ({refresh, setRefresh}) => {
     addressLine2: '',
     city: '',
     zip: '',
-    description: ''
+    description: '',
+    AccountNumber: null,
+    routingNumber: null,
+    ssn: null
   });
 
   const nextStep = () => {
@@ -37,24 +41,32 @@ const CreateCustomer = ({refresh, setRefresh}) => {
   };
 
   const handleSubmit = async () => {
-    console.log(userDetails)
-    await createUser(userDetails)
-    setRefresh(true);
-    setUserDetails({
-      taskNow_unique_id: '',
-      sequence_number: 0,
-      firstName: '',
-      lastName: '',
-      email: '',
-      state: '',
-      phoneNumber: '',
-      password: '',
-      addressLine1: '',
-      addressLine2: '',
-      city: '',
-      zip: '',
-      description: ''
-    })
+    const userVerified = await userVerificationAddOrUpdate(userDetails);
+    if (userVerified === "OK") {
+      await createUser(userDetails)
+      setRefresh(true);
+      setUserDetails({
+        taskNow_unique_id: '',
+        sequence_number: 0,
+        firstName: '',
+        lastName: '',
+        email: '',
+        state: '',
+        phoneNumber: '',
+        password: '',
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        zip: '',
+        description: '',
+        AccountNumber: null,
+        routingNumber: null,
+        ssn: null
+      })
+    }
+    else {
+      alert(userVerified);
+    }
   }
 
   const renderStep = () => {

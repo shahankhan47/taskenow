@@ -75,7 +75,7 @@ const DevelopmentTable = () => {
 
   const deleteSelectedJob = async () => {
     await deleteJob(selectedJob);
-    getJobsofType({type: "Inspection"}).then((jobs) => {
+    getJobsofType({type: "Repairing"}).then((jobs) => {
       setJobData(jobs.data)
     });
     setShowModal(false);

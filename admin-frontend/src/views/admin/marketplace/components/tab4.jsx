@@ -11,7 +11,7 @@ const InstallerPayment = ({ values, handleChange, prevStep }) => {
             type="text"
             className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
             onChange={handleChange('AccountNumber')}
-            value={values.accountNumber}
+            value={values.AccountNumber}
           />
         </div>
         <div>
