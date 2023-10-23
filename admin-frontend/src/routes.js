@@ -11,7 +11,7 @@ import Service from "views/admin/service";
 import NewJob from "views/admin/NewJob";
 
 // Auth Imports
-import SignIn from "views/auth/SignIn";
+import SignOut from "views/admin/signout";
 
 // Icon Imports
 import {
@@ -93,10 +93,10 @@ let routes = [
   },
   {
     name: "Sign Out",
-    layout: "/auth",
-    path: "sign-in",
+    layout: "/admin",
+    path: "signout",
     icon: <MdLock className="h-6 w-6" />,
-    component: <SignIn />,
+    component: <SignOut />,
   },
 ];
 export default routes;
