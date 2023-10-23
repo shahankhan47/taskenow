@@ -92,6 +92,15 @@ const getAdminData = async () => {
     }
 }
 
+const getSpecificAdminData = async (id) => {
+    try {
+        const response = await axios.get(`${backendUrl}/admin/${id}`);
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const deleteAdmin = async (id) => {
     try {
         const response = await axios.delete(`${backendUrl}/admin/${id}`);
@@ -264,6 +273,7 @@ export {updateAdmin,
     deleteAdmin,
     createAdmin,
     getAdminData,
+    getSpecificAdminData,
     createService,
     getserviceList,
     getServiceNameById,
