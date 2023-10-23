@@ -4,16 +4,16 @@ import { getAdminData } from "data/api";
 import { setCookie, getCookie } from "data/cookie";
 
 let alreadyLoggedIn = false;
+const type = getCookie("type");
+if(type === "super" || type === "admin") {
+  alreadyLoggedIn = true
+}
 
 export default function SignIn() {
+  alreadyLoggedIn = false;
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
-
-  const type = getCookie("type");
-  if(type === "super" || type === "admin") {
-    alreadyLoggedIn = true
-  }
 
   const onSubmit = async (event) => {
     const allAdmins = (await getAdminData()).data;
@@ -32,7 +32,6 @@ export default function SignIn() {
       }
     }
     else {
-      console.log("You are normal admin");
       setCookie("type", "admin", 15)
       setCookie("access", JSON.stringify(adminExist.access), 15)
       setCookie("id", adminExist._id, 15)
