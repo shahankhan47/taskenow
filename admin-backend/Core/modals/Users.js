@@ -55,6 +55,9 @@ const userSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    AccountNumber: {type: String},
+    routingNumber: {type: String},
+    ssn: {type: String},
     booked_jobs: [
         {
             jobId: {

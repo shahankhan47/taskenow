@@ -105,6 +105,9 @@ const technicainSchema = new mongoose.Schema({
     longitude: {
         type: Number,
     },
+    AccountNumber: {type: String},
+    routingNumber: {type: String},
+    ssn: {type: String},
     //we need to update this thing to add all the sections for the Stripe account , and this data should be very accurate
     stripePaymentDetails: {
         id: String,

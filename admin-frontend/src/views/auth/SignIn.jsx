@@ -26,14 +26,16 @@ export default function SignIn() {
         alert("You are not authorized");
       }
       else {
-        setCookie("type", "super", 30)
+        setCookie("type", "super", 15)
+        setCookie("id", "superadmin", 15)
         setIsAdmin(true)
       }
     }
     else {
       console.log("You are normal admin");
-      setCookie("type", "admin", 30)
-      setCookie("access", JSON.stringify(adminExist.access), 30)
+      setCookie("type", "admin", 15)
+      setCookie("access", JSON.stringify(adminExist.access), 15)
+      setCookie("id", adminExist._id, 15)
       setIsAdmin(true)
     }
   }

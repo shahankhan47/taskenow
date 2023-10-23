@@ -3,30 +3,44 @@ import InstallerBasicDetails from './tab1';
 import InstallerAddress from './tab2';
 import InstallerLicense from './tab3';
 import InstallerPayment from './tab4';
-import { createAdmin } from 'data/api';
+import { createAdmin, getSpecificAdminData } from 'data/api';
 import { adminVerificationAddOrUpdate } from 'data/verification';
+import { getCookie } from 'data/cookie';
+
+const blankState = {
+  _id: null,
+  taskNow_unique_id: '',
+  sequence_number: 0,
+  firstName: '',
+  lastName: '',
+  email: '',
+  state: '',
+  phoneNumber: '',
+  password: '',
+  addressLine1: '',
+  addressLine2: '',
+  city: '',
+  zip: '',
+  description: '',
+  access:[]
+}
+
+const setAdmin = async (installerDetails, setInstallerDetails, adminVerified, setRefresh) => {
+  if (adminVerified === "OK") {
+    await createAdmin(installerDetails);
+    setRefresh(true);
+    setInstallerDetails(blankState)
+  }
+  else {
+    alert(adminVerified);
+  }
+}
 
 const CreateTech = ({refresh, setRefresh}) => {
   const [step, setStep] = useState(1);
 
   // State to store installer details
-  const [installerDetails, setInstallerDetails] = useState({
-    taskNow_unique_id: '',
-    sequence_number: 0,
-    firstName: '',
-    lastName: '',
-    email: '',
-    state: '',
-    phoneNumber: '',
-    password: '',
-    addressLine1: '',
-    addressLine2: '',
-    city: '',
-    zip: '',
-    description: '',
-    access:[],
-    heirarchy: 1
-  });
+  const [installerDetails, setInstallerDetails] = useState(blankState);
 
   const nextStep = () => {
     setStep(step + 1);
@@ -36,7 +50,8 @@ const CreateTech = ({refresh, setRefresh}) => {
     setStep(step - 1);
   };
 
-  const handleChange = (input) => (e) => {
+  const handleChange = (input) => async (e) => {
+    console.log(input)
     if (input.Admin) {
       let temp = {...installerDetails}
       if (input.Admin[Object.keys(input.Admin)[0]] === true) {
@@ -55,29 +70,18 @@ const CreateTech = ({refresh, setRefresh}) => {
 
   const handleSubmit = async () => {
     const adminVerified = await adminVerificationAddOrUpdate(installerDetails, "add");
-    if (adminVerified === "OK") {
-      await createAdmin(installerDetails);
-      setRefresh(true);
-      setInstallerDetails({
-        _id: null,
-        taskNow_unique_id: '',
-        sequence_number: 0,
-        firstName: '',
-        lastName: '',
-        email: '',
-        state: '',
-        phoneNumber: '',
-        password: '',
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        zip: '',
-        description: '',
-        access:[]
-      })
+    const adminId = getCookie("id");
+    if (adminId === "superadmin") {
+      setAdmin(installerDetails, setInstallerDetails, adminVerified, setRefresh)
     }
     else {
-      alert(adminVerified);
+      const currentAdmin = (await getSpecificAdminData(adminId)).data;
+      if (Number(currentAdmin.heirarchy) <= Number(installerDetails.heirarchy)) {
+        setAdmin(installerDetails, setInstallerDetails, adminVerified, setRefresh)
+      }
+      else {
+        alert("Not allowed. You are trying to create admin of upper hierarchy.")
+      }
     }
   }
 
