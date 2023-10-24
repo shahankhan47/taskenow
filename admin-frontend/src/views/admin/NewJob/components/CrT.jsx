@@ -4,6 +4,7 @@ import InstallerAddress from './Address';
 import InstallerLicense from './Technician';
 import InstallerPayment from './Job';
 import { createJob, bookJob } from 'data/api';
+import { jobVerification } from 'data/verification';
 
 const CreateTech = () => {
   const [step, setStep] = useState(1);
@@ -64,57 +65,61 @@ const CreateTech = () => {
   };
 
   const handleSubmit = async () => {
-    const data = {
-      job: {
-        status: {
-          technician: jobDetails.jobStatus,
-          customer:  jobDetails.jobStatus,
-          assigned: jobDetails.jobStatus
+    console.log(jobDetails.time_start)
+    const jobVerified = await jobVerification(jobDetails);
+    if (jobVerified === "OK") {
+      const data = {
+        job: {
+          status: {
+            technician: jobDetails.jobStatus,
+            customer:  jobDetails.jobStatus,
+            assigned: jobDetails.jobStatus
+          },
+          cost: jobDetails.cost,
+          type: jobDetails.jobType,
+          dateCreated: new Date(),
+          dateModified: new Date(),
+          description: jobDetails.description,
+          service: jobDetails.services,
+          time_start: jobDetails.time_start,
+          time_end: jobDetails.time_end,
+          dateOfJob: new Date(jobDetails.date)
         },
-        cost: jobDetails.cost,
-        type: jobDetails.jobType,
-        dateCreated: new Date(),
-        dateModified: new Date(),
-        description: jobDetails.description,
-        service: jobDetails.services,
-        time_start: jobDetails.time_start,
-        time_end: jobDetails.time_end,
-        dateOfJob: new Date(jobDetails.date)
-      },
-      technician: {
-        distance: jobDetails.miles_distance,
-        rating: jobDetails.ratingsAndReviews,
-        email: jobDetails.technicianEmail,
-        id: jobDetails.technicianId,
-        firstName: jobDetails.technicianName,
-        lastName: "",
-        phone: jobDetails.technicianPhoneNumber,
-        paymentStatus: {
-          released: false,
-          releaseDate: null,
-          amount: 0
+        technician: {
+          distance: jobDetails.miles_distance,
+          rating: jobDetails.ratingsAndReviews,
+          email: jobDetails.technicianEmail,
+          id: jobDetails.technicianId,
+          firstName: jobDetails.technicianName,
+          lastName: "",
+          phone: jobDetails.technicianPhoneNumber,
+          paymentStatus: {
+            released: false,
+            releaseDate: null,
+            amount: 0
+          }
+        },
+        customer: {
+          addressLine1: jobDetails.addressLine1,
+          addressLine2: jobDetails.addressLine2,
+          city: jobDetails.city,
+          email: jobDetails.customerEmail,
+          phone: jobDetails.customerPhone,
+          firstName: jobDetails.customerFirstName,
+          lastName: jobDetails.customerLastName,
+          paymentId: jobDetails.paymentId,
+          paymentStatus: jobDetails.paymentStatus,
+          state: jobDetails.state,
+          zip: jobDetails.zip
         }
-      },
-      customer: {
-        addressLine1: jobDetails.addressLine1,
-        addressLine2: jobDetails.addressLine2,
-        city: jobDetails.city,
-        email: jobDetails.customerEmail,
-        phone: jobDetails.customerPhone,
-        firstName: jobDetails.customerFirstName,
-        lastName: jobDetails.customerLastName,
-        paymentId: jobDetails.paymentId,
-        paymentStatus: jobDetails.paymentStatus,
-        state: jobDetails.state,
-        zip: jobDetails.zip
       }
+      const job = await createJob(data);
+      await bookJob({customer: data.customer, jobId: job.data._id});
+      alert('Job created');
     }
-    console.log(data);
-    const job = await createJob(data);
-    console.log(job);
-    await bookJob({customer: data.customer, jobId: job.data._id});
-    alert('Job created');
-    // window.location.reload()
+    else {
+      alert(jobVerified)
+    }
   }
 
   const renderStep = () => {

@@ -1,4 +1,4 @@
-import { getAdminData, getAllUsers, getTechnicianData } from "./api"
+import { getAdminData, getAllUsers, getTechnicianData, getTechnicianByTasknowId, getUserByDetails } from "./api"
 
 export const adminVerificationAddOrUpdate = async (data) => {
     if (!data.firstName) {
@@ -25,7 +25,7 @@ export const adminVerificationAddOrUpdate = async (data) => {
     );
 
     if(emailOK == null) {
-        return "email not proper"
+        return "Invalid Email"
     }
 
     if (Number.isNaN(Number(data.phoneNumber)) || Number.isNaN(Number(data.zip))) {
@@ -67,7 +67,7 @@ export const userVerificationAddOrUpdate = async (data) => {
     );
 
     if(emailOK == null) {
-        return "email not proper"
+        return "Invalid Email"
     }
 
     if (isNotANumber(data.phoneNumber) || isNotANumber(data.zip)) {
@@ -124,7 +124,7 @@ export const technicianVerificationAddOrUpdate = async (data) => {
     );
 
     if(emailOK == null) {
-        return "email not proper"
+        return "Invalid Email"
     }
 
     if (isNotANumber(data.phoneNumber) || isNotANumber(data.zip)) {
@@ -151,6 +151,64 @@ export const technicianVerificationAddOrUpdate = async (data) => {
     const technicianExists = technicians.data?.find(technician => technician.email === data.email && technician._id !== dataId)
     if (technicianExists) {
         return "Email already exists"
+    }
+
+    return "OK"
+}
+
+export const jobVerification = async (data) => {
+    if (isNotANumber(data.cost)) {
+        return "Cost should be a number"
+    }
+
+    if (isNotANumber(data.zip)) {
+        return "Zip should be valid"
+    }
+
+    if (data.jobStatus !== "Unassigned") {
+        if (data.technicianId == null) {
+            return "Technician Id is required for assigned jobs";
+        }
+        if (data.technicianPhoneNumber != null && isNotANumber(data.technicianPhoneNumber)) {
+            return "Technician phone number is required for assigned jobs and should be a number"
+        }
+        const emailOK = data.technicianEmail.toLowerCase().match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    
+        if(emailOK == null) {
+            return "Invalid Email"
+        }
+        const technician = (await getTechnicianByTasknowId(data.technicianId)).data;
+        if (technician == null) {
+            return "Technician not found. Please enter correct technician id."
+        }
+    }
+
+    const {customerFirstName, customerLastName, customerEmail, customerPhone} = data;
+    if (!customerFirstName || !customerLastName || !customerEmail || !customerPhone || !data.date || !data.time_start || !data.time_end) {
+        return "All customer details along with date and tme are required and customer should be registered"
+    }
+
+    const emailOK = customerEmail.toLowerCase().match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+
+    if(emailOK == null) {
+        return "Invalid Email"
+    }
+
+    if (isNotANumber(customerPhone)) {
+        return "Phone number should be a valid number"
+    }
+
+    const user = (await getUserByDetails({
+        firstName: customerFirstName, 
+        lastName: customerLastName, 
+        email: customerEmail, 
+        phone: customerPhone})).data
+    if (user == null) {
+        return "Customer not found"
     }
 
     return "OK"

@@ -14,6 +14,9 @@ router.get("/",Technician.getTechnician);
 
 // Getting the Specific Technician
 router.get("/:id",Technician.getSpecificTechnician);
+
+// Get technician by tasknow specific id
+router.post("/getTechnician",Technician.getTechnicianByTasknowId);
     
 // Updating the Technician 
 router.put("/:id",Technician.updateTechnician);

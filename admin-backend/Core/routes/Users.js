@@ -14,6 +14,8 @@ router.get("/",Users.getUser);
 
 // Getting the Specific Admin
 router.get("/:id",Users.getSpecificUser);
+
+router.post("/getuser", Users.getUserbyDetails);
     
 // Updating the Admin 
 router.put("/:id",Users.updateUser);

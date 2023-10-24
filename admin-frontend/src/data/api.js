@@ -129,6 +129,15 @@ const getTechnicianData = async () => {
     }
 }
 
+const getTechnicianByTasknowId = async (technicianId) => {
+    try {
+        const response = await axios.post(`${backendUrl}/technician/getTechnician`, {technicianId});
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const createTechnician = async (formData) => {
     try {
         const response = await axios.post(`${backendUrl}/technician/`, formData);
@@ -161,6 +170,16 @@ const deleteTechnician = async (id) => {
 const getAllUsers = async () => {
     try {
         const response = await axios.get(`${backendUrl}/user/`);
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const getUserByDetails = async (data) => {
+    try {
+        console.log(data)
+        const response = await axios.post(`${backendUrl}/user/getuser`, data);
         return response;
     } catch (error) {
         console.log(error);
@@ -282,10 +301,12 @@ export {updateAdmin,
     updateServiceById,
     deleteServiceById,
     getTechnicianData,
+    getTechnicianByTasknowId,
     updateTechnician,
     createTechnician,
     deleteTechnician,
     getAllUsers,
+    getUserByDetails,
     createUser,
     updateUser,
     bookJob,

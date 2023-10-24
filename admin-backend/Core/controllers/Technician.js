@@ -48,6 +48,16 @@ const getSpecificTechnician = async (req,res) => {
     }
 }
 
+const getTechnicianByTasknowId = async (req,res) => {
+    try {
+        const technician = await Technician.findOne({taskNow_unique_id: req.body.technicianId});
+        res.status(200).json(technician);
+    }
+    catch(error) {
+        res.status(400).json({error:error.message});
+    }
+}
+
 
 const updateTechnician = async (req, res) => {
     try {
@@ -147,5 +157,6 @@ module.exports = {
     getSpecificTechnician,
     updateTechnician,
     deleteTechnician,
-    getSortedTechnician
+    getSortedTechnician,
+    getTechnicianByTasknowId
 }

@@ -112,6 +112,22 @@ const findMostRecentUser = async (req, res) => {
     }
 };
 
+const getUserbyDetails = async (req, res) => {
+    try {
+        const {firstName, lastName, email, phone} = req.body;
+        const user = await User.findOne({
+            firstName,
+            lastName,
+            email,
+            phoneNumber: phone
+        });
+        return res.status(200).json(user);
+    }
+    catch(error) {
+        res.status(400).json({error:error.message});
+    }
+}
+
 // Exporting all the Categories
 module.exports = { 
     createUser,
@@ -119,5 +135,6 @@ module.exports = {
     getSpecificUser,
     updateUser,
     bookJob,
-    deleteUser
+    deleteUser,
+    getUserbyDetails
 }
