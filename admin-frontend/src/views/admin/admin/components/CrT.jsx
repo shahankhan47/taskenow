@@ -71,17 +71,22 @@ const CreateTech = ({refresh, setRefresh}) => {
   const handleSubmit = async () => {
     const adminVerified = await adminVerificationAddOrUpdate(installerDetails, "add");
     const adminId = getCookie("id");
-    if (adminId === "superadmin") {
-      setAdmin(installerDetails, setInstallerDetails, adminVerified, setRefresh)
-    }
-    else {
-      const currentAdmin = (await getSpecificAdminData(adminId)).data;
-      if (Number(currentAdmin.heirarchy) <= Number(installerDetails.heirarchy)) {
+    if (adminVerified === "OK") {
+      if (adminId === "superadmin") {
         setAdmin(installerDetails, setInstallerDetails, adminVerified, setRefresh)
       }
       else {
-        alert("Not allowed. You are trying to create admin of upper hierarchy.")
+        const currentAdmin = (await getSpecificAdminData(adminId)).data;
+        if (Number(currentAdmin.heirarchy) <= Number(installerDetails.heirarchy)) {
+          setAdmin(installerDetails, setInstallerDetails, adminVerified, setRefresh)
+        }
+        else {
+          alert("Not allowed. You are trying to create admin of upper hierarchy.")
+        }
       }
+    }
+    else {
+      alert(adminVerified)
     }
   }
 

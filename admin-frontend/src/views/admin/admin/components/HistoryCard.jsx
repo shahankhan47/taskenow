@@ -3,7 +3,8 @@ import Card from 'components/card';
 
 // Import your CreateTech here
 import CreateTech from './CrT2';
-import { getAdminData } from 'data/api';
+import { getAdminData, getSpecificAdminData } from 'data/api';
+import { getCookie } from 'data/cookie';
 
 const TechnicianList = ({refresh, setRefresh}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,8 +18,24 @@ const TechnicianList = ({refresh, setRefresh}) => {
   }
 
   const handleOpenModal = (technician) => {
-    setSelectedTechnician(technician);
-    setIsModalOpen(true);
+    const heirarchyBefore = technician.heirarchy;
+    const adminId = getCookie("id");
+    if (adminId === "superadmin") {
+      setSelectedTechnician(technician);
+      setIsModalOpen(true);
+    }
+    else {
+      getSpecificAdminData(adminId).then((res) => {
+        const currentAdmin = res.data;
+        if (Number(heirarchyBefore) < Number(currentAdmin.heirarchy)) {
+          alert("Not allowed. This admin belongs to an upper hierarchy.")
+        }
+        else {
+          setSelectedTechnician(technician);
+          setIsModalOpen(true);
+        }
+      })
+    }
   };
 
   const handleCloseModal = () => {
