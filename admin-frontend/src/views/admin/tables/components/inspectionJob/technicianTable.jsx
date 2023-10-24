@@ -87,6 +87,7 @@ const CheckTable = ({onClose, isDarkMode, job, setJob}) => {
     updatedCurrentJob.technicianId = row?.originalTech?.taskNow_unique_id;
     setJob(updatedCurrentJob);
     onClose(false)
+    window.location.reload()
   }
 
   return (

@@ -37,7 +37,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
         }
         await updateJob({JobId, updateData: originalJob})
         onClose()
-
+        window.location.reload()
     }
 
     return (
@@ -212,7 +212,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
                     isDarkMode ? "bg-orange-600 hover:bg-orange-700" : "bg-orange-500 hover:bg-orange-600"
                     } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-blue-300`}
                 >
-                    Unassign
+                    Unassign Tehnician
                 </button>
                 <div>
                     <button
