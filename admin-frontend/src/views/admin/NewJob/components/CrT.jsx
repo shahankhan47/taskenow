@@ -65,7 +65,6 @@ const CreateTech = () => {
   };
 
   const handleSubmit = async () => {
-    console.log(jobDetails.time_start)
     const jobVerified = await jobVerification(jobDetails);
     if (jobVerified === "OK") {
       const data = {

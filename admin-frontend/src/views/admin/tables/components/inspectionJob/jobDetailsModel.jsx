@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import AssignTechnicianModel from './assignTechnician';
+import { updateJob } from "data/api";
 
 
 const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
@@ -15,6 +16,29 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
     const assignTechnician = () => {
         setShowTech(true);
     };
+
+    const unAssignTechnician = async () => {
+        const originalJob = {...job.originalJob}
+        const JobId = originalJob.taskNow_unique_id;
+        originalJob.job.status = {
+            assigned: "Unassigned",
+            customer: "Unassigned",
+            technician: "Unassigned"
+        }
+        originalJob.technician = {
+            distance: 0,
+            email: "",
+            firstName: "", 
+            id: "",
+            lastName: "",
+            paymentStatus: job.originalJob.technician.paymentStatus,
+            phone: "",
+            rating: 3,
+        }
+        await updateJob({JobId, updateData: originalJob})
+        onClose()
+
+    }
 
     return (
     <div className={`fixed inset-0 z-50 ${isDarkMode ? "dark" : ""}`}>
@@ -183,21 +207,31 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
                     </p>
                 </div>
                 <button
-                    onClick={onClose}
+                    onClick={unAssignTechnician}
                     className={`mt-4 ${
-                    isDarkMode ? "bg-gray-600 hover:bg-gray-700" : "bg-gray-400 hover:bg-gray-500"
-                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                    isDarkMode ? "bg-orange-600 hover:bg-orange-700" : "bg-orange-500 hover:bg-orange-600"
+                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-blue-300`}
                 >
-                    Close
+                    Unassign
                 </button>
-                <button
-                    onClick={deleteJob}
-                    className={`mt-4 ml-5 ${
-                    isDarkMode ? "bg-red-800 hover:bg-red-600" : "bg-red-500 hover:bg-red-400"
-                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
-                >
-                    Delete
-                </button>
+                <div>
+                    <button
+                        onClick={onClose}
+                        className={`mt-4 ${
+                        isDarkMode ? "bg-gray-600 hover:bg-gray-700" : "bg-gray-400 hover:bg-gray-500"
+                        } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                    >
+                        Close
+                    </button>
+                    <button
+                        onClick={deleteJob}
+                        className={`mt-4 ml-5 ${
+                        isDarkMode ? "bg-red-800 hover:bg-red-600" : "bg-red-500 hover:bg-red-400"
+                        } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                    >
+                        Delete
+                    </button>
+                </div>
                 </>
             ) : (
                 <>

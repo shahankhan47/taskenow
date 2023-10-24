@@ -51,7 +51,6 @@ const CreateTech = ({refresh, setRefresh}) => {
   };
 
   const handleChange = (input) => async (e) => {
-    console.log(input)
     if (input.Admin) {
       let temp = {...installerDetails}
       if (input.Admin[Object.keys(input.Admin)[0]] === true) {

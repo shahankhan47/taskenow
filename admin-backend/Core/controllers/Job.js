@@ -116,7 +116,7 @@ const getJobsofType = async(req, res) => {
                 technicianStatus: job?.job?.status?.assigned,
                 customerStatus: job?.job?.status?.customer,
                 cost: job?.job?.cost,
-                technicianAssigned: job?.technician?.phone != null ? true: false,
+                technicianAssigned: job?.technician?.id === "" ? false: true,
                 technicianName: job?.technician?.firstName,
                 technicianId: job?.technician?.id,
                 customerZip: job?.customer?.zip,

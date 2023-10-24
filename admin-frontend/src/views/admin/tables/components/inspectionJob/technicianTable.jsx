@@ -79,7 +79,6 @@ const CheckTable = ({onClose, isDarkMode, job, setJob}) => {
     updateData.job.status.customer = "Pending";
     updateData.job.status.technician = "Pending";
     updateData.job.dateModified = new Date();
-    console.log(updateData)
 
     await updateJob({JobId: job?.jobId, updateData})
     const updatedCurrentJob = {...job};
