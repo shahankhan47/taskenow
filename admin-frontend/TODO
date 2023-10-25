@@ -1,7 +1,3 @@
-Admin:
-    - Sign in and out with relevant access.
-    - Check authoriation tags and grant access according to that.
-
 Technician:
     - Payment details.
 
@@ -14,11 +10,6 @@ New Job:
 Services:
     - View/Delete button alignment
 
-Job tickets:
-    - Add scroll bar
-    - Assign technician
-    - Delete job.
-
 Miscellaneous:
-    - Show pop up instead of reload after very submit and refresh.
+    - Show pop up instead of reload after every submit and refresh.
     - Add search button for everything.

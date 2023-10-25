@@ -288,6 +288,16 @@ const getSortedTechnician = async (data) => {
     }
 }
 
+const getWidgetDetails = async () => {
+    try {
+        const response = await axios.get(`${backendUrl}/general/widgets`);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 export {updateAdmin,
     deleteAdmin,
     createAdmin,
@@ -317,5 +327,6 @@ export {updateAdmin,
     createJob,
     updateJob,
     deleteJob,
-    getSortedTechnician
+    getSortedTechnician,
+    getWidgetDetails
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import {
   MdArrowDropUp,
+  MdArrowDropDown,
   MdOutlineCalendarToday,
   MdBarChart,
 } from "react-icons/md";
@@ -11,7 +12,8 @@ import {
 } from "variables/charts";
 import LineChart from "components/charts/LineChart";
 
-const TotalSpent = () => {
+const TotalSpent = ({revenue, growth}) => {
+  const sign = Math.sign(growth) === 1;
   return (
     <Card extra="!p-[20px] text-center">
       <div className="flex justify-between">
@@ -27,13 +29,14 @@ const TotalSpent = () => {
       <div className="flex h-full w-full flex-row justify-between sm:flex-wrap lg:flex-nowrap 2xl:overflow-hidden">
         <div className="flex flex-col">
           <p className="mt-[20px] text-3xl font-bold text-navy-700 dark:text-white">
-            $37.5K
+            ${revenue}
           </p>
           <div className="flex flex-col items-start">
-            <p className="mt-2 text-sm text-gray-600">Total Spent</p>
+            <p className="mt-2 text-sm text-gray-600">Growth</p>
             <div className="flex flex-row items-center justify-center">
-              <MdArrowDropUp className="font-medium text-green-500" />
-              <p className="text-sm font-bold text-green-500"> +2.45% </p>
+              {sign ? <MdArrowDropUp className={`font-medium text-green-500`} /> : 
+              <MdArrowDropDown className={`font-medium text-red-500`} />}
+              <p className={`text-sm font-bold ${sign ? "text-green-500": "text-red-500"}`}> {growth}% </p>
             </div>
           </div>
         </div>

@@ -27,6 +27,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
             customer: "Unassigned",
             technician: "Unassigned"
         }
+        originalJob.job.dateModified = new Date();
         originalJob.technician = {
             distance: 0,
             email: "",
@@ -208,14 +209,14 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
                     {currentJob.technicianId}
                     </p>
                 </div>
-                <button
+                {currentJob.status !== "Completed" && <button
                     onClick={unAssignTechnician}
                     className={`mt-4 ${
                     isDarkMode ? "bg-orange-600 hover:bg-orange-700" : "bg-orange-500 hover:bg-orange-600"
                     } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-blue-300`}
                 >
                     Unassign Technician
-                </button>
+                </button>}
                 <div>
                     <button
                         onClick={onClose}
@@ -244,14 +245,14 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
                 >
                     No Technician Assigned
                 </p>
-                <button
+                {currentJob.status !== "Completed" && <button
                     onClick={assignTechnician}
                     className={`mt-4 ${
                     isDarkMode ? "bg-blue-600 hover:bg-blue-700" : "bg-blue-500 hover:bg-blue-600"
                     } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-blue-300`}
                 >
                     Assign Technician
-                </button>
+                </button>}
                 <div>
                     <button
                         onClick={onClose}

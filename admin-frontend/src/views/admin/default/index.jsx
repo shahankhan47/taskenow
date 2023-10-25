@@ -3,18 +3,23 @@ import WeeklyRevenue from "views/admin/default/components/WeeklyRevenue";
 import TotalSpent from "views/admin/default/components/TotalSpent";
 import PieChartCard from "views/admin/default/components/PieChartCard";
 import { IoMdHome } from "react-icons/io";
-import { IoDocuments } from "react-icons/io5";
 import { MdBarChart, MdDashboard } from "react-icons/md";
-
 import { columnsDataCheck, columnsDataComplex } from "./variables/columnsData";
-
 import Widget from "components/widget/Widget";
 import CheckTable from "views/admin/default/components/CheckTable";
 import ComplexTable from "views/admin/default/components/ComplexTable";
 import DailyTraffic from "views/admin/default/components/DailyTraffic";
-import TaskCard from "views/admin/default/components/TaskCard";
 import tableDataCheck from "./variables/tableDataCheck.json";
 import tableDataComplex from "./variables/tableDataComplex.json";
+
+import { getWidgetDetails } from "data/api";
+
+let widgetData = {}
+
+getWidgetDetails().then((data) => {
+  console.log(data)
+  widgetData.data = data;
+})
 
 const Dashboard = () => {
   return (
@@ -24,39 +29,39 @@ const Dashboard = () => {
       <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
         <Widget
           icon={<MdBarChart className="h-7 w-7" />}
-          title={"Inspection Tickets"}
-          subtitle={"500"}
+          title={"Inspection Jobs"}
+          subtitle={widgetData.data?.inspectionJobs}
         />
       <Widget
           icon={<MdBarChart className="h-7 w-7" />}
           title={"Repair Jobs"}
-          subtitle={"340"}
+          subtitle={widgetData.data?.repairingJobs}
         />
         <Widget
           title={"Technician Head"}
-          subtitle={"120"}
+          subtitle={widgetData.data?.totalTechnicians}
         />
         <Widget
           icon={<MdDashboard className="h-6 w-6" />}
           title={"Your Balance"}
-          subtitle={"$1,000"}
+          subtitle={`$${widgetData.data?.balance}`}
         />
         <Widget
           icon={<MdBarChart className="h-7 w-7" />}
           title={"Jobs Done"}
-          subtitle={"145"}
+          subtitle={widgetData.data?.jobsDone}
         />
         <Widget
           icon={<IoMdHome className="h-6 w-6" />}
           title={"Total Jobs"}
-          subtitle={"1433"}
+          subtitle={widgetData.data?.totalJobs}
         />
       </div>
 
       {/* Charts */}
 
       <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-        <TotalSpent />
+        <TotalSpent revenue={widgetData.data?.thisMonthRevenue} growth={widgetData.data?.growthPercent} />
         <WeeklyRevenue />
       </div>
 
