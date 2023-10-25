@@ -17,7 +17,6 @@ import { getWidgetDetails } from "data/api";
 let widgetData = {}
 
 getWidgetDetails().then((data) => {
-  console.log(data)
   widgetData.data = data;
 })
 

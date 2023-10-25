@@ -23,9 +23,9 @@ const CreateCustomer = ({refresh, setRefresh}) => {
     city: '',
     zip: '',
     description: '',
-    AccountNumber: null,
-    routingNumber: null,
-    ssn: null
+    AccountNumber: '',
+    routingNumber: '',
+    ssn: ''
   });
 
   const nextStep = () => {
@@ -59,9 +59,9 @@ const CreateCustomer = ({refresh, setRefresh}) => {
         city: '',
         zip: '',
         description: '',
-        AccountNumber: null,
-        routingNumber: null,
-        ssn: null
+        AccountNumber: '',
+        routingNumber: '',
+        ssn: ''
       })
     }
     else {

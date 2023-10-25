@@ -34,7 +34,7 @@ export const adminVerificationAddOrUpdate = async (data) => {
 
     const admins = await getAdminData();
     const dataId = data._id ? data._id : "new";
-    const adminExists = admins.data?.find(admin => admin.email === data.email && admin._id !== dataId)
+    const adminExists = admins.data?.find(admin => admin.email?.toLowerCase() === data.email?.toLowerCase() && admin._id !== dataId)
     if (adminExists) {
         return "Email already exists"
     }
@@ -91,7 +91,7 @@ export const userVerificationAddOrUpdate = async (data) => {
 
     const users = await getAllUsers();
     const dataId = data._id ? data._id : "new";
-    const userExists = users.data?.find(user => user.email === data.email && user._id !== dataId)
+    const userExists = users.data?.find(user => user.email?.toLowerCase() === data.email?.toLowerCase() && user._id !== dataId)
     if (userExists) {
         return "Email already exists"
     }
@@ -148,7 +148,7 @@ export const technicianVerificationAddOrUpdate = async (data) => {
 
     const technicians = await getTechnicianData();
     const dataId = data._id ? data._id : "new";
-    const technicianExists = technicians.data?.find(technician => technician.email === data.email && technician._id !== dataId)
+    const technicianExists = technicians.data?.find(technician => technician.email?.toLowerCase() === data.email?.toLowerCase() && technician._id !== dataId)
     if (technicianExists) {
         return "Email already exists"
     }
@@ -205,7 +205,7 @@ export const jobVerification = async (data) => {
     const user = (await getUserByDetails({
         firstName: customerFirstName, 
         lastName: customerLastName, 
-        email: customerEmail, 
+        email: customerEmail?.toLowerCase(), 
         phone: customerPhone})).data
     if (user == null) {
         return "Customer not found"

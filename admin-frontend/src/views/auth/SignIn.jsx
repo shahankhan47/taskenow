@@ -18,7 +18,7 @@ export default function SignIn() {
   const onSubmit = async (event) => {
     const allAdmins = (await getAdminData()).data;
     const adminExist = allAdmins.length > 0 ? allAdmins.find(admin => {
-      return admin.email === email && admin.password === password;
+      return admin.email?.toLowerCase() === email?.toLowerCase() && admin.password === password;
     }) : null;
 
     if (!adminExist) {
@@ -68,7 +68,7 @@ export default function SignIn() {
 
         {/* Password */}
         <input
-          type="text"
+          type="password"
           id="password"
           name="password"
           onChange={onPasswordChange}

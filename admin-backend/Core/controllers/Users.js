@@ -6,9 +6,11 @@ const User = require('../modals/Users');
 // Creating the Admin 
 const createUser = async (req,res) => {
     try {
+        const temp = {...req.body};
         const data = req.body;
         const lastId = await findMostRecentUser()
         
+        data.email = temp.email.toLowerCase();
         data.sequence_number = lastId + 1;
         data.taskNow_unique_id = `taske-user-${lastId + 1}`;
 
