@@ -1,0 +1,15 @@
+Technician:
+    - Payment details.
+
+Customers:
+    - Payment details.
+
+New Job:
+    - Make service dropdown list as multi-select values
+
+Services:
+    - View/Delete button alignment
+
+Miscellaneous:
+    - Show pop up instead of reload after every submit and refresh.
+    - Add search button for everything.
