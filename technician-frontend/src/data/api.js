@@ -129,6 +129,15 @@ const getTechnicianData = async () => {
     }
 }
 
+const getSpecificTechnician = async (id) => {
+    try {
+        const response = await axios.get(`${backendUrl}/technician/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const getTechnicianByTasknowId = async (technicianId) => {
     try {
         const response = await axios.post(`${backendUrl}/technician/getTechnician`, {technicianId});
@@ -311,6 +320,7 @@ export {updateAdmin,
     updateServiceById,
     deleteServiceById,
     getTechnicianData,
+    getSpecificTechnician,
     getTechnicianByTasknowId,
     updateTechnician,
     createTechnician,

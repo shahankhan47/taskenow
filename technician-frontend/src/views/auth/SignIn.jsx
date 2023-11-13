@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { getAdminData } from "data/api";
+import { getTechnicianData } from "data/api";
 import { setCookie, getCookie } from "data/cookie";
+import CreateTech from './CrT2';
 
 let alreadyLoggedIn = false;
 const type = getCookie("type");
-if(type === "super" || type === "admin") {
+if(type === "technician") {
   alreadyLoggedIn = true
 }
 
@@ -13,29 +14,28 @@ export default function SignIn() {
   alreadyLoggedIn = false;
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isTechnician, setIsTechnician] = useState(false);
+  const [selectedTechnician, setSelectedTechnician] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleCloseModal = () => {
+    setSelectedTechnician(null);
+    setIsModalOpen(false);
+  };
 
   const onSubmit = async (event) => {
-    const allAdmins = (await getAdminData()).data;
-    const adminExist = allAdmins.length > 0 ? allAdmins.find(admin => {
-      return admin.email?.toLowerCase() === email?.toLowerCase() && admin.password === password;
+    const allTechnicians = (await getTechnicianData()).data;
+    const technicianExist = allTechnicians.length > 0 ? allTechnicians.find(technician => {
+      return technician.email?.toLowerCase() === email?.toLowerCase() && technician.password === password;
     }) : null;
 
-    if (!adminExist) {
-      if (email !== "admin" || password !== "admin") {
-        alert("You are not authorized");
-      }
-      else {
-        setCookie("type", "super", 15)
-        setCookie("id", "superadmin", 15)
-        setIsAdmin(true)
-      }
+    if (technicianExist) {
+      setCookie("type", "technician", 15)
+      setCookie("id", technicianExist._id, 15)
+      setIsTechnician(true)
     }
     else {
-      setCookie("type", "admin", 15)
-      setCookie("access", JSON.stringify(adminExist.access), 15)
-      setCookie("id", adminExist._id, 15)
-      setIsAdmin(true)
+      alert("You are not registered.")
     }
   }
 
@@ -74,14 +74,31 @@ export default function SignIn() {
           onChange={onPasswordChange}
           className="w-full mt-10 text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
         />
-        {/* Checkbox */}
-          {(isAdmin || alreadyLoggedIn) && (
+          {(isTechnician || alreadyLoggedIn) && (
             <Navigate to="/admin" replace={true} />
           )}
           <button className="mt-10 linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
           onClick={onSubmit}>
             Sign In
           </button>
+          <button className="mt-10 linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+          onClick={() => {setIsModalOpen(true)}}>
+            Register
+          </button>
+          {isModalOpen && <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-gray-800 bg-opacity-70">
+            <div className="bg-white p-4 rounded-lg w-1/2">
+              <button
+                onClick={handleCloseModal}
+                className="absolute top-2 right-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Close
+              </button>
+              <CreateTech
+                initialValues={selectedTechnician}
+                onCancel={handleCloseModal}
+              />
+            </div>
+          </div>}
       </div>
     </div>
   );

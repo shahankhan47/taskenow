@@ -1,60 +1,58 @@
 import React from 'react';
 
-const InstallerBasicDetails = ({ values, handleChange }) => {
+const InstallerAddress = ({ values, handleChange }) => {
   return (
     <div>
-        
       <form className="mt-4 space-y-4">
         <div>
-          <label className="block text-gray-700">First Name</label>
+          <label className="block text-gray-700">Address Line 1</label>
           <input
             type="text"
             className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
-            onChange={handleChange('firstName')}
-            value={values.firstName}
+            onChange={handleChange('addressLine1')}
+            value={values.addressLine1}
           />
         </div>
         <div>
-          <label className="block text-gray-700">Last Name</label>
+          <label className="block text-gray-700">Address Line 2</label>
           <input
             type="text"
             className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
-            onChange={handleChange('lastName')}
-            value={values.lastName}
+            onChange={handleChange('addressLine2')}
+            value={values.addressLine2}
           />
         </div>
         <div>
-          <label className="block text-gray-700">Email Address</label>
+          <label className="block text-gray-700">City</label>
           <input
             type="text"
             className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
-            onChange={handleChange('email')}
-            value={values.email}
+            onChange={handleChange('city')}
+            value={values.city}
           />
         </div>
         <div>
-          <label className="block text-gray-700">Phone Number</label>
+          <label className="block text-gray-700">State</label>
           <input
             type="text"
             className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
-            onChange={handleChange('phoneNumber')}
-            value={values.phoneNumber}
+            onChange={handleChange('state')}
+            value={values.state}
           />
         </div>
         <div>
-          <label className="block text-gray-700">Password</label>
+          <label className="block text-gray-700">Zip</label>
           <input
             type="text"
             className="w-full text-sm border-b-2 border-gray-300 focus:border-brand-500 focus:outline-none rounded-md px-2 py-1"
-            onChange={handleChange('password')}
-            value={values.password}
+            onChange={handleChange('zip')}
+            value={values.zip}
           />
         </div>
-        {/* Add more form fields as needed */}
       </form>
-
+     
     </div>
   );
 };
 
-export default InstallerBasicDetails;
+export default InstallerAddress;

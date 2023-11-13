@@ -8,32 +8,10 @@ import { getCookie } from "data/cookie";
 
 const getNewRoutes = () => {
   const type = getCookie("type")
-  const access = getCookie("access")
-  const accesses = access ? JSON.parse(access) : []
   if (type == null || type == "") {
     return null
   }
-
-  let newRoutes = [...routes]
-  if (type === "super") {
-    return newRoutes;
-  }
-
-  newRoutes = newRoutes.filter((tab) => {
-    if (tab.name === "Service Providers" && accesses.includes("Technician"))
-    return tab;
-    else if (tab.name === "Customers" && accesses.includes("Customer"))
-    return tab;
-    else if (tab.name === "Job Tickets" && accesses.includes("Jobs"))
-    return tab;
-    else if (tab.name === "New Job" && accesses.includes("Jobs"))
-    return tab;
-    else if (tab.name === "Admins" && accesses.includes("Admin"))
-    return tab;
-    else if (tab.name === "Main Dashboard" || tab.name === "Services" || tab.name === "Sign Out")
-    return tab;
-  })
-  return newRoutes;
+  return routes;
 }
 
 const Sidebar = ({ open, onClose }) => {

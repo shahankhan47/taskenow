@@ -1,13 +1,18 @@
-
+import React from "react";
 import avatar from "assets/img/avatars/avatar7.png";
 import banner from "assets/img/profile/banner.png";
-
-import React from "react";
 import Card from "components/card";
 
-const Banner = () => {
-  const { bannerImage, avatar, name, position, rating } = profileData;
+const profileData = {
+  bannerImage: banner,
+  avatar: avatar,
+  name: "Lisa Parkson",
+  position: "Technician",
+  rating: 2
+};
 
+const Banner = ({technician}) => {
+  const { bannerImage, avatar } = profileData;
   return (
     <Card extra={"items-center w-full h-full p-[16px] bg-cover"}>
       {/* Background and profile */}
@@ -23,16 +28,16 @@ const Banner = () => {
       {/* Name and position */}
       <div className="mt-16 flex flex-col items-center">
         <h4 className="text-xl font-bold text-navy-700 dark:text-white">
-          {name}
+          {technician.firstName} {technician.lastName}
         </h4>
-        <p className="text-base font-normal text-gray-600">{position}</p>
+        <p className="text-base font-normal text-gray-600">Service Provider</p>
       </div>
 
       {/* Post followers */}
       <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl font-bold text-navy-700 dark:text-white">
-            {rating}
+            {technician.ratingsAndReviews}
           </p>
           <p className="text-sm font-normal text-gray-600">Rating</p>
         </div>
@@ -49,13 +54,3 @@ const Banner = () => {
 };
 
 export default Banner;
-
-
-
-const profileData = {
-  bannerImage: banner,
-  avatar: avatar,
-  name: "Lisa Parkson",
-  position: "Technician",
-  rating: 2
-};
