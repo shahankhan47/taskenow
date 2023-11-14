@@ -74,6 +74,7 @@ const CheckTable = ({onClose, isDarkMode, job, setJob}) => {
         amount: 0,
         releaseDate: null
       },
+      taskNow_unique_id: row?.id
     }
     updateData.job.status.assigned = "Pending";
     updateData.job.status.customer = "Pending";

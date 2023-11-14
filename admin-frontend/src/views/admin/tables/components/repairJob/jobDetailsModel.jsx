@@ -209,7 +209,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
                     {currentJob.technicianId}
                     </p>
                 </div>
-                {currentJob.status !== "Completed" && <button
+                {currentJob.status !== "Unassigned" && <button
                     onClick={unAssignTechnician}
                     className={`mt-4 ${
                     isDarkMode ? "bg-orange-600 hover:bg-orange-700" : "bg-orange-500 hover:bg-orange-600"
@@ -245,7 +245,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
                 >
                     No Technician Assigned
                 </p>
-                {currentJob.status !== "Completed" && <button
+                {currentJob.status !== "Unassigned" && <button
                     onClick={assignTechnician}
                     className={`mt-4 ${
                     isDarkMode ? "bg-blue-600 hover:bg-blue-700" : "bg-blue-500 hover:bg-blue-600"

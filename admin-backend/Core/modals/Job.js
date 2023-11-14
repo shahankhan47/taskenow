@@ -32,7 +32,8 @@ const bookingSchema = new mongoose.Schema({
       released: {type: Boolean, default: false},
       releaseDate: {type: Date},
       amount: {type: Number, default: 0}
-    }
+    },
+    taskNow_unique_id: {type: String}
   },
   customer: {
     addressLine1: {type: String},

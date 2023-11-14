@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import Card from "components/card";
 
 import JobDetailsModal from "./jobDetailsModel";
-import { getJobsofType, deleteJob } from "data/api";
+import { getJobsofType, deleteJob, getInspectionJobsOfTechnician } from "data/api";
 import MUIDataTable from "mui-datatables";
+import { getCookie } from "data/cookie";
 
 
 const DevelopmentTable = () => {
@@ -12,11 +13,14 @@ const DevelopmentTable = () => {
   const [selectedJob, setSelectedJob] = useState({});
   const [jobData, setJobData] = useState([])
 
+  const id = getCookie("id").toString();
+  console.log("ID:",id);
+
   useEffect(() => {
-    getJobsofType({type: "Inspection"}).then((jobs) => {
-      setJobData(jobs.data)
+    getInspectionJobsOfTechnician({id}).then((jobs) => {
+      setJobData(jobs)
     })
-  }, [])
+  }, [id])
   
   const columnsData = [
     {

@@ -72,7 +72,7 @@ const updateJob = async (req, res) => {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  };
+};
 
 
 // Deleting the Job by Id 
@@ -100,6 +100,74 @@ const getDateString = (date) => {
 const getJobsofType = async(req, res) => {
     try {
         const jobs = await Job.find({"job.type": req.body.type});
+        const inspectionJob = jobs.map((job) => {
+            return {
+                jobId: job?.taskNow_unique_id,
+                service: job?.job?.service || job?.job?.description,
+                date: getDateString(job?.job?.dateOfJob),
+                status: job?.job?.status?.assigned,
+                details: job?.job?.description,
+                customerName: `${job?.customer?.firstName} ${job?.customer?.lastName}`,
+                customerAddress: job?.customer?.addressLine1,
+                customerPhoneNumber: job?.customer?.phone,
+                customerEmail: job?.customer?.email,
+                jobDetails: job?.job?.service || job?.job?.description,
+                jobAssignedStatus: job?.job?.status?.assigned,
+                technicianStatus: job?.job?.status?.technician,
+                customerStatus: job?.job?.status?.customer,
+                cost: job?.job?.cost,
+                technicianAssigned: (job?.technician?.id === "" || job?.technician?.id == null) ? false: true,
+                technicianName: job?.technician?.firstName,
+                technicianId: job?.technician?.taskNow_unique_id,
+                customerZip: job?.customer?.zip,
+                customerState: job?.customer?.state,
+                originalJob: job
+            }
+          })
+        res.status(200).json(inspectionJob);
+    }
+    catch(error) {
+        res.status(400).json({error:error.message});
+    }
+}
+
+const getInspectionJobsOfTechnician = async(req, res) => {
+    try {
+        const jobs = await Job.find({"job.type": "Inspection", "technician.id": String(req.body.id)});
+        const inspectionJob = jobs.map((job) => {
+            return {
+                jobId: job?.taskNow_unique_id,
+                service: job?.job?.service || job?.job?.description,
+                date: getDateString(job?.job?.dateOfJob),
+                status: job?.job?.status?.assigned,
+                details: job?.job?.description,
+                customerName: `${job?.customer?.firstName} ${job?.customer?.lastName}`,
+                customerAddress: job?.customer?.addressLine1,
+                customerPhoneNumber: job?.customer?.phone,
+                customerEmail: job?.customer?.email,
+                jobDetails: job?.job?.service || job?.job?.description,
+                jobAssignedStatus: job?.job?.status?.assigned,
+                technicianStatus: job?.job?.status?.technician,
+                customerStatus: job?.job?.status?.customer,
+                cost: job?.job?.cost,
+                technicianAssigned: job?.technician?.id === "" ? false: true,
+                technicianName: job?.technician?.firstName,
+                technicianId: job?.technician?.taskNow_unique_id,
+                customerZip: job?.customer?.zip,
+                customerState: job?.customer?.state,
+                originalJob: job
+            }
+          })
+        res.status(200).json(inspectionJob);
+    }
+    catch(error) {
+        res.status(400).json({error:error.message});
+    }
+}
+
+const getRepairJobsOfTechnician = async(req, res) => {
+    try {
+        const jobs = await Job.find({"job.type": "Repairing", "technician.id": String(req.body.id)});
         const inspectionJob = jobs.map((job) => {
             return {
                 jobId: job?.taskNow_unique_id,
@@ -146,12 +214,14 @@ const findMostRecentJob = async (req, res) => {
 };
 
 // Exporting all the Categories
-module.exports = { 
+module.exports = {
     createJob,
     getJob,
     getSpecificJob,
     updateJob,
     deleteJob,
     getTechnicianJobList,
-    getJobsofType
+    getJobsofType,
+    getInspectionJobsOfTechnician,
+    getRepairJobsOfTechnician
 }

@@ -129,6 +129,15 @@ const getTechnicianData = async () => {
     }
 }
 
+const getSpecificTechnician = async (id) => {
+    try {
+        const response = await axios.get(`${backendUrl}/technician/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const getTechnicianByTasknowId = async (technicianId) => {
     try {
         const response = await axios.post(`${backendUrl}/technician/getTechnician`, {technicianId});
@@ -141,7 +150,6 @@ const getTechnicianByTasknowId = async (technicianId) => {
 const createTechnician = async (formData) => {
     try {
         const response = await axios.post(`${backendUrl}/technician/`, formData);
-        console.log(response)
     }
     catch (error) {
         console.log(error);
@@ -242,6 +250,24 @@ const getJobsofType = async (data) => {
     }
 }
 
+const getInspectionJobsOfTechnician = async (id) => {
+    try {
+        const response = await axios.post(`${backendUrl}/job/inspection`, id);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const getRepairJobsOfTechnician = async (id) => {
+    try {
+        const response = await axios.post(`${backendUrl}/job/repair`, id);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const getSpecificJob = async (data) => {
     try {
         const response = await axios.post(`${backendUrl}/job/getJob`, data);
@@ -311,6 +337,7 @@ export {updateAdmin,
     updateServiceById,
     deleteServiceById,
     getTechnicianData,
+    getSpecificTechnician,
     getTechnicianByTasknowId,
     updateTechnician,
     createTechnician,
@@ -323,6 +350,8 @@ export {updateAdmin,
     deleteUser,
     getJob,
     getJobsofType,
+    getInspectionJobsOfTechnician,
+    getRepairJobsOfTechnician,
     getSpecificJob,
     createJob,
     updateJob,

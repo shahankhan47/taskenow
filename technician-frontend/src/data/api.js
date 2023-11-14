@@ -251,6 +251,24 @@ const getJobsofType = async (data) => {
     }
 }
 
+const getInspectionJobsOfTechnician = async (id) => {
+    try {
+        const response = await axios.post(`${backendUrl}/job/inspection`, id);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const getRepairJobsOfTechnician = async (id) => {
+    try {
+        const response = await axios.post(`${backendUrl}/job/repair`, id);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const getSpecificJob = async (data) => {
     try {
         const response = await axios.post(`${backendUrl}/job/getJob`, data);
@@ -333,6 +351,8 @@ export {updateAdmin,
     deleteUser,
     getJob,
     getJobsofType,
+    getInspectionJobsOfTechnician,
+    getRepairJobsOfTechnician,
     getSpecificJob,
     createJob,
     updateJob,

@@ -126,7 +126,7 @@ const getSortedTechnician = async (req, res) => {
         // console.log("________________________________");
         // console.log(technician.latitude);
         // console.log(technician.longitude);
-        nearest_technician.push(technician);
+        // nearest_technician.push(technician);
 
         // Not sure how to implement this logic:
         if (distance <= (technician?.miles_distance == 0 ? 10 : technician?.miles_distance)) {
@@ -145,8 +145,8 @@ const getSortedTechnician = async (req, res) => {
     }
     catch(error)
     {
-    console.log(error);
-    res.status(500).json(error)
+        console.log(error);
+        res.status(500).json(error)
     }
 }
 

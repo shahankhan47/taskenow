@@ -26,4 +26,10 @@ router.post("/deleteJob", Job.deleteJob);
 // Getting the Specific type of Job
 router.post("/type", Job.getJobsofType);
 
+// Getting inspection type job of a technician
+router.post("/inspection", Job.getInspectionJobsOfTechnician);
+
+// Getting repair type job of a technician
+router.post("/repair", Job.getRepairJobsOfTechnician);
+
 module.exports = router;
