@@ -36,6 +36,7 @@ const CreateTech = ({refresh, setRefresh}) => {
     dateOfBirth: '',
     AccountNumber: null,
     routingNumber: null,
+    Number_of_bookings: 0,
     ssn: null
   });
 

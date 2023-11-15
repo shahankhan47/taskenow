@@ -34,6 +34,7 @@ const CreateTech = ({initialValues, onCancel}) => {
     licenseCertified: initialValues.licenseCertified,
     services: [],
     ratingsAndReviews: 3,
+    Number_of_bookings: initialValues?.Number_of_bookings,
     dateOfBirth: initialValues.dateOfBirth,
     AccountNumber: initialValues.AccountNumber,
     routingNumber: initialValues.routingNumber,

@@ -15,6 +15,16 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
 
     if (!isOpen) return null;
 
+    const isJobAssigned = () => {
+        if (["Unassigned", "Rejected"].includes(currentJob.status)) {
+            return false
+        }
+        if (["Assigned", "Pending", "Accepted"].includes(currentJob.status)) {
+            return true;
+        }
+        return false;
+    }
+
     const assignTechnician = () => {
         setShowTech(true);
     };
@@ -209,7 +219,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
                     {currentJob.technicianId}
                     </p>
                 </div>
-                {currentJob.status !== "Unassigned" && <button
+                {isJobAssigned() && <button
                     onClick={unAssignTechnician}
                     className={`mt-4 ${
                     isDarkMode ? "bg-orange-600 hover:bg-orange-700" : "bg-orange-500 hover:bg-orange-600"
@@ -245,7 +255,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
                 >
                     No Technician Assigned
                 </p>
-                {currentJob.status !== "Unassigned" && <button
+                {!isJobAssigned() && <button
                     onClick={assignTechnician}
                     className={`mt-4 ${
                     isDarkMode ? "bg-blue-600 hover:bg-blue-700" : "bg-blue-500 hover:bg-blue-600"

@@ -65,7 +65,7 @@ const CheckTable = ({onClose, isDarkMode, job, setJob}) => {
       distance: row?.originalTech?.miles_distance,
       rating: row?.originalTech?.ratingsAndReviews,
       email: row?.originalTech?.email,
-      id: row?.originalTech?._id,
+      id: row?.id,
       firstName: row?.originalTech?.firstName,
       lastName: row?.originalTech?.lastName,
       phone: row?.originalTech?.phoneNumber,

@@ -2,7 +2,8 @@
 
 const Job = require('../modals/Job');
 const Users = require('../modals/Users');
-
+const Technician = require('../modals/Technician');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 // Creating the Job 
 const createJob = async (req,res) => {
@@ -11,6 +12,9 @@ const createJob = async (req,res) => {
         const lastId = await findMostRecentJob()
         data.sequence_number = lastId + 1;
         data.taskNow_unique_id = `taske-job-${lastId + 1}`;
+        if (data.technician.id !== "") {
+            data.technician.taskNow_unique_id = data.technician.id
+        }
 
         const newJob = new Job(data);
         await newJob.save();
@@ -133,7 +137,8 @@ const getJobsofType = async(req, res) => {
 
 const getInspectionJobsOfTechnician = async(req, res) => {
     try {
-        const jobs = await Job.find({"job.type": "Inspection", "technician.id": String(req.body.id)});
+        const technician = await Technician.aggregate([{$match: {$expr: {$or: [{"_id": new ObjectId(req.body.id)}, {"taskNow_unique_id": req.body.id}]}}}]);
+        const jobs = await Job.find({"job.type": "Inspection", "technician.id": technician[0]?.taskNow_unique_id});
         const inspectionJob = jobs.map((job) => {
             return {
                 jobId: job?.taskNow_unique_id,
@@ -167,7 +172,8 @@ const getInspectionJobsOfTechnician = async(req, res) => {
 
 const getRepairJobsOfTechnician = async(req, res) => {
     try {
-        const jobs = await Job.find({"job.type": "Repairing", "technician.id": String(req.body.id)});
+        const technician = await Technician.aggregate([{$match: {$expr: {$or: [{"_id": new ObjectId(req.body.id)}, {"taskNow_unique_id": req.body.id}]}}}]);
+        const jobs = await Job.find({"job.type": "Repairing", "technician.id": technician[0]?.taskNow_unique_id});
         const inspectionJob = jobs.map((job) => {
             return {
                 jobId: job?.taskNow_unique_id,

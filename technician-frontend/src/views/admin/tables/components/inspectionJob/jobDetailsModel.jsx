@@ -13,17 +13,27 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
 
     if (!isOpen) return null;
 
-    const assignTechnician = () => {
-        setShowTech(true);
-    };
+    const acceptJob = async () => {
+        const originalJob = {...job.originalJob};
+        const JobId = originalJob.taskNow_unique_id;
+        originalJob.job.status = {
+            assigned: "Accepted",
+            customer: "Accepted",
+            technician: "Accepted"
+        }
+        originalJob.job.dateModified = new Date();
+        await updateJob({JobId, updateData: originalJob});
+        onClose()
+        window.location.reload()
+    }
 
-    const unAssignTechnician = async () => {
+    const rejectJob = async () => {
         const originalJob = {...job.originalJob}
         const JobId = originalJob.taskNow_unique_id;
         originalJob.job.status = {
-            assigned: "Unassigned",
-            customer: "Unassigned",
-            technician: "Unassigned"
+            assigned: "Rejected",
+            customer: "Rejected",
+            technician: "Rejected"
         }
         originalJob.job.dateModified = new Date();
         originalJob.technician = {
@@ -39,7 +49,7 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
         await updateJob({JobId, updateData: originalJob})
         onClose()
         window.location.reload()
-    }
+    };
 
     return (
     <div className={`fixed inset-0 z-50 ${isDarkMode ? "dark" : ""}`}>
@@ -175,102 +185,67 @@ const JobDetailsModal = ({ isOpen, onClose, job, isDarkMode, deleteJob }) => {
             >
                 Technician Status
             </h2>
-            {currentJob.technicianAssigned ? (
-                <>
-                <div className="grid grid-cols-2 gap-2">
-                    <p
-                    className={`mb-2 col-span-1 font-bold ${
-                        isDarkMode ? "text-white" : "text-black"
-                    }`}
-                    >
-                    Technician Assigned:
-                    </p>
-                    <p
-                    className={`mb-2 col-span-1 ${
-                        isDarkMode ? "text-white" : "text-black"
-                    }`}
-                    >
-                    {currentJob.technicianName}
-                    </p>
-                    <p
-                    className={`mb-2 col-span-1 font-bold ${
-                        isDarkMode ? "text-white" : "text-black"
-                    }`}
-                    >
-                    Technician Id:
-                    </p>
-                    <p
-                    className={`mb-2 col-span-1 ${
-                        isDarkMode ? "text-white" : "text-black"
-                    }`}
-                    >
-                    {currentJob.technicianId}
-                    </p>
-                </div>
-                {currentJob.status !== "Completed" && <button
-                    onClick={unAssignTechnician}
-                    className={`mt-4 ${
-                    isDarkMode ? "bg-orange-600 hover:bg-orange-700" : "bg-orange-500 hover:bg-orange-600"
-                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-blue-300`}
-                >
-                    Unassign Tehnician
-                </button>}
-                <div>
-                    <button
-                        onClick={onClose}
-                        className={`mt-4 ${
-                        isDarkMode ? "bg-gray-600 hover:bg-gray-700" : "bg-gray-400 hover:bg-gray-500"
-                        } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
-                    >
-                        Close
-                    </button>
-                    <button
-                        onClick={deleteJob}
-                        className={`mt-4 ml-5 ${
-                        isDarkMode ? "bg-red-800 hover:bg-red-600" : "bg-red-500 hover:bg-red-400"
-                        } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
-                    >
-                        Delete
-                    </button>
-                </div>
-                </>
-            ) : (
-                <>
+            
+            <>
+            <div className="grid grid-cols-2 gap-2">
                 <p
-                    className={`mb-2 ${
+                className={`mb-2 col-span-1 font-bold ${
                     isDarkMode ? "text-white" : "text-black"
-                    }`}
+                }`}
                 >
-                    No Technician Assigned
+                Technician Assigned:
                 </p>
-                {currentJob.status !== "Completed" && <button
-                    onClick={assignTechnician}
+                <p
+                className={`mb-2 col-span-1 ${
+                    isDarkMode ? "text-white" : "text-black"
+                }`}
+                >
+                {currentJob.technicianName}
+                </p>
+                <p
+                className={`mb-2 col-span-1 font-bold ${
+                    isDarkMode ? "text-white" : "text-black"
+                }`}
+                >
+                Technician Id:
+                </p>
+                <p
+                className={`mb-2 col-span-1 ${
+                    isDarkMode ? "text-white" : "text-black"
+                }`}
+                >
+                {currentJob.technicianId}
+                </p>
+            </div>
+            <div>
+                {job?.technicianStatus !== "Accepted" && <button
+                    onClick={acceptJob}
                     className={`mt-4 ${
-                    isDarkMode ? "bg-blue-600 hover:bg-blue-700" : "bg-blue-500 hover:bg-blue-600"
+                    isDarkMode ? "bg-green-600 hover:bg-green-700" : "bg-green-500 hover:bg-green-600"
                     } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-blue-300`}
                 >
-                    Assign Technician
+                    Accept
                 </button>}
-                <div>
-                    <button
-                        onClick={onClose}
-                        className={`mt-4 ml-0 ${
-                        isDarkMode ? "bg-gray-600 hover:bg-gray-700" : "bg-gray-400 hover:bg-gray-500"
-                        } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
-                    >
-                        Close
-                    </button>
-                    <button
-                        onClick={deleteJob}
-                        className={`mt-4 ml-5 ${
-                        isDarkMode ? "bg-red-800 hover:bg-red-600" : "bg-red-500 hover:bg-red-400"
-                        } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
-                    >
-                        Delete
-                    </button>
-                </div>
-                </>
-            )}
+                <button
+                    onClick={rejectJob}
+                    className={`mt-4 ${job?.technicianStatus !== "Accepted" ? "ml-5" : null} ${
+                    isDarkMode ? "bg-red-800 hover:bg-red-600" : "bg-red-500 hover:bg-red-400"
+                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                >
+                    Reject
+                </button>
+            </div>
+            <div>
+                <button
+                    onClick={onClose}
+                    className={`mt-4 ${
+                    isDarkMode ? "bg-gray-600 hover:bg-gray-700" : "bg-gray-400 hover:bg-gray-500"
+                    } text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-gray-300`}
+                >
+                    Close
+                </button>
+            </div>
+            </>
             </div>
         </div>
         </div>

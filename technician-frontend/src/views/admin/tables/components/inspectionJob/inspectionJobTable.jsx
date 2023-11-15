@@ -14,7 +14,6 @@ const DevelopmentTable = () => {
   const [jobData, setJobData] = useState([])
 
   const id = getCookie("id").toString();
-  console.log("ID:",id);
 
   useEffect(() => {
     getInspectionJobsOfTechnician({id}).then((jobs) => {
