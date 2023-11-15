@@ -70,21 +70,21 @@ const ComplexTable = (props) => {
                 <tr {...row.getRowProps()} key={index}>
                   {row.cells.map((cell, index) => {
                     let data = "";
-                    if (cell.column.Header === "NAME") {
+                    if (cell.column.Header === "JOB ID") {
                       data = (
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {cell.value}
                         </p>
                       );
-                    } else if (cell.column.Header === "STATUS") {
+                    } else if (cell.column.Header === "TRANSACTION STATUS") {
                       data = (
                         <div className="flex items-center gap-2">
                           <div className={`rounded-full text-xl`}>
-                            {cell.value === "Approved" ? (
+                            {cell.value === "Completed" ? (
                               <MdCheckCircle className="text-green-500" />
-                            ) : cell.value === "Disable" ? (
+                            ) : cell.value === "Failed" ? (
                               <MdCancel className="text-red-500" />
-                            ) : cell.value === "Error" ? (
+                            ) : cell.value === "Pending" ? (
                               <MdOutlineError className="text-orange-500" />
                             ) : null}
                           </div>
@@ -99,8 +99,24 @@ const ComplexTable = (props) => {
                           {cell.value}
                         </p>
                       );
-                    } else if (cell.column.Header === "PROGRESS") {
-                      data = <Progress width="w-[108px]" value={cell.value} />;
+                    } else if (cell.column.Header === "JOB STATUS") {
+                      // data = <Progress width="w-[108px]" value={cell.value} />;
+                      data = (
+                        <div className="flex items-center gap-2">
+                          <div className={`rounded-full text-xl`}>
+                            {cell.value === "Accepted" ? (
+                              <MdCheckCircle className="text-green-500" />
+                            ) : cell.value === "Rejected" ? (
+                              <MdCancel className="text-red-500" />
+                            ) : cell.value === "Pending" ? (
+                              <MdOutlineError className="text-orange-500" />
+                            ) : null}
+                          </div>
+                          <p className="text-sm font-bold text-navy-700 dark:text-white">
+                            {cell.value}
+                          </p>
+                        </div>
+                      );
                     }
                     return (
                       <td

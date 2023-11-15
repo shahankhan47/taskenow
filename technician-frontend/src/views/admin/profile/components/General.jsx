@@ -10,7 +10,7 @@ const General = ({technician}) => {
           General Information
         </h4>
         <p className="mt-2 px-2 text-base text-gray-600">
-          {technician.description}
+          {technician.description !== "" ? technician.description : "Service Provider description will appear here once it's entered into our database."}
         </p>
       </div>
       {/* Cards */}

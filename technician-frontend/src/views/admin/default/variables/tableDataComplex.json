@@ -1,26 +1,26 @@
 [
   {
-    "name": "Marketplace",
-    "status": "Approved",
+    "id": "taske-job-1",
+    "status": "Completed",
     "date": "24.Jan.2021",
-    "progress": 30
+    "jobStatus": "Accepted"
   },
   {
-    "name": "Marketplace",
-    "status": "Disable",
+    "id": "taske-job-2",
+    "status": "Pending",
     "date": "30.Dec.2021",
-    "progress": 30
+    "jobStatus": "Accepted"
   },
   {
-    "name": "Marketplace",
-    "status": "Error",
+    "id": "taske-job-3",
+    "status": "Failed",
     "date": "20.May.2021",
-    "progress": 30
+    "jobStatus": "Pending"
   },
   {
-    "name": "Marketplace",
-    "status": "Approved",
+    "id": "taske-job-4",
+    "status": "Completed",
     "date": "12.Jul.2021",
-    "progress": 30
+    "jobStatus": "Pending"
   }
 ]
