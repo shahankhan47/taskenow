@@ -137,8 +137,8 @@ const getJobsofType = async(req, res) => {
 
 const getInspectionJobsOfTechnician = async(req, res) => {
     try {
-        const technician = await Technician.aggregate([{$match: {$expr: {$or: [{"_id": new ObjectId(req.body.id)}, {"taskNow_unique_id": req.body.id}]}}}]);
-        const jobs = await Job.find({"job.type": "Inspection", "technician.id": technician[0]?.taskNow_unique_id});
+        const technician = await Technician.findOne({$or: [{_id: new ObjectId(req.body.id)}, {"taskNow_unique_id": req.body.id}]});
+        const jobs = await Job.find({"job.type": "Inspection", "technician.id": technician?.taskNow_unique_id});
         const inspectionJob = jobs.map((job) => {
             return {
                 jobId: job?.taskNow_unique_id,
@@ -172,8 +172,8 @@ const getInspectionJobsOfTechnician = async(req, res) => {
 
 const getRepairJobsOfTechnician = async(req, res) => {
     try {
-        const technician = await Technician.aggregate([{$match: {$expr: {$or: [{"_id": new ObjectId(req.body.id)}, {"taskNow_unique_id": req.body.id}]}}}]);
-        const jobs = await Job.find({"job.type": "Repairing", "technician.id": technician[0]?.taskNow_unique_id});
+        const technician = await Technician.findOne({$or: [{_id: new ObjectId(req.body.id)}, {"taskNow_unique_id": req.body.id}]});
+        const jobs = await Job.find({"job.type": "Repairing", "technician.id": technician?.taskNow_unique_id});
         const inspectionJob = jobs.map((job) => {
             return {
                 jobId: job?.taskNow_unique_id,

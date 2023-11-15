@@ -17,4 +17,14 @@ router.get("/widgets", async (req, res) => {
     }
 });
 
+router.post("/technicianwidgets", async (req, res) => {
+    try {
+        const response = await general.getTechnicianWidgetDetails(req.body.id)
+        res.status(200).json(response)
+    }
+    catch(err) {
+        res.status(400).json({error: err.message})
+    }
+})
+
 module.exports = router;

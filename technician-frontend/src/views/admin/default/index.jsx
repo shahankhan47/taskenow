@@ -12,11 +12,14 @@ import DailyTraffic from "views/admin/default/components/DailyTraffic";
 import tableDataCheck from "./variables/tableDataCheck.json";
 import tableDataComplex from "./variables/tableDataComplex.json";
 
-import { getWidgetDetails } from "data/api";
+import { getTechnicianWidgetDetails } from "data/api";
+import { getCookie } from "data/cookie";
+const id = getCookie("id");
 
 let widgetData = {}
 
-getWidgetDetails().then((data) => {
+getTechnicianWidgetDetails(id).then((data) => {
+  console.log(data);
   widgetData.data = data;
 })
 
@@ -37,8 +40,8 @@ const Dashboard = () => {
           subtitle={widgetData.data?.repairingJobs}
         />
         <Widget
-          title={"Technician Head"}
-          subtitle={widgetData.data?.totalTechnicians}
+          title={"Pending Jobs"}
+          subtitle={widgetData.data?.pendingJobs}
         />
         <Widget
           icon={<MdDashboard className="h-6 w-6" />}
