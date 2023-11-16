@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendUrl = "http://localhost:5000/api"
+const backendUrl = "https://testing-3-ecru.vercel.app/api"
 
 const createService = async (formData) => {
     try {
