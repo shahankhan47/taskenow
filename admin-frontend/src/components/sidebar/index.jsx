@@ -30,7 +30,7 @@ const getNewRoutes = () => {
     return tab;
     else if (tab.name === "Admins" && accesses.includes("Admin"))
     return tab;
-    else if (tab.name === "Main Dashboard" || tab.name === "Services" || tab.name === "Sign Out")
+    else if (tab.name === "Main Dashboard" || tab.name === "Services" || tab.name === "Sign Out" || tab.name === "Profile")
     return tab;
   })
   return newRoutes;
